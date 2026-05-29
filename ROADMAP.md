@@ -21,16 +21,24 @@
 
 ## Phase 1 — Governance Foundation
 
-**Status:** IN PROGRESS  
-**Remaining items:**
+**Status:** IN PROGRESS — final items remain
+**Completed this phase (highlights):**
+- [x] Governance scaffold created (33 files) — 2026-05-29
+- [x] Self-compliance fixes applied (v1.1.0) — 2026-05-29
+- [x] Adoption strategy created (`docs/ADOPTION_STRATEGY.md`) — 2026-05-29
+- [x] FamOil readiness assessment completed — 2026-05-29
+- [x] DEC-009, DEC-010 logged (pilot selection, git boundary) — 2026-05-29
 
-- [x] Phase 2 Adoption Strategy created (`docs/ADOPTION_STRATEGY.md`) — 2026-05-29
-- [ ] Apply governance scaffold to FamOil ERP — Wave 1 (git + CLAUDE.md + PR template)
-- [ ] Apply governance scaffold to FamOil ERP — Wave 2 (memory documents)
-- [ ] Apply governance scaffold to FamOil ERP — Wave 3 (restore drill + release tag + README)
-- [ ] Apply governance scaffold to FamOil ERP — Wave 4 (first governed PR)
-- [ ] Apply governance scaffold to WamaCare repository — Wave 1 minimum
-- [ ] FamOil governance maturity Level 2 confirmed
+**Next action — highest priority:**
+- [ ] **Create FamOil `.gitignore` + `git init`** ← Wave 1 begins here
+
+**Remaining:**
+- [ ] FamOil Wave 1: `CLAUDE.md`, `.github/PULL_REQUEST_TEMPLATE.md`
+- [ ] FamOil Wave 2: MODULE_REGISTRY, DECISION_LOG (migrate 10 entries), IMPLEMENTATION_HISTORY, ROADMAP
+- [ ] FamOil Wave 3: Restore drill, release tag, README
+- [ ] FamOil Wave 4: First governed PR
+- [ ] WamaCare Wave 1 minimum
+- [ ] Phase 1 close: FamOil Level 2 + WamaCare Level 1 confirmed
 
 **Completed:**
 - [x] Repository initialized and pushed to GitHub — 2026-05-29

@@ -6,6 +6,118 @@ recorded here following the standard defined in `governance/DECISION_LOG_STANDAR
 
 ---
 
+## DEC-010
+
+**Date:** 2026-05-29
+**Type:** `ARCHITECTURE`
+**Status:** ACTIVE
+**Made By:** Software Factory lead / Claude Sonnet 4.6 (adoption strategy session)
+**PR Reference:** Adoption strategy commit 005579b
+
+### Title
+FamOil git repository root is `/Users/mac/odoo17`; only `custom_addons/`, `docs/`, `scripts/`, and governance root files are committed — Odoo core source and venv are excluded.
+
+### Context
+FamOil has no git repository (Known Issue #7). When initialising one, the repository
+boundary must be decided before the first `git add`. `/Users/mac/odoo17` contains:
+- `odoo/odoo/` — the full Odoo 17 Community source (~200k files, ~1.5 GB)
+- `odoo/venv/` — the Python virtual environment (~500 MB)
+- `custom_addons/` — two custom modules (project code, ~50 files)
+- `docs/` — project documentation
+- `scripts/` — four operational scripts
+- `odoo.conf` — runtime configuration containing database passwords
+
+Getting this wrong on the first commit is not easily reversible — rewriting git history
+with `git filter-branch` or `git-filter-repo` is destructive and disruptive.
+
+### Decision
+- **Repository root:** `/Users/mac/odoo17`
+- **Committed:** `custom_addons/`, `docs/famoil_erp_template/`, `scripts/`, and all
+  governance root files (`CLAUDE.md`, `README.md`, `DECISION_LOG.md`, etc.)
+- **Excluded via `.gitignore`:**
+  - `odoo/odoo/` — Odoo core source (installed dependency, not project code; version
+    pinned in deployment notes, not in git)
+  - `odoo/venv/` — Python venv (~500 MB; never committed)
+  - `odoo.conf` — contains database password; never committed
+  - `~/Library/Application Support/Odoo/filestore/Famoil/` — binary attachment store;
+    backed up separately, not version-controlled
+  - `__pycache__/`, `*.pyc` — compiled Python artefacts
+
+### Alternatives Considered
+
+| Alternative | Reason Rejected |
+|-------------|----------------|
+| Use `custom_addons/` as the git root, not `/Users/mac/odoo17` | Would require a second directory for governance root files and docs; splits the project across two repos or forces a sub-directory structure that complicates AI agent orientation |
+| Commit the Odoo core source alongside custom code | Bloats the repo to GB scale; obscures project code in noise; makes `git diff` and `git log` unusable for project-level review; Odoo source is an upstream dependency, not project code |
+| Track `odoo.conf` with secrets redacted | Partial redaction is error-prone and frequently incomplete; env var injection is the correct pattern and requires no version-controlled config file |
+
+### Consequences
+- Odoo version is not tracked in git; it must be recorded in `IMPLEMENTATION_HISTORY.md`
+  and `README.md` as a configuration note (`17.0.1.3 Community`).
+- The `.gitignore` for FamOil must explicitly exclude Odoo-specific paths in addition to
+  the standard governance `.gitignore` exclusions.
+- Any developer or AI agent setting up FamOil must install Odoo 17 separately; the repo
+  does not self-contain the runtime.
+
+### Related Entries
+DEC-009 (FamOil as pilot), IMP-005 (FamOil readiness assessment)
+
+---
+
+## DEC-009
+
+**Date:** 2026-05-29
+**Type:** `ARCHITECTURE`
+**Status:** ACTIVE
+**Made By:** Software Factory lead / Claude Sonnet 4.6 (adoption strategy session)
+**PR Reference:** Adoption strategy commit 005579b
+
+### Title
+FamOil ERP is selected as the Phase 2 governance adoption pilot ahead of WamaCare and NADF ERP.
+
+### Context
+Phase 2 requires one project to serve as the pilot for governance adoption — proving the
+four-wave process, validating the `.github/PULL_REQUEST_TEMPLATE.md` in real use, and
+producing the first `DECISION_LOG.md` migration from a pre-governance format. Three active
+projects were eligible: FamOil ERP, WamaCare, and NADF ERP.
+
+### Decision
+FamOil ERP is the Phase 2 pilot.
+
+Rationale:
+1. **Highest commercial urgency.** Phase 3 commercialisation framework is complete (8.5/10
+   readiness). The next step is first client deployment (groundnut oil mill). Governance
+   must be in place before client-facing work begins.
+2. **Most complex existing custom code.** Two custom modules (`stock_crude_oil_tank_restriction`,
+   `mrp_component_availability_check`) and four scripts represent the hardest migration case.
+   A pilot that succeeds on the hardest case validates the playbook for simpler projects.
+3. **Pre-existing decision log to migrate.** FamOil has DEC-001 to DEC-010 in its own
+   non-standard format. Migrating them exercises the most demanding part of Wave 2 and
+   surfaces any gaps in the migration procedure.
+4. **No git repository.** Initialising git for FamOil exercises Wave 1 (the highest-risk
+   wave) end-to-end, producing a reusable `.gitignore` pattern for all subsequent Odoo
+   projects.
+5. **WamaCare is isolated.** The WamaCare project is explicitly kept isolated from FamOil
+   (different port, different DB). Piloting on FamOil does not risk WamaCare contamination.
+
+### Alternatives Considered
+
+| Alternative | Reason Rejected |
+|-------------|----------------|
+| WamaCare as pilot | DB restore is pending; unstable baseline makes it a poor pilot; isolation rules make cross-referencing risky |
+| NADF ERP as pilot | Not yet started as an Odoo deployment; no existing code or docs to validate migration procedures against |
+| Both FamOil and WamaCare simultaneously | Parallel adoption with no proven playbook creates double the risk; serial adoption (FamOil first, WamaCare second) validates the process before the second project is touched |
+
+### Consequences
+- WamaCare adoption begins only after FamOil reaches Wave 4 (first governed PR).
+- NADF ERP is a greenfield adoption — it will use the validated playbook from FamOil without a migration phase.
+- The FamOil `.gitignore` becomes the reference template for all future Odoo project `.gitignore` files.
+
+### Related Entries
+DEC-010 (FamOil git boundary), IMP-005 (FamOil readiness assessment)
+
+---
+
 ## DEC-008
 
 **Date:** 2026-05-29

@@ -8,6 +8,113 @@ Entries are listed in reverse chronological order (newest first).
 
 ---
 
+## IMP-005
+
+**Date:** 2026-05-29
+**Type:** `GOVERNANCE_UPDATE`
+**Status:** COMPLETE
+**Delivered By:** Software Factory lead / Claude Sonnet 4.6
+**PR Reference:** This commit
+
+### Title
+FamOil ERP pre-adoption readiness assessment completed — governance maturity gap fully characterised.
+
+### Description
+A structured readiness assessment of FamOil ERP was performed as the prerequisite step
+before executing the four-wave governance adoption plan. The assessment used the project
+memory records and filesystem state to establish a complete before-picture, identifying
+every governance gap and every pre-existing artefact that requires migration rather than
+creation from scratch.
+
+### Scope — FamOil Governance Gap Analysis
+
+**Project identity:**
+- Platform: Odoo 17.0.1.3 Community Edition
+- Database: `Famoil` (PostgreSQL 16.11)
+- Local path: `/Users/mac/odoo17`
+- Filestore: `/Users/mac/Library/Application Support/Odoo/filestore/Famoil/`
+- Commercialisation readiness: 8.5/10 (Phase 3 complete as of 2026-05-24)
+
+**Mandatory governance file status at assessment:**
+
+| File | Status | Action Required |
+|------|--------|----------------|
+| `README.md` | Absent at root | Create from `templates/project_readme_template.md` |
+| `CLAUDE.md` | Absent | Create, inheriting from governance `CLAUDE.md` |
+| `CHANGELOG.md` | Exists — non-standard format (`FamOil-Template-v1.0.0`) | Migrate to governance semantic versioning |
+| `DECISION_LOG.md` | Exists in `docs/famoil_erp_template/` — 10 entries, non-standard format | Migrate DEC-001→DEC-010 to governance format at project root |
+| `MODULE_REGISTRY.md` | Absent | Create; register 2 modules + 4 scripts |
+| `IMPLEMENTATION_HISTORY.md` | Absent (partial coverage in `IMPLEMENTATION_PLAYBOOK.md`) | Create; back-log Phases 1–3 |
+| `ROADMAP.md` | Absent | Create; mark Phases 1–3 complete, define Phase 4 scope |
+| `.gitignore` | Absent | Create with Odoo-specific exclusions before `git init` |
+| `.github/PULL_REQUEST_TEMPLATE.md` | Absent | Deploy after git repo established |
+| Git repository | **None** — Known Issue #7 open | Initialize at `/Users/mac/odoo17` |
+
+**Custom code inventory (from project memory):**
+
+| ID | Artifact | Type | Status |
+|----|----------|------|--------|
+| MOD-001 | `stock_crude_oil_tank_restriction` v17.0.1.1.0 | Custom module | Active |
+| MOD-002 | `mrp_component_availability_check` | Custom module | Active |
+| SCR-001 | `backup_famoil.sh` | Script | Active |
+| SCR-002 | `inspect_famoil_config.sh` | Script | Active |
+| SCR-003 | `process_refined_oil_mo.py` | Script (automation) | Active |
+| SCR-004 | `fix_locations_and_routing.py` | Script (one-off, run 2026-05-24) | Complete / historical |
+
+**Existing documentation to migrate (not discard):**
+
+| Document | Location | Disposition |
+|----------|----------|-------------|
+| `DECISION_LOG.md` | `docs/famoil_erp_template/DECISION_LOG.md` | Migrate 10 entries to governance format at root |
+| `KNOWN_ISSUES.md` | `docs/famoil_erp_template/KNOWN_ISSUES.md` | Absorb open issues into ROADMAP.md backlog and IMPLEMENTATION_HISTORY.md |
+| `IMPLEMENTATION_PLAYBOOK.md` | `docs/famoil_erp_template/` | Preserve; summarise Phase 1–3 completions in IMPLEMENTATION_HISTORY.md |
+| `COSTING_VALIDATION.md` | `docs/famoil_erp_template/` | Retain as supporting documentation |
+| `CHANGELOG.md` | Project root | Migrate to governance semver format |
+| `BACKUP_AND_RESTORE.md` | `docs/famoil_erp_template/Phase 1/` | Reference in IMPLEMENTATION_HISTORY.md; retain |
+
+**Backup state:**
+- Last backup: `/Users/mac/odoo_backups/famoil_20260522_1133/` (47 MB, taken 2026-05-22)
+- Restore drill: **None on record** — backup is currently **UNTRUSTED** per governance standard
+- Age at assessment: 7 days — a fresh backup should be taken before the restore drill
+
+**Open known issues at assessment date:**
+
+| Issue | Severity | Notes |
+|-------|----------|-------|
+| #1 SoyaBean miscategorised under "All" | Low | Configuration fix; Phase 4 scope |
+| #2 Raw Materials category no cost method | Medium | Affects costing accuracy; Phase 4 scope |
+| #5 Demo data not cleaned (CHIC1, WH, demo BOMs) | Medium | Must be resolved before first client deployment |
+| #8 Spare parts/consumables list_price = ₦1 | Low | Data quality; Phase 4 scope |
+
+**Governance maturity at assessment: Level 0 (sub-standard)**
+Pre-existing documentation exists but is located outside the governance-required structure
+and uses non-standard formats. This is better than Level 0 with no docs at all, but it
+does not satisfy any governance compliance checks.
+
+### Configuration Notes
+No FamOil files were created or modified during this assessment. All findings are based
+on project memory records and filesystem inspection.
+
+### Outstanding Issues
+FamOil Wave 1 adoption is now unblocked. The critical path is:
+1. Design and verify the Odoo-specific `.gitignore`
+2. `git init` at `/Users/mac/odoo17`
+3. Create `CLAUDE.md`
+4. Deploy `.github/PULL_REQUEST_TEMPLATE.md`
+
+DEC-009 and DEC-010 log the pilot selection and git boundary decisions made during this assessment.
+
+### Post-Delivery Verification
+- Assessment findings cross-checked against project memory (`project_famoil.md`)
+- All 6 custom artefacts identified and inventoried
+- All 10 existing decision log entries confirmed present in `docs/famoil_erp_template/DECISION_LOG.md`
+- Governance maturity level confirmed as Level 0 (sub-standard)
+
+### References
+DEC-009 (FamOil as pilot), DEC-010 (git boundary), IMP-004 (adoption strategy)
+
+---
+
 ## IMP-004
 
 **Date:** 2026-05-29

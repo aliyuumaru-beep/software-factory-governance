@@ -2,7 +2,7 @@
 
 **Layer:** Software Factory  
 **Last Updated:** 2026-05-29  
-**Current Phase:** Phase 1 — Governance Foundation  
+**Current Phase:** Phase 1 — Governance Foundation (final items in progress)
 
 ---
 
@@ -22,13 +22,14 @@ and automation projects.
 ## Current Phase
 
 ### Phase 1 — Governance Foundation
-**Status:** IN PROGRESS  
-**Target Completion:** 2026-Q2  
+**Status:** IN PROGRESS — final items remain
+**Target Completion:** 2026-Q2 / early Q3
 
 **Objective:** Establish the governance scaffold that all current and future projects
-will inherit. Define standards, templates, and operational procedures.
+will inherit. Define standards, templates, and operational procedures. Achieve self-
+compliance and produce a validated adoption strategy before Phase 2 begins.
 
-**Deliverables:**
+**Completed:**
 - [x] Repository initialized and cloned — 2026-05-29
 - [x] README.md — governance overview and layering model
 - [x] CLAUDE.md — AI agent operational cockpit
@@ -40,9 +41,31 @@ will inherit. Define standards, templates, and operational procedures.
 - [x] `roadmaps/` — this roadmap
 - [x] `principles/` — architectural, repository memory, and overengineering guardrails
 - [x] `docs/` — structure, layering model, and governance impact analysis
-- [ ] Apply governance scaffold to FamOil ERP repository
-- [ ] Apply governance scaffold to WamaCare repository
-- [ ] Initial PR process adoption confirmed on at least one project
+- [x] Governance maturity review — 33 files, 19 findings identified — 2026-05-29
+- [x] Seven self-compliance fixes applied (v1.1.0) — DECISION_LOG.md, IMPLEMENTATION_HISTORY.md,
+      ROADMAP.md, .gitignore, .github/PULL_REQUEST_TEMPLATE.md, C-01 and C-02 conflicts — 2026-05-29
+- [x] Adoption strategy created (`docs/ADOPTION_STRATEGY.md`) — 4 waves, 14-step sequence,
+      effort estimates, 8-risk matrix, generalised playbook — 2026-05-29 (v1.2.0)
+- [x] FamOil pre-adoption readiness assessment completed — gap analysis, artefact inventory,
+      backup state confirmed untrusted, governance maturity Level 0 established — 2026-05-29
+- [x] DEC-009 logged — FamOil selected as Phase 2 pilot
+- [x] DEC-010 logged — FamOil git repository boundary defined
+
+**Remaining — FamOil Wave 1 (Git Foundation):**
+- [ ] Create FamOil `.gitignore` (Odoo-specific; must precede `git init`) — **NEXT ACTION**
+- [ ] `git init` at `/Users/mac/odoo17` — resolves Known Issue #7
+- [ ] Create FamOil `CLAUDE.md`
+- [ ] Deploy `.github/PULL_REQUEST_TEMPLATE.md` to FamOil repo
+
+**Remaining — FamOil Waves 2–4 (governance scaffold application):**
+- [ ] Wave 2: MODULE_REGISTRY.md (6 artefacts), DECISION_LOG.md (migrate 10 entries),
+      IMPLEMENTATION_HISTORY.md (back-log 3 phases), ROADMAP.md
+- [ ] Wave 3: Restore drill (backup untrusted), release tag v1.0.0, README.md
+- [ ] Wave 4: First governed PR + GIA, CHANGELOG.md migration, continuity briefing
+
+**Remaining — WamaCare and Phase 1 close:**
+- [ ] WamaCare Wave 1 minimum (git repo check, CLAUDE.md, PR template)
+- [ ] Phase 1 close: governance maturity audit confirms FamOil at Level 2 and WamaCare at Level 1
 
 ---
 

@@ -11,6 +11,32 @@ Governance versions follow semantic versioning: MAJOR.MINOR.PATCH.
 
 ---
 
+## [1.3.0] — 2026-05-29
+
+### Added
+- `DECISION_LOG.md` — DEC-009: FamOil selected as Phase 2 governance adoption pilot
+  (rationale: highest commercial urgency, most complex migration case, no git repo for full
+  Wave 1 exercise, WamaCare isolation rules)
+- `DECISION_LOG.md` — DEC-010: FamOil git repository boundary defined (root at
+  `/Users/mac/odoo17`; `custom_addons/`, `docs/`, `scripts/` committed; Odoo core source,
+  venv, filestore, and `odoo.conf` excluded)
+- `IMPLEMENTATION_HISTORY.md` — IMP-005: FamOil pre-adoption readiness assessment
+  (complete gap analysis: 10 governance file gaps, 6 custom artefacts inventoried, backup
+  confirmed untrusted, governance maturity established at Level 0 sub-standard)
+
+### Updated
+- `roadmaps/SOFTWARE_FACTORY_ROADMAP.md` — Phase 1 current section restructured: all
+  completed items explicitly checked, remaining items broken into FamOil Wave 1–4 + WamaCare
+  Wave 1 + phase close criteria; next action identified
+- `ROADMAP.md` — root summary updated to match
+
+### Governance Impact
+- Two decisions logged that were previously implicit in the adoption strategy document
+- FamOil adoption can begin Wave 1 immediately — all planning is now recorded
+- Next action is clearly identified in both ROADMAP.md and SOFTWARE_FACTORY_ROADMAP.md
+
+---
+
 ## [1.2.0] — 2026-05-29
 
 ### Added
