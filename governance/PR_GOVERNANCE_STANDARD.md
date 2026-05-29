@@ -135,7 +135,8 @@ A PR may only be merged when:
 In a genuine production emergency, a hotfix may be merged with:
 - One reviewer (may be the same session, documented).
 - A shortened but non-empty GIA (at minimum: code impact, security impact, rollback plan).
-- A commitment to complete the full GIA within 24 hours, documented in `IMPLEMENTATION_HISTORY.md`.
+- Full GIA completed within 24 hours via a follow-up PR.
+- The hotfix deployment and GIA commitment recorded in `IMPLEMENTATION_HISTORY.md` within 24 hours.
 
 Emergency use of this procedure must be logged as a `GOVERNANCE_EXCEPTION` in `DECISION_LOG.md`.
 

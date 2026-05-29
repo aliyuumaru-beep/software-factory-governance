@@ -11,6 +11,38 @@ Governance versions follow semantic versioning: MAJOR.MINOR.PATCH.
 
 ---
 
+## [1.1.0] — 2026-05-29
+
+### Added
+
+**Self-compliance fixes — mandatory root files**
+- `DECISION_LOG.md` — 8 bootstrap decision entries (DEC-001 to DEC-008) covering governance repository structure, four-layer model, 10-dimension GIA, repository memory hierarchy, backup trust principle, governance/operations separation, bootstrapping exception, and ROADMAP.md placement decision
+- `IMPLEMENTATION_HISTORY.md` — 3 entries: Phase 1 bootstrap (IMP-001), governance maturity review (IMP-002), self-compliance fixes (IMP-003)
+- `ROADMAP.md` — root-level summary and phase status table; delegates full detail to `roadmaps/SOFTWARE_FACTORY_ROADMAP.md`
+- `.gitignore` — standard exclusions for secrets, OS files, editor files, and temporary artefacts
+- `.github/PULL_REQUEST_TEMPLATE.md` — deployed from `templates/pull_request_template.md`; GitHub now auto-loads the PR template on every new pull request
+
+### Fixed
+
+**Conflict C-01 — `governance` commit type missing from canonical list**
+- `governance/GOVERNANCE_STANDARD.md` §4.3: added `governance` to the commit types list; added a fourth example commit using `governance` type
+
+**Conflict C-02 — Emergency hotfix GIA resolution was ambiguous**
+- `governance/PR_GOVERNANCE_STANDARD.md` §7: replaced "commitment to complete the full GIA within 24 hours, documented in `IMPLEMENTATION_HISTORY.md`" with "Full GIA completed within 24 hours via a follow-up PR. The hotfix deployment and GIA commitment recorded in `IMPLEMENTATION_HISTORY.md` within 24 hours." Now aligned with `operations/CHANGE_MANAGEMENT_STANDARD.md` §2 Type 4.
+
+### Clarified
+
+**Root ROADMAP.md compliance for governance-layer repositories**
+- `governance/GOVERNANCE_STANDARD.md` §3.1: added note clarifying that governance-layer repositories may satisfy the root `ROADMAP.md` requirement via a summary-and-delegate file; all project repositories must keep a single `ROADMAP.md` at root. See DEC-008.
+
+### Governance Impact
+- Repository now self-compliant with its own mandatory file requirements
+- Governance Maturity Level: **Level 0 → Level 1 (Foundation)**
+- All 7 mandatory root files now present: `README.md`, `CLAUDE.md`, `CHANGELOG.md`, `DECISION_LOG.md`, `IMPLEMENTATION_HISTORY.md`, `ROADMAP.md`, `.gitignore`
+- `.github/PULL_REQUEST_TEMPLATE.md` active on GitHub
+
+---
+
 ## [1.0.0] — 2026-05-29
 
 ### Added

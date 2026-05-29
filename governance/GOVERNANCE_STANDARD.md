@@ -47,6 +47,12 @@ Every Software Factory project repository must contain the following documents:
 | `MODULE_REGISTRY.md` | Registry of all modules, components, services, integrations, and scripts |
 | `ROADMAP.md` | Current project roadmap aligned to the roadmap standard |
 
+> **Note for governance-layer repositories:** A repository that maintains multiple
+> roadmap files in a `roadmaps/` subdirectory satisfies the `ROADMAP.md` requirement
+> by providing a root `ROADMAP.md` that summarises the current phase and delegates to
+> the detailed file in `roadmaps/`. All other project repositories must keep their
+> single roadmap at `ROADMAP.md`. See DEC-008 in the governance `DECISION_LOG.md`.
+
 ### 3.2 Required Directories
 
 | Directory | Contents |
@@ -77,12 +83,13 @@ Every PR must:
 
 Format: `<type>(<scope>): <short description>`
 
-Types: `feat`, `fix`, `docs`, `refactor`, `test`, `chore`, `security`, `ops`
+Types: `feat`, `fix`, `docs`, `refactor`, `test`, `chore`, `security`, `ops`, `governance`
 
 Examples:
 - `feat(purchase): add custom approval workflow for POs above threshold`
 - `docs(registry): register purchase_approval_ext module`
 - `security(auth): restrict portal user access to own records only`
+- `governance(standards): add governance commit type to GOVERNANCE_STANDARD.md`
 
 ---
 

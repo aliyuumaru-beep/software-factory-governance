@@ -1,0 +1,41 @@
+# Secrets and credentials — never commit these
+.env
+.env.*
+.env.local
+.env.*.local
+*.key
+*.pem
+*.p12
+*.pfx
+*.crt
+*.cer
+
+# OS-generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# Editor and IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+
+# Temporary and build artefacts
+*.tmp
+*.temp
+*.log
+*.bak
+*.orig
+
+# Node (if tooling is ever added)
+node_modules/
+npm-debug.log*
