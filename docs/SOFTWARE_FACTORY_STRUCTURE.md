@@ -1,6 +1,6 @@
 # Software Factory Structure
 
-**Version:** 1.0.0  
+**Version:** 1.0.0
 **Effective:** 2026-05-29
 
 ---

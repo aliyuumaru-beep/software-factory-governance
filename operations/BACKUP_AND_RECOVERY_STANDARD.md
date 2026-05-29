@@ -1,8 +1,8 @@
 # Backup and Recovery Operations Standard
 
-**Version:** 1.0.0  
-**Effective:** 2026-05-29  
-**Applies to:** All Software Factory projects  
+**Version:** 1.0.0
+**Effective:** 2026-05-29
+**Applies to:** All Software Factory projects
 **Governance Reference:** `governance/BACKUP_RECOVERY_STANDARD.md`
 
 ---
@@ -180,7 +180,7 @@ Verify every backup after creation:
 # Verify database dump integrity
 pg_restore --list /path/to/backups/<file>.dump > /dev/null && echo "Dump OK" || echo "Dump CORRUPTED"
 
-# Verify filestore archive integrity  
+# Verify filestore archive integrity
 tar -tzf /path/to/backups/<filestore>.tar.gz > /dev/null && echo "Archive OK" || echo "Archive CORRUPTED"
 
 # Record result in IMPLEMENTATION_HISTORY.md if this is a scheduled drill

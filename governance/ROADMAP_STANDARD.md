@@ -1,7 +1,7 @@
 # Roadmap Standard
 
-**Version:** 1.0.0  
-**Effective:** 2026-05-29  
+**Version:** 1.0.0
+**Effective:** 2026-05-29
 **Applies to:** All Software Factory projects
 
 ---
@@ -20,8 +20,8 @@ and gives AI agents clear guidance about what is currently in scope vs. what is 
 ## 2. The Four Roadmap Layers
 
 ### 2.1 Software Factory Roadmap
-**Owner:** Software Factory governance  
-**Location:** `software-factory-governance/roadmaps/SOFTWARE_FACTORY_ROADMAP.md`  
+**Owner:** Software Factory governance
+**Location:** `software-factory-governance/roadmaps/SOFTWARE_FACTORY_ROADMAP.md`
 **Scope:** Governance standards, templates, methodology, CI enforcement, and multi-project maturity.
 
 This roadmap tracks the evolution of the Software Factory itself — not any specific project.
@@ -31,8 +31,8 @@ Items here are about making the factory better at building and governing project
 the template library, achieving governance maturity Level 4 across all projects.*
 
 ### 2.2 Platform Roadmap
-**Owner:** Platform engineering team  
-**Location:** `<platform-repo>/ROADMAP.md`  
+**Owner:** Platform engineering team
+**Location:** `<platform-repo>/ROADMAP.md`
 **Scope:** Shared platform modules, base configurations, and infrastructure that all projects inherit.
 
 This roadmap tracks improvements to the shared platform layer — things that benefit all
@@ -42,8 +42,8 @@ projects when delivered.
 standardizing the backup infrastructure, delivering a shared reporting framework.*
 
 ### 2.3 Industry Template Roadmap
-**Owner:** Template team / vertical lead  
-**Location:** `<template-repo>/ROADMAP.md`  
+**Owner:** Template team / vertical lead
+**Location:** `<template-repo>/ROADMAP.md`
 **Scope:** Features and improvements specific to a vertical (Oil & Gas, NGO, Hospitality, etc.)
 that apply across all client deployments of that template.
 
@@ -51,8 +51,8 @@ that apply across all client deployments of that template.
 donor management to the NGO template, adding room booking to the Hospitality template.*
 
 ### 2.4 Client Deployment Roadmap
-**Owner:** Project team  
-**Location:** `<project-repo>/ROADMAP.md`  
+**Owner:** Project team
+**Location:** `<project-repo>/ROADMAP.md`
 **Scope:** Features, phases, and milestones specific to a single client deployment.
 
 This is the most granular roadmap. It tracks what has been delivered and what is next

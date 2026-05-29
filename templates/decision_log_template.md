@@ -4,10 +4,10 @@
 
 ## DEC-[NNN]
 
-**Date:** YYYY-MM-DD  
-**Type:** <!-- CUSTOM_CODE | ARCHITECTURE | SECURITY | DATA_MODEL | INTEGRATION | GOVERNANCE_EXCEPTION | TRADE_OFF | TECHNOLOGY | OPERATIONAL -->  
-**Status:** <!-- ACTIVE | SUPERSEDED | REVERSED -->  
-**Made By:** <!-- Name and/or AI agent session identifier -->  
+**Date:** YYYY-MM-DD
+**Type:** <!-- CUSTOM_CODE | ARCHITECTURE | SECURITY | DATA_MODEL | INTEGRATION | GOVERNANCE_EXCEPTION | TRADE_OFF | TECHNOLOGY | OPERATIONAL -->
+**Status:** <!-- ACTIVE | SUPERSEDED | REVERSED -->
+**Made By:** <!-- Name and/or AI agent session identifier -->
 **PR Reference:** <!-- PR number that introduced this decision -->
 
 ---

@@ -16,10 +16,10 @@
 
 ### [ID] — [Name]
 
-**Type:** <!-- Module | Component | Service | Integration | Automation | Script | Infrastructure -->  
-**Status:** <!-- ACTIVE | DEPRECATED | DISABLED | PLANNED -->  
-**Registered Date:** YYYY-MM-DD  
-**Introduced In:** <!-- PR number or phase reference -->  
+**Type:** <!-- Module | Component | Service | Integration | Automation | Script | Infrastructure -->
+**Status:** <!-- ACTIVE | DEPRECATED | DISABLED | PLANNED -->
+**Registered Date:** YYYY-MM-DD
+**Introduced In:** <!-- PR number or phase reference -->
 **Owner:** <!-- Team member or role responsible for this artifact -->
 
 #### Purpose

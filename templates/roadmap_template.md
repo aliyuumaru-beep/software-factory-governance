@@ -1,8 +1,8 @@
 # [Project Name] Roadmap
 
-**Layer:** <!-- Software Factory | Platform | Industry Template | Client Deployment -->  
-**Project:** <!-- Project name -->  
-**Last Updated:** YYYY-MM-DD  
+**Layer:** <!-- Software Factory | Platform | Industry Template | Client Deployment -->
+**Project:** <!-- Project name -->
+**Last Updated:** YYYY-MM-DD
 **Current Phase:** Phase [N] — [Phase Name]
 
 ---
@@ -17,8 +17,8 @@
 ## Current Phase
 
 ### Phase [N] — [Phase Name]
-**Status:** IN PROGRESS  
-**Target Completion:** YYYY-MM  
+**Status:** IN PROGRESS
+**Target Completion:** YYYY-MM
 
 **Scope:**
 <!-- What will be delivered in this phase? -->
@@ -35,8 +35,8 @@
 ## Phase History
 
 ### Phase [N-1] — [Phase Name]
-**Status:** COMPLETE  
-**Completed:** YYYY-MM-DD  
+**Status:** COMPLETE
+**Completed:** YYYY-MM-DD
 **Implementation History Reference:** IMP-NNN
 
 **What Was Delivered:**
@@ -51,8 +51,8 @@
 ## Upcoming Phases
 
 ### Phase [N+1] — [Phase Name]
-**Status:** PLANNED  
-**Target Start:** YYYY-MM  
+**Status:** PLANNED
+**Target Start:** YYYY-MM
 
 **Planned Scope:**
 - [Item]

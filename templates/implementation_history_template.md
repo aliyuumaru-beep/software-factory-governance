@@ -4,10 +4,10 @@
 
 ## IMP-[NNN]
 
-**Date:** YYYY-MM-DD  
-**Type:** <!-- PHASE_COMPLETE | MODULE_DELIVERED | OPERATIONAL_CHANGE | HOTFIX | RESTORE_EVENT | INFRASTRUCTURE_CHANGE | GOVERNANCE_UPDATE | ONBOARDING -->  
-**Status:** <!-- COMPLETE | PARTIAL | IN_PROGRESS | DEFERRED -->  
-**Delivered By:** <!-- Name and/or AI agent session identifier -->  
+**Date:** YYYY-MM-DD
+**Type:** <!-- PHASE_COMPLETE | MODULE_DELIVERED | OPERATIONAL_CHANGE | HOTFIX | RESTORE_EVENT | INFRASTRUCTURE_CHANGE | GOVERNANCE_UPDATE | ONBOARDING -->
+**Status:** <!-- COMPLETE | PARTIAL | IN_PROGRESS | DEFERRED -->
+**Delivered By:** <!-- Name and/or AI agent session identifier -->
 **PR Reference:** <!-- PR number(s) associated with this entry -->
 
 ---

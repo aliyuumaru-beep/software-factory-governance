@@ -1,9 +1,9 @@
 # GitHub Ruleset Baseline
 
-**Version:** 1.0.0  
-**Effective:** 2026-05-29  
-**Applies to:** All Software Factory projects hosted on GitHub  
-**Audited Repository:** `aliyuumaru-beep/software-factory-governance`  
+**Version:** 1.0.0
+**Effective:** 2026-05-29
+**Applies to:** All Software Factory projects hosted on GitHub
+**Audited Repository:** `aliyuumaru-beep/software-factory-governance`
 **Audit Date:** 2026-05-29
 
 ---

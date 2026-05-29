@@ -1,0 +1,35 @@
+# Software Factory — Markdownlint configuration
+# Rules reference: https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md
+#
+# Philosophy: enable all rules, disable only those with deliberate structural conflicts
+# in the governance document format. Each disabled rule states the reason.
+
+default: true
+
+# MD013 — Line length
+# Disabled: governance tables require long lines; enforcing line length would
+# force table rewrites that reduce readability without improving content quality.
+MD013: false
+
+# MD022 — Headings should be surrounded by blank lines
+# Disabled: governance documents use a deliberate pattern where section headings
+# (### Title, ### Context, ### Decision) are immediately followed by content.
+# This is a structural convention in DECISION_LOG.md and IMPLEMENTATION_HISTORY.md.
+MD022: false
+
+# MD024 — Multiple headings with the same content
+# Disabled: DECISION_LOG.md uses ## DEC-001, ## DEC-002, etc. and
+# IMPLEMENTATION_HISTORY.md uses ## IMP-001, ## IMP-002, etc.
+# These sequential numbered headings are the same text repeated by design.
+MD024: false
+
+# MD033 — Inline HTML
+# Disabled: template files use <!-- comment --> placeholders to guide authors.
+# These are essential for template usability and are not presentational HTML.
+MD033: false
+
+# MD040 — Fenced code blocks should have a language specified
+# Disabled: ASCII diagrams, version string examples, and pseudo-code blocks
+# intentionally use language-free fences. Forcing a language on these blocks
+# would require inventing labels (e.g., "text") that add noise without value.
+MD040: false

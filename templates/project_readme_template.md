@@ -2,11 +2,11 @@
 
 > [One sentence describing what this project is and who it is for.]
 
-**Governed by:** [Software Factory Governance Repository](../software-factory-governance)  
-**Platform:** Odoo [version] / [other platform]  
-**Industry:** [Industry vertical]  
-**Client:** [Client name or "Internal"]  
-**Current Phase:** Phase [N] — [Phase Name]  
+**Governed by:** [Software Factory Governance Repository](../software-factory-governance)
+**Platform:** Odoo [version] / [other platform]
+**Industry:** [Industry vertical]
+**Client:** [Client name or "Internal"]
+**Current Phase:** Phase [N] — [Phase Name]
 **Status:** [Active Development | Maintenance | Stable | Decommissioned]
 
 ---
