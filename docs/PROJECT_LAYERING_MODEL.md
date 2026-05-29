@@ -1,7 +1,7 @@
 # Project Layering Model
 
-**Version:** 1.0.0  
-**Effective:** 2026-05-29  
+**Version:** 1.0.0
+**Effective:** 2026-05-29
 **Applies to:** All Software Factory projects
 
 ---
@@ -178,8 +178,8 @@ without modification, that code belongs one layer up. Move it before it prolifer
 Dependencies always flow downward — lower layers depend on higher layers, never the
 reverse.
 
-✅ Layer 4 depends on Layer 3, Layer 2, and Layer 1.  
-❌ Layer 1 must never depend on anything in Layer 4.  
+✅ Layer 4 depends on Layer 3, Layer 2, and Layer 1.
+❌ Layer 1 must never depend on anything in Layer 4.
 ❌ Layer 2 must never contain client-specific logic from Layer 4.
 
 ### 4.4 Cross-Layer PR Rule

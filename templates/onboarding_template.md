@@ -1,8 +1,8 @@
 # Project Onboarding Checklist
 
-**Project:** _______________  
-**Onboarding Date:** YYYY-MM-DD  
-**Onboarding Type:** <!-- AI Agent | Developer | Project Team -->  
+**Project:** _______________
+**Onboarding Date:** YYYY-MM-DD
+**Onboarding Type:** <!-- AI Agent | Developer | Project Team -->
 **Completed By:** _______________
 
 ---
@@ -73,5 +73,5 @@
 
 ---
 
-*This checklist was completed on YYYY-MM-DD by _______________.*  
+*This checklist was completed on YYYY-MM-DD by _______________.*
 *Record its completion in `IMPLEMENTATION_HISTORY.md` with type `ONBOARDING`.*

@@ -102,6 +102,6 @@ See `CHANGELOG.md` for the version history.
 
 ## Maintained By
 
-Software Factory — Internal Governance  
-Repository initialized: 2026-05-29  
+Software Factory — Internal Governance
+Repository initialized: 2026-05-29
 Governed projects: FamOil, WamaCare, NADF ERP, Hospitality ERP, Office ERP, Power Sector ERP, and future projects

@@ -1,7 +1,7 @@
 # Software Factory Roadmap
 
-**Layer:** Software Factory  
-**Last Updated:** 2026-05-29  
+**Layer:** Software Factory
+**Last Updated:** 2026-05-29
 **Current Phase:** Phase 1 — Governance Foundation (final items in progress)
 
 ---
@@ -78,8 +78,8 @@ compliance and produce a validated adoption strategy before Phase 2 begins.
 ## Upcoming Phases
 
 ### Phase 2 — PR and Repository Memory Enforcement
-**Status:** PLANNED  
-**Target Start:** 2026-Q3  
+**Status:** PLANNED
+**Target Start:** 2026-Q3
 
 **Objective:** Ensure all governed projects are actively using the PR governance
 standard and maintaining repository memory documents (decision log, registry,
@@ -95,8 +95,8 @@ implementation history).
 ---
 
 ### Phase 3 — Project Onboarding Standards Adoption
-**Status:** PLANNED  
-**Target Start:** 2026-Q3 / Q4  
+**Status:** PLANNED
+**Target Start:** 2026-Q3 / Q4
 
 **Objective:** Formalize and verify the onboarding process for all project types —
 AI agent sessions, new developers, and new project intake.
@@ -110,8 +110,8 @@ AI agent sessions, new developers, and new project intake.
 ---
 
 ### Phase 4 — CI Enforcement and Automated Governance Checks
-**Status:** PLANNED  
-**Target Start:** 2026-Q4  
+**Status:** PLANNED
+**Target Start:** 2026-Q4
 
 **Objective:** Reduce reliance on manual governance compliance by introducing
 automated checks in the CI pipeline.
@@ -126,8 +126,8 @@ automated checks in the CI pipeline.
 ---
 
 ### Phase 5 — Multi-Project Adoption
-**Status:** PLANNED  
-**Target Start:** 2027-Q1  
+**Status:** PLANNED
+**Target Start:** 2027-Q1
 
 **Objective:** Confirm that all active Software Factory projects are governed,
 at minimum at Level 2 maturity, and that the governance system is actively used.
@@ -144,8 +144,8 @@ at minimum at Level 2 maturity, and that the governance system is actively used.
 ---
 
 ### Phase 6 — Software Factory Maturity
-**Status:** PLANNED  
-**Target Start:** 2027-Q2  
+**Status:** PLANNED
+**Target Start:** 2027-Q2
 
 **Objective:** Achieve full Software Factory governance maturity across all active projects.
 Introduce continuous improvement cycles and governance audits.

@@ -23,7 +23,7 @@
 
 ## Governance Impact Analysis
 
-*Every dimension must be addressed. "Not impacted — [reason]" is a valid answer.  
+*Every dimension must be addressed. "Not impacted — [reason]" is a valid answer.
 Full definition: `docs/GOVERNANCE_IMPACT_ANALYSIS.md`*
 
 ### 1. Code Impact
@@ -35,37 +35,37 @@ Full definition: `docs/GOVERNANCE_IMPACT_ANALYSIS.md`*
 
 
 ### 3. Decision Log Impact
-<!-- Was an architectural, security, data model, integration, or governance decision made?  
+<!-- Was an architectural, security, data model, integration, or governance decision made?
      If yes: is the DECISION_LOG.md entry included in this PR? Entry ID: -->
 
 
 ### 4. Roadmap Impact
-<!-- Does this complete, add, or change a roadmap item?  
+<!-- Does this complete, add, or change a roadmap item?
      If yes: has ROADMAP.md been updated in this PR? -->
 
 
 ### 5. Registry Impact
-<!-- Are any new modules, components, services, integrations, automations, or scripts introduced?  
+<!-- Are any new modules, components, services, integrations, automations, or scripts introduced?
      If yes: is the MODULE_REGISTRY.md entry included in this PR? Entry ID: -->
 
 
 ### 6. Onboarding Impact
-<!-- Does this change how the system is understood, set up, or maintained?  
+<!-- Does this change how the system is understood, set up, or maintained?
      If yes: has onboarding documentation been updated? -->
 
 
 ### 7. Security Impact
-<!-- Does this touch authentication, authorization, access control, user data, secrets, or external APIs?  
+<!-- Does this touch authentication, authorization, access control, user data, secrets, or external APIs?
      If yes: describe the security review performed. -->
 
 
 ### 8. Backup/Recovery Impact
-<!-- Does this change what must be backed up, or how restore works?  
+<!-- Does this change what must be backed up, or how restore works?
      If yes: has BACKUP_RECOVERY_STANDARD been reviewed and ops docs updated? -->
 
 
 ### 9. Rollback Plan
-<!-- How is this PR rolled back if it causes problems in production?  
+<!-- How is this PR rolled back if it causes problems in production?
      For DB schema changes, data migrations, or infrastructure changes — provide detail. -->
 
 

@@ -1,7 +1,7 @@
 # Roadmap — Software Factory Governance
 
-**Layer:** Software Factory  
-**Current Phase:** Phase 1 — Governance Foundation (IN PROGRESS)  
+**Layer:** Software Factory
+**Current Phase:** Phase 1 — Governance Foundation (IN PROGRESS)
 **Last Updated:** 2026-05-29
 
 ---

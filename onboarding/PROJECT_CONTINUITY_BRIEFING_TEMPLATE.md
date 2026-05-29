@@ -1,20 +1,20 @@
 # Project Continuity Briefing
 
-**Project:** _______________  
-**Briefing Date:** YYYY-MM-DD  
-**Prepared By:** _______________  
-**Briefing Recipient:** _______________  
+**Project:** _______________
+**Briefing Date:** YYYY-MM-DD
+**Prepared By:** _______________
+**Briefing Recipient:** _______________
 **Reason for Briefing:** <!-- Phase handover | Team change | AI session restart | Client handover | Emergency -->
 
 ---
 
 ## 1. Project Identity
 
-**Project Name:** _______________  
-**Client / Stakeholder:** _______________  
-**Industry Vertical:** _______________  
-**Platform:** Odoo [version] / [other]  
-**Repository:** _______________  
+**Project Name:** _______________
+**Client / Stakeholder:** _______________
+**Industry Vertical:** _______________
+**Platform:** Odoo [version] / [other]
+**Repository:** _______________
 **Environment URLs:**
 - Production: _______________
 - Staging: _______________
@@ -24,9 +24,9 @@
 
 ## 2. Current State Summary
 
-**Current Phase:** Phase [N] — [Phase Name]  
-**Phase Status:** [In Progress / Complete / Blocked]  
-**Overall Project Health:** [Green / Amber / Red]  
+**Current Phase:** Phase [N] — [Phase Name]
+**Phase Status:** [In Progress / Complete / Blocked]
+**Overall Project Health:** [Green / Amber / Red]
 **Last Major Delivery:** [Description] — [Date]
 
 ### What Has Been Built (Summary)
@@ -133,8 +133,8 @@
 
 The incoming team/agent confirms they have received and read this briefing:
 
-**Received by:** _______________  
-**Date:** YYYY-MM-DD  
-**Confirmed:** [ ] Yes, I have read and understood this briefing.  
+**Received by:** _______________
+**Date:** YYYY-MM-DD
+**Confirmed:** [ ] Yes, I have read and understood this briefing.
 
 *Record this handover in `IMPLEMENTATION_HISTORY.md` with type `ONBOARDING`.*

@@ -1,7 +1,7 @@
 # Governance Impact Analysis (GIA)
 
-**Version:** 1.0.0  
-**Effective:** 2026-05-29  
+**Version:** 1.0.0
+**Effective:** 2026-05-29
 **Applies to:** All Software Factory projects
 
 ---

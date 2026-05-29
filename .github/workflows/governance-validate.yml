@@ -1,0 +1,136 @@
+name: Governance Validation
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  # ── Job 1: Required files and content checks ─────────────────────────────
+  required-files:
+    name: Required Files and Content
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate governance structure
+        shell: bash
+        run: |
+          FAILED=0
+
+          pass() { echo "  ✓ $1"; }
+          fail() { echo "  ✗ $1"; FAILED=$((FAILED + 1)); }
+
+          check_file() {
+            if [ -f "$1" ]; then pass "Present: $1"
+            else fail "MISSING: $1"; fi
+          }
+
+          check_pattern() {
+            local file="$1" pattern="$2" label="$3"
+            if grep -q "$pattern" "$file" 2>/dev/null; then pass "$label"
+            else fail "$label"; fi
+          }
+
+          # ── Mandatory root files (GOVERNANCE_STANDARD.md §3.1) ──────────
+          echo "── Mandatory root files ──────────────────────────────────────"
+          check_file "README.md"
+          check_file "CLAUDE.md"
+          check_file "CHANGELOG.md"
+          check_file "DECISION_LOG.md"
+          check_file "IMPLEMENTATION_HISTORY.md"
+          check_file "ROADMAP.md"
+          check_file ".gitignore"
+          check_file ".github/PULL_REQUEST_TEMPLATE.md"
+
+          # ── Repository memory — non-empty with expected entry markers ────
+          echo ""
+          echo "── Repository memory documents ───────────────────────────────"
+          check_pattern "DECISION_LOG.md"        "^## DEC-" \
+            "DECISION_LOG.md contains at least one DEC- entry"
+          check_pattern "IMPLEMENTATION_HISTORY.md" "^## IMP-" \
+            "IMPLEMENTATION_HISTORY.md contains at least one IMP- entry"
+          check_pattern "CHANGELOG.md" "^\#\# \[" \
+            "CHANGELOG.md contains at least one version entry"
+
+          # ── Governance standards directory ───────────────────────────────
+          echo ""
+          echo "── governance/ standards ─────────────────────────────────────"
+          check_file "governance/GOVERNANCE_STANDARD.md"
+          check_file "governance/PR_GOVERNANCE_STANDARD.md"
+          check_file "governance/DECISION_LOG_STANDARD.md"
+          check_file "governance/REGISTRY_STANDARD.md"
+          check_file "governance/SECURITY_STANDARD.md"
+          check_file "governance/BACKUP_RECOVERY_STANDARD.md"
+          check_file "governance/DOCUMENTATION_STANDARD.md"
+          check_file "governance/GITHUB_RULESET_BASELINE.md"
+
+          # ── Principles directory ─────────────────────────────────────────
+          echo ""
+          echo "── principles/ ───────────────────────────────────────────────"
+          check_file "principles/ARCHITECTURAL_PRINCIPLES.md"
+          check_file "principles/REPOSITORY_MEMORY_PRINCIPLES.md"
+          check_file "principles/OVERENGINEERING_GUARDRAILS.md"
+
+          # ── Templates directory ──────────────────────────────────────────
+          echo ""
+          echo "── templates/ ────────────────────────────────────────────────"
+          check_file "templates/pull_request_template.md"
+          check_file "templates/decision_log_template.md"
+          check_file "templates/module_registry_template.md"
+          check_file "templates/roadmap_template.md"
+
+          # ── Docs directory ───────────────────────────────────────────────
+          echo ""
+          echo "── docs/ ─────────────────────────────────────────────────────"
+          check_file "docs/GOVERNANCE_IMPACT_ANALYSIS.md"
+          check_file "docs/PROJECT_LAYERING_MODEL.md"
+          check_file "docs/ADOPTION_STRATEGY.md"
+
+          # ── Summary ──────────────────────────────────────────────────────
+          echo ""
+          if [ "$FAILED" -gt 0 ]; then
+            echo "GOVERNANCE VALIDATION FAILED — $FAILED check(s) failed."
+            exit 1
+          else
+            echo "GOVERNANCE VALIDATION PASSED — all checks passed."
+          fi
+
+  # ── Job 2: PR title must follow conventional commit format ───────────────
+  pr-title:
+    name: PR Title Format
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+
+    steps:
+      - name: Validate conventional commit format
+        shell: bash
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          PATTERN='^(feat|fix|docs|refactor|test|chore|security|ops|governance)(\([^)]+\))?: .+'
+
+          echo "PR title: \"$PR_TITLE\""
+          echo "Expected pattern: <type>(<scope>): <description>"
+          echo "Valid types: feat, fix, docs, refactor, test, chore, security, ops, governance"
+          echo ""
+
+          if echo "$PR_TITLE" | grep -qE "$PATTERN"; then
+            echo "✓ PR title follows conventional commit format."
+          else
+            echo "✗ PR title does not follow conventional commit format."
+            echo ""
+            echo "Examples of valid titles:"
+            echo "  feat(inventory): add lot-level traceability"
+            echo "  fix(auth): correct portal record rule scope"
+            echo "  governance(standards): add testing standard"
+            echo "  docs(registry): register backup_famoil.sh script"
+            exit 1
+          fi

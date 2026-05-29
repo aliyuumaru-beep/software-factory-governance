@@ -1,9 +1,9 @@
 # Software Factory Adoption Strategy
 
-**Version:** 1.0.0  
-**Date:** 2026-05-29  
-**Status:** APPROVED — Phase 2 Planning  
-**Pilot Project:** FamOil ERP  
+**Version:** 1.0.0
+**Date:** 2026-05-29
+**Status:** APPROVED — Phase 2 Planning
+**Pilot Project:** FamOil ERP
 **Applies to:** All Software Factory project onboardings
 
 ---
@@ -247,14 +247,14 @@ future AI agents and developers. This is the highest-value wave.
    - `SCR-002`: `inspect_famoil_config.sh` — configuration inspection script
    - `SCR-003`: `process_refined_oil_mo.py` — creates and completes Refined Soya Oil MOs via shell
    - `SCR-004`: `fix_locations_and_routing.py` — stock corrections and putaway rules (run 2026-05-24; one-off)
-   
+
    Also identify and note: the 4 scripts in `scripts/` directory.
 
 2. **`DECISION_LOG.md`**
    Migrate the 10 existing decisions from `docs/famoil_erp_template/DECISION_LOG.md`
    (DEC-001 to DEC-010) into the governance format. This is not deletion — it is
    migration. Existing decisions are preserved verbatim in content; only format changes.
-   
+
    Key known decisions to ensure are captured:
    - Per-component source location limitation in Odoo 17 (parent location + `child_of` workaround)
    - SoapStock removal from BOM 10 (2026-05-23)
@@ -537,5 +537,5 @@ These anti-patterns are common during governance adoption and must be avoided:
 
 ---
 
-*This strategy is owned by the Software Factory. Changes require a governed PR.*  
+*This strategy is owned by the Software Factory. Changes require a governed PR.*
 *Implementation of Wave 1 begins after this document is reviewed and approved.*
