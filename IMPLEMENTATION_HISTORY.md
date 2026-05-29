@@ -8,6 +8,68 @@ Entries are listed in reverse chronological order (newest first).
 
 ---
 
+## IMP-006
+
+**Date:** 2026-05-29
+**Type:** `GOVERNANCE_UPDATE`
+**Status:** COMPLETE
+**Delivered By:** Software Factory lead / Claude Sonnet 4.6
+**PR Reference:** This commit
+
+### Title
+GitHub Ruleset Baseline documented — live audit of `software-factory-governance` captured; recommended baseline defined for all governed repositories.
+
+### Description
+A live GitHub API audit of `aliyuumaru-beep/software-factory-governance` was performed
+to capture the exact repository protection settings currently in place. The findings were
+used to produce `governance/GITHUB_RULESET_BASELINE.md`, which documents both the current
+state and the recommended baseline configuration for all Software Factory repositories.
+
+### Scope
+- `governance/GITHUB_RULESET_BASELINE.md` — new document; audited current state, gap analysis,
+  recommended baseline, configuration instructions, conditions for change, compliance checklist
+
+### Key Audit Findings (Current State)
+The governance repository is NOT compliant with the recommended baseline it defines:
+
+| Gap | Severity |
+|-----|----------|
+| `main` branch is unprotected — direct push permitted | Critical |
+| No PR required before merging to `main` | Critical |
+| Force push to `main` is unrestricted | High |
+| All three merge strategies enabled (merge commit, squash, rebase) | High |
+| Delete branch on merge is disabled | Medium |
+| Wiki is enabled (docs live in repo; wiki is redundant) | Low |
+| Dependabot security updates disabled | Medium |
+
+Security controls that are correctly in place:
+- Secret scanning: **Enabled** ✓
+- Secret scanning push protection: **Enabled** ✓
+- PR template: **Active** ✓
+
+### Configuration Notes
+The recommended baseline is documented but NOT yet applied. Applying it requires
+deliberate action by the repository owner via GitHub UI or CLI (commands provided in
+Section 5 of the baseline document). Each change should be recorded as an
+`INFRASTRUCTURE_CHANGE` entry in this file.
+
+### Outstanding Issues
+The governance repo non-compliance with its own GitHub ruleset baseline is explicitly
+documented in Section 8 of `GITHUB_RULESET_BASELINE.md`. These settings should be
+applied before FamOil and WamaCare are set up, so that those repositories inherit
+the correct configuration from inception.
+
+### Post-Delivery Verification
+- Live API audit confirmed via `gh api` commands
+- All settings captured with exact values from the GitHub API response
+- Gap analysis completed — 5 significant gaps identified
+- Recommended baseline complete with rationale, CLI commands, and conditions for change
+
+### References
+DEC-009 (FamOil pilot), IMP-005 (FamOil readiness assessment)
+
+---
+
 ## IMP-005
 
 **Date:** 2026-05-29

@@ -11,6 +11,24 @@ Governance versions follow semantic versioning: MAJOR.MINOR.PATCH.
 
 ---
 
+## [1.4.0] — 2026-05-29
+
+### Added
+- `governance/GITHUB_RULESET_BASELINE.md` — live audit of `software-factory-governance`
+  GitHub settings + recommended baseline for all governed repositories. Covers: branch
+  protection, merge strategy (squash-only recommended), repository features, security
+  analysis, PR template, configuration instructions (UI + CLI), conditions for change,
+  and a compliance checklist for new repository setup
+- `IMPLEMENTATION_HISTORY.md` — IMP-006: GitHub ruleset baseline audit and documentation
+
+### Governance Impact
+- Every new Software Factory repository now has a defined setup checklist (Section 7)
+- Two critical gaps identified on the governance repo itself: `main` is unprotected
+  and all merge strategies are enabled — both must be fixed before FamOil setup begins
+- Secret scanning and push protection confirmed active on governance repo
+
+---
+
 ## [1.3.0] — 2026-05-29
 
 ### Added
