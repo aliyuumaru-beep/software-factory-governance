@@ -33,3 +33,29 @@ MD033: false
 # intentionally use language-free fences. Forcing a language on these blocks
 # would require inventing labels (e.g., "text") that add noise without value.
 MD040: false
+
+# MD012 — Multiple consecutive blank lines
+# Disabled: pull_request_template.md uses double blank lines in GIA sections
+# as deliberate white space for authors to fill in their answers. Reducing
+# these to single blank lines makes the form harder to work with.
+MD012: false
+
+# MD031 — Fenced code blocks should be surrounded by blank lines
+# Disabled: ASCII architecture diagrams and hierarchical tree blocks are
+# embedded in flowing content where surrounding blank lines would break
+# the visual connection to the prose that introduces them.
+MD031: false
+
+# MD032 — Lists should be surrounded by blank lines
+# Disabled: governance documents follow a deliberate tight-list pattern
+# where bullet lists immediately follow section headings and bold labels.
+# The pattern is consistent throughout all 36 files and aids scan-reading.
+# Enforcing blank lines would require 200+ changes across all standards
+# without improving comprehension.
+MD032: false
+
+# MD036 — Emphasis used instead of a heading
+# Disabled: CHANGELOG.md uses bold text (e.g., **Governance Standards**)
+# as inline section labels within changelog entries. Converting them to
+# headings would disrupt the CHANGELOG format and visual hierarchy.
+MD036: false
