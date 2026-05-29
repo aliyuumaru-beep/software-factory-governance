@@ -24,9 +24,13 @@
 **Status:** IN PROGRESS  
 **Remaining items:**
 
-- [ ] Apply governance scaffold to FamOil ERP repository
-- [ ] Apply governance scaffold to WamaCare repository
-- [ ] Initial PR process adoption confirmed on at least one project
+- [x] Phase 2 Adoption Strategy created (`docs/ADOPTION_STRATEGY.md`) — 2026-05-29
+- [ ] Apply governance scaffold to FamOil ERP — Wave 1 (git + CLAUDE.md + PR template)
+- [ ] Apply governance scaffold to FamOil ERP — Wave 2 (memory documents)
+- [ ] Apply governance scaffold to FamOil ERP — Wave 3 (restore drill + release tag + README)
+- [ ] Apply governance scaffold to FamOil ERP — Wave 4 (first governed PR)
+- [ ] Apply governance scaffold to WamaCare repository — Wave 1 minimum
+- [ ] FamOil governance maturity Level 2 confirmed
 
 **Completed:**
 - [x] Repository initialized and pushed to GitHub — 2026-05-29

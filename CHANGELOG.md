@@ -11,6 +11,28 @@ Governance versions follow semantic versioning: MAJOR.MINOR.PATCH.
 
 ---
 
+## [1.2.0] — 2026-05-29
+
+### Added
+
+- `docs/ADOPTION_STRATEGY.md` — Software Factory adoption strategy: artifact classification
+  (Categories A–D), four-wave FamOil adoption plan, 14-step artifact introduction sequence,
+  effort estimates (13–20 h for FamOil), risk matrix (8 risks), generalised playbook for
+  all future project onboardings, and Phase 2 success criteria
+
+### Updated
+
+- `ROADMAP.md` — Phase 1 remaining items replaced with adoption wave checkboxes; adoption
+  strategy item marked complete
+- `IMPLEMENTATION_HISTORY.md` — IMP-004 added recording adoption strategy delivery
+
+### Governance Impact
+- Phase 2 adoption is now formally planned with a documented, sequenced approach
+- FamOil adoption can begin immediately with Wave 1 (git init + CLAUDE.md + PR template)
+- No project files were modified
+
+---
+
 ## [1.1.0] — 2026-05-29
 
 ### Added

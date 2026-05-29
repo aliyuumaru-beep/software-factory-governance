@@ -8,6 +8,47 @@ Entries are listed in reverse chronological order (newest first).
 
 ---
 
+## IMP-004
+
+**Date:** 2026-05-29
+**Type:** `GOVERNANCE_UPDATE`
+**Status:** COMPLETE
+**Delivered By:** Software Factory lead / Claude Sonnet 4.6
+**PR Reference:** Adoption strategy commit
+
+### Title
+Phase 2 Adoption Strategy created — FamOil as pilot, generalised playbook established.
+
+### Description
+A comprehensive Software Factory Adoption Strategy was produced defining artifact
+classification (Categories A–D), a four-wave adoption plan for FamOil, effort estimates,
+risk assessment, and the generalised adoption playbook for all future projects.
+
+### Scope
+- `docs/ADOPTION_STRATEGY.md` — new document, 34 KB, covers all governed projects
+- `ROADMAP.md` — Phase 1 remaining item updated
+- `CHANGELOG.md` — v1.2.0 entry added
+
+### Configuration Notes
+The adoption strategy is the gate document for Phase 2. No FamOil files were modified.
+Implementation of Wave 1 (FamOil) is the immediate next action.
+
+### Outstanding Issues
+None for this delivery. FamOil adoption has the following prerequisite risks logged in the strategy:
+- R-01: .gitignore scope (Critical — must verify before first commit)
+- R-04: Backup restore failure risk (High — drill before claiming backup is trusted)
+- R-08: Compliance fatigue (High — first PR quality sets the standard)
+
+### Post-Delivery Verification
+- `docs/ADOPTION_STRATEGY.md` created and reviewed
+- Strategy covers all 4 artifact categories, 4 adoption waves, 14-step artifact sequence, 8 risks
+- No FamOil or WamaCare files modified
+
+### References
+IMP-003 (self-compliance fixes), DEC-001 (governance as standalone repo)
+
+---
+
 ## IMP-003
 
 **Date:** 2026-05-29
