@@ -8,6 +8,159 @@ Entries are listed in reverse chronological order (newest first).
 
 ---
 
+## IMP-008
+
+**Date:** 2026-05-29
+**Type:** `GOVERNANCE_UPDATE`
+**Status:** COMPLETE
+**Delivered By:** Software Factory lead / Claude Sonnet 4.6
+**PR Reference:** PR #1 — merge commit `6eddf5fdaf748514d8380c28bc691237848097d4`
+
+### Title
+CI workflow set merged via PR #1 — four governance checks active on every pull request.
+
+### Description
+PR #1 (`chore(ci): add governance workflow set and markdownlint config`) was the first
+pull request processed under the enforced ruleset. It passed all four CI checks, was
+merged via squash commit, and the feature branch was deleted. This is the first
+governance-compliant PR in the repository's history.
+
+PR #1 also exercised the full PR governance process end-to-end for the first time:
+the PR template was completed, all 10 GIA dimensions were addressed, and the checks
+ran against actual repository content rather than a hypothetical scenario.
+
+### Scope
+
+**Workflows deployed to `.github/workflows/`:**
+
+| Workflow | Job | Trigger | First Result |
+|----------|-----|---------|-------------|
+| `doc-lint.yml` | `Markdown Lint` | push + PR (`.md` changes) | pass (run ID 26657593560) |
+| `secret-scan.yml` | `Gitleaks` | push + PR (all changes) | pass (run ID 26657593585) |
+| `governance-validate.yml` | `Required Files and Content` | push + PR (all changes) | pass (run ID 26657593616) |
+| `governance-validate.yml` | `PR Title Format` | PR only | pass (run ID 26657593616) |
+
+**`.markdownlint.yaml` deployed:**
+Disables 9 rules with inline rationale (MD013, MD022, MD024, MD031, MD032, MD033,
+MD036, MD040 — all structural conflicts with governance document conventions).
+
+**Whitespace cleanup:**
+141 trailing-whitespace instances stripped from 35 markdown files prior to the PR.
+All content unchanged.
+
+### Configuration Notes
+CI checks run on every PR but are **not yet required** to pass before merge. The
+`required_status_checks` rule has not been added to ruleset `software-factory-governance-v1`.
+This is the single remaining action needed to reach Level 3 governance maturity.
+
+Status check names for the ruleset (exact values from the first run):
+- `Markdown Lint`
+- `Gitleaks`
+- `Required Files and Content`
+- `PR Title Format`
+
+### Outstanding Issues
+Adding `required_status_checks` to the ruleset is the remaining Level 3 completion action.
+Command to apply:
+```
+gh api repos/aliyuumaru-beep/software-factory-governance/rulesets/17043434 \
+  --method PUT <ruleset JSON with required_status_checks added>
+```
+See `governance/GITHUB_RULESET_BASELINE.md` §4.1 for the recommended configuration and
+`governance/GITHUB_RULESET_BASELINE.md` §5.3 for the CLI command.
+
+### Post-Delivery Verification
+- PR #1 checks: 4/4 pass confirmed via `gh pr checks 1 --watch`
+- Merge commit confirmed: `6eddf5fdaf748514d8380c28bc691237848097d4`
+- Squash merge confirmed (linear history maintained)
+- Feature branch `feat/ci-governance-workflows` deleted on merge
+
+### References
+DEC-011 (ruleset activation), DEC-012 (required approvals = 0), IMP-007 (ruleset applied)
+
+---
+
+## IMP-007
+
+**Date:** 2026-05-29
+**Type:** `INFRASTRUCTURE_CHANGE`
+**Status:** COMPLETE
+**Delivered By:** Software Factory lead
+**PR Reference:** Applied directly to GitHub repository settings
+
+### Title
+GitHub Ruleset `software-factory-governance-v1` activated — transition from documented governance to enforced governance.
+
+### Description
+The governance repository transitioned from a state where governance was fully documented
+but entirely unenforced to a state where the core governance controls are enforced at the
+GitHub platform level. Direct pushes to `main`, force pushes, merge commits, and branch
+deletion are all now blocked by the ruleset. Every change must flow through a pull request.
+
+This is the most significant operational change since the initial bootstrap: governance
+documents described the desired behaviour from v1.0.0; this change makes that behaviour
+mandatory.
+
+### Scope — Ruleset `software-factory-governance-v1` (ID: 17043434)
+
+**Activated rules:**
+
+| Rule | Effect | Previous State |
+|------|--------|----------------|
+| `deletion` | Branch deletion blocked | Unrestricted |
+| `non_fast_forward` | Force push blocked | Unrestricted |
+| `pull_request` | PR required before any merge to main | Unrestricted |
+| `required_linear_history` | Merge commits blocked; history always linear | Unrestricted |
+
+**Pull request parameters enforced:**
+
+| Parameter | Value | Notes |
+|-----------|-------|-------|
+| `required_approving_review_count` | 0 | Solo developer mode — see DEC-012 |
+| `dismiss_stale_reviews_on_push` | true | Prior approvals invalidated by new commits |
+| `required_review_thread_resolution` | true | All review comments must be resolved |
+| `allowed_merge_methods` | `["squash"]` | Only squash merge permitted |
+
+**Bypass policy:**
+
+| Parameter | Value |
+|-----------|-------|
+| `bypass_actors` | Empty — no bypass actors defined |
+| `current_user_can_bypass` | `never` — owner cannot bypass |
+
+**Branch targeting:**
+- Condition: `~DEFAULT_BRANCH` — always targets the repository default branch
+
+**Security layer (repository-level, not part of ruleset):**
+
+| Control | Status |
+|---------|--------|
+| Secret scanning | Enabled |
+| Secret scanning push protection | Enabled |
+| Dependabot security updates | Disabled (docs-only repo) |
+
+### Configuration Notes
+- Ruleset created: 2026-05-29T20:03:45+01:00
+- Last updated: 2026-05-29T20:31:08+01:00
+- The single open item at ruleset creation: `required_status_checks` rule not yet added.
+  CI workflows must pass their first run (PR #1) before being added as required checks.
+
+### Outstanding Issues
+`required_status_checks` not yet a required rule. After PR #1 merges and check names
+are confirmed, the ruleset must be updated to require the four CI checks. This closes
+the gap to Level 3 governance maturity.
+
+### Post-Delivery Verification
+- Ruleset ID 17043434 confirmed active via `gh api repos/.../rulesets/17043434`
+- Direct push to main rejected with GH013 error — protection confirmed working
+- PR #1 opened successfully against the protected branch
+- CI checks triggered on PR creation — confirmed via `gh pr checks 1`
+
+### References
+DEC-011 (ruleset decision), DEC-012 (required approvals), IMP-008 (CI workflows deployed)
+
+---
+
 ## IMP-006
 
 **Date:** 2026-05-29

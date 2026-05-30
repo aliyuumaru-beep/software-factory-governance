@@ -6,6 +6,135 @@ recorded here following the standard defined in `governance/DECISION_LOG_STANDAR
 
 ---
 
+## DEC-012
+
+**Date:** 2026-05-29
+**Type:** `TRADE_OFF`
+**Status:** ACTIVE
+**Made By:** Software Factory lead
+**PR Reference:** PR #1 (pre-merge configuration change)
+
+### Title
+Required approving review count set to 0 — solo development mode, deviation from the recommended baseline of 1.
+
+### Context
+`governance/GITHUB_RULESET_BASELINE.md` §4.1 recommends `required_approving_review_count: 1`
+as the minimum viable review gate. When ruleset `software-factory-governance-v1` was first
+applied the count was set to 1. Before PR #1 could be merged, the count was changed to 0
+because the repository has a single developer with no available reviewer, and
+`bypass_actors` is empty (`current_user_can_bypass: never`) — meaning there is no
+alternative path to merge.
+
+### Decision
+Set `required_approving_review_count: 0` for the governance repository.
+
+Rationale: requiring 1 approval on a solo-developer repository with no bypass path
+creates a permanent deadlock. The compensating controls that remain active provide
+meaningful enforcement without peer review:
+
+- PR is still required before any merge — no direct push to main.
+- CI must pass (doc-lint, secret-scan, governance-validate) — though not yet *required* in the ruleset (see IMP-007 open item).
+- Stale review dismissal is still active.
+- Conversation resolution is still required.
+- Squash-only merge and linear history are enforced.
+
+### Alternatives Considered
+
+| Alternative | Reason Rejected |
+|-------------|----------------|
+| Keep count at 1, add self as bypass actor | Bypass actors can push directly to main without a PR; removes the PR gate entirely for the bypass actor, which is worse than 0-approval PRs |
+| Keep count at 1, add a second collaborator | No second collaborator available; deferring all merges until one is added would halt all governance work indefinitely |
+| Keep count at 1, use GitHub's "allow force push" as a workaround | Force push is blocked by the `non_fast_forward` rule; this workaround would require weakening a security control to fix a process constraint |
+
+### Consequences
+All PRs to this repository can be self-merged by the repository owner without peer review.
+The governance process (PR template + GIA + CI checks) remains mandatory and provides
+documentation and audit value even without a second reviewer.
+
+When a second developer joins, `required_approving_review_count` must be restored to 1
+and this entry's status updated to `SUPERSEDED`.
+
+### Related Entries
+DEC-011 (ruleset activation), IMP-007 (CI workflow deployment)
+
+---
+
+## DEC-011
+
+**Date:** 2026-05-29
+**Type:** `OPERATIONAL`
+**Status:** ACTIVE
+**Made By:** Software Factory lead
+**PR Reference:** Applied directly to GitHub repository settings (pre-PR-enforcement)
+
+### Title
+GitHub Ruleset `software-factory-governance-v1` applied — branch protection and PR enforcement activated on the default branch.
+
+### Context
+`governance/GITHUB_RULESET_BASELINE.md` documented the recommended baseline configuration
+and identified that the governance repository had no branch protection (Critical gap).
+The ruleset was applied to activate enforced governance, transitioning from a state where
+standards were documented but unenforceable to one where violations are blocked at the
+platform level.
+
+The ruleset was created at 2026-05-29T20:03:45+01:00 and last updated
+2026-05-29T20:31:08+01:00. Ruleset ID: 17043434.
+
+### Decision
+Apply GitHub Ruleset `software-factory-governance-v1` to the default branch (`~DEFAULT_BRANCH`)
+with the following active rules:
+
+**Branch targeting:**
+- Condition: `~DEFAULT_BRANCH` — automatically tracks the default branch regardless of name
+
+**Pull request enforcement:**
+- PR required before any merge to main — direct push blocked
+- `required_approving_review_count`: 0 (see DEC-012 for the deviation rationale)
+- `dismiss_stale_reviews_on_push`: true — approval is invalidated if new commits are pushed
+- `required_review_thread_resolution`: true — all review comments must be resolved before merge
+- `allowed_merge_methods`: `["squash"]` — squash-only enforced at the platform level
+
+**History integrity:**
+- `required_linear_history`: true — merge commits are blocked; history is always linear
+- `non_fast_forward`: blocks force push — published history cannot be rewritten
+
+**Branch safety:**
+- `deletion`: branch deletion blocked — `main` cannot be deleted
+
+**Bypass policy:**
+- `bypass_actors`: empty — no actor, including the repository owner, can bypass these rules
+- `current_user_can_bypass`: `never`
+
+**Security layer (repository-level, separate from ruleset):**
+- `secret_scanning`: enabled — detects committed secrets retroactively
+- `secret_scanning_push_protection`: enabled — blocks pushes containing known secret patterns before they enter history
+- `dependabot_security_updates`: disabled (documentation-only repository; no dependency manifest)
+
+### Alternatives Considered
+
+| Alternative | Reason Rejected |
+|-------------|----------------|
+| Classic branch protection rules | Rulesets are versioned, auditable, and offer `EVALUATE` mode; preferred over legacy branch protection per `governance/GITHUB_RULESET_BASELINE.md` §4.2 |
+| Apply protection after Phase 4 CI is set up | Delaying protection leaves the main branch unguarded during active governance work; protection and CI should be active simultaneously |
+| Allow admin bypass | Creating a bypass path undermines the integrity of the protection; governance exceptions should go through the PR process with the exception logged, not through bypassing the gate entirely |
+
+### Consequences
+All changes to the governance repository must flow through a PR. The first such PR
+(PR #1, commit `6eddf5fdaf748514d8380c28bc691237848097d4`) successfully used the full PR
+template and passed all CI checks, confirming the mechanism works end-to-end.
+
+CI status checks run on every PR but are not yet *required* to pass before merge — this
+is the remaining gap to full Level 3 governance maturity. Adding `required_status_checks`
+to the ruleset closes this gap (see IMP-007).
+
+When CI status checks are added as required to the ruleset, a new decision log entry
+(`OPERATIONAL` type) must be created to record the updated rule set and the check names.
+
+### Related Entries
+DEC-012 (required approvals set to 0), IMP-007 (CI workflow deployment and merge)
+
+---
+
 ## DEC-010
 
 **Date:** 2026-05-29

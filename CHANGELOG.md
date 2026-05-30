@@ -11,6 +11,32 @@ Governance versions follow semantic versioning: MAJOR.MINOR.PATCH.
 
 ---
 
+## [1.5.0] — 2026-05-29
+
+### Infrastructure
+- GitHub Ruleset `software-factory-governance-v1` (ID 17043434) activated on default branch:
+  deletion blocked, force push blocked, PR required, squash-only merge, linear history required,
+  no bypass actors
+- CI workflow set deployed via PR #1 (merge commit `6eddf5fdaf7`): doc-lint, secret-scan,
+  governance-validate (required-files + pr-title) — all four checks passing
+
+### Governance Records
+- `DECISION_LOG.md` — DEC-011: Ruleset `software-factory-governance-v1` applied; full rule
+  inventory, bypass policy, security layer, and open items documented
+- `DECISION_LOG.md` — DEC-012: Required approvals set to 0 (solo developer mode); deviation
+  from baseline of 1 documented with compensating controls and reversal condition
+- `IMPLEMENTATION_HISTORY.md` — IMP-007: Ruleset activation; infrastructure change record
+  with exact rule values and pre/post state comparison
+- `IMPLEMENTATION_HISTORY.md` — IMP-008: CI workflow merge; check names, first run IDs,
+  outstanding `required_status_checks` action documented
+
+### Governance Maturity
+Governance maturity advanced from Level 1 (Foundation) to **Level 2 (Active Governance)**
+with Level 3 enforcement partially active. One action remains for full Level 3:
+add `required_status_checks` to the ruleset.
+
+---
+
 ## [1.4.0] — 2026-05-29
 
 ### Added
