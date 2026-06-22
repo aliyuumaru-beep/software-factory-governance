@@ -93,7 +93,7 @@ Delete these instructions before submitting for review.
 *Feeds the Approval Framework (D-04). Each approval workflow must later receive its own dedicated backlog item (CVR-03) — never folded into a parent capability.*
 
 | Approval ID | Approval workflow | Related CA | Trigger / boundary | Implementation approach |
-|-------------|-------------------|-----------|--------------------|-----------------------| 
+|-------------|-------------------|-----------|--------------------|-----------------------|
 | AP-01 | [e.g. Procurement approval above ₦500,000] | [CA-xx] | [Specific threshold/condition] | [Native workflow / OCA / custom] |
 | *Add rows as needed* | | | | |
 
