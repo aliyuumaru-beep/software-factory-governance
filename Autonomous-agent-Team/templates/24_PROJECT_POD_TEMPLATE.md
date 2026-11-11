@@ -1,0 +1,5 @@
+# PROJECT_POD_TEMPLATE.md
+
+Starter template for creating a new Project Pod.
+
+Mandatory files: PROJECT_STATE.md, MILESTONE_TRACKER.md, BACKLOG.md, RISK_REGISTER.md, DECISION_LOG.md, CHANGELOG.md, IMPLEMENTATION_HISTORY.md, MODULE_REGISTRY.md.

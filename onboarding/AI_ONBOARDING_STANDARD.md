@@ -60,7 +60,21 @@ File: `<project-repo>/ROADMAP.md`
 Understand the current phase scope. Do not implement items from future phases unless
 explicitly instructed. Do not propose work that is already complete.
 
-### Step 7 — Confirm Understanding
+### Step 7 — Read the Governance Approval Register
+File: `<project-repo>/docs/governance/GOVERNANCE_APPROVAL_REGISTER.md`
+
+Review the single executive view of all governance decisions, exceptions, and open
+escalations grouped by department. Pay particular attention to:
+- **Open Escalations** — items blocking specific work packages
+- **Deferred Decisions** — architectural items not yet resolved
+- **Authority Decisions (AOP-013)** — what has been granted, denied, or is pending
+- **Status of active decisions** — decisions you must not contradict
+
+This register complements `DECISION_LOG.md` (technical append-only log) with an
+executive summary view. If the register is absent, report the gap and offer to initialize
+it using `templates/GOVERNANCE_APPROVAL_REGISTER_TEMPLATE.md` (AOP-015 standard).
+
+### Step 8 — Confirm Understanding
 Before proceeding, the AI agent must briefly summarize:
 - The current project phase and scope.
 - The most recent implementation history entry.

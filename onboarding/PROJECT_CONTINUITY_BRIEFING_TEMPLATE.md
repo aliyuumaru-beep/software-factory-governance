@@ -41,9 +41,32 @@
 
 ---
 
-## 3. Critical Decisions in Effect
+## 3. Governance Approval Register
 
-*These decisions from `DECISION_LOG.md` are currently active and must not be reversed without a new logged decision:*
+*Reference: `docs/governance/GOVERNANCE_APPROVAL_REGISTER.md` (AOP-015 mandatory artifact)*
+
+The Governance Approval Register is the single executive view of all governance decisions,
+exceptions, escalations, and authority decisions for this product. Read it before taking
+any implementation action in this session.
+
+| Register Field | Current Value |
+|---------------|---------------|
+| Document ID | [GAR-PRODUCT-NNN] |
+| Total Decisions | [N] |
+| Active | [N] |
+| Open Escalations | [N] — [summary of blocking items] |
+| Last Updated | [YYYY-MM-DD] |
+
+Key items for this handover:
+- **Open Escalations:** [List the ESC-XXX items blocking current work]
+- **Deferred Decisions:** [List major deferred architectural items]
+- **Active exceptions:** [Any accepted limitations in effect]
+
+---
+
+## 4. Critical Decisions in Effect
+
+*These decisions from `DECISION_LOG.md` are currently active and must not be reversed without a new logged decision. The full department-grouped view is in the Governance Approval Register (§3 above).*
 
 | ID | Decision | Why It Matters |
 |----|----------|----------------|
@@ -51,7 +74,7 @@
 
 ---
 
-## 4. Known Issues and Risks
+## 5. Known Issues and Risks
 
 | Issue | Severity | Status | Owner |
 |-------|----------|--------|-------|
@@ -59,7 +82,7 @@
 
 ---
 
-## 5. Active Custom Modules
+## 6. Active Custom Modules
 
 *From `MODULE_REGISTRY.md` — active modules that the incoming team must be aware of:*
 
@@ -69,7 +92,7 @@
 
 ---
 
-## 6. Infrastructure and Access
+## 7. Infrastructure and Access
 
 ### Server / Hosting
 - Provider: _______________
@@ -92,7 +115,7 @@
 
 ---
 
-## 7. Immediate Priorities
+## 8. Immediate Priorities
 
 *What the incoming team / agent should focus on first:*
 
@@ -102,7 +125,7 @@
 
 ---
 
-## 8. What to Avoid
+## 9. What to Avoid
 
 *Areas of the system that require extra care or should not be touched without consultation:*
 
@@ -110,7 +133,7 @@
 
 ---
 
-## 9. Key Contacts
+## 10. Key Contacts
 
 | Role | Name | Contact |
 |------|------|---------|
@@ -121,7 +144,7 @@
 
 ---
 
-## 10. Open Questions
+## 11. Open Questions
 
 *Questions that remain unresolved and require attention from the incoming team:*
 

@@ -6,6 +6,216 @@ recorded here following the standard defined in `governance/DECISION_LOG_STANDAR
 
 ---
 
+## DEC-018
+
+**Date:** 2026-06-26
+**Type:** `GOVERNANCE_STANDARD`
+**Status:** ACTIVE
+**Made By:** A1 Master Orchestrator — Human Sponsor ratified
+**Enhancement Ref:** AOP-015
+**PR Reference:** Pending — `templates/GOVERNANCE_APPROVAL_REGISTER_TEMPLATE.md`
+
+### Title
+AOP-015 Governance Approval Register Standard — new mandatory Software Factory governance artifact providing single executive view of all decisions, grouped by business department.
+
+### Context
+Governance decisions are distributed across DECISION_LOG.md, IMPLEMENTATION_HISTORY.md, GOVERNANCE_GATE_REPORT.md, Work Package Exit Gate Reports, Governance Review Reports, and AOP-013 Authority Registers. This makes it difficult for the Sponsor or Executive Management to understand what decisions have been taken, why, which department they affect, and whether they remain active.
+
+### Decision
+Create and adopt the Governance Approval Register as a mandatory Software Factory governance standard. Every Software Factory product must contain `docs/governance/GOVERNANCE_APPROVAL_REGISTER.md`, initialised from `templates/GOVERNANCE_APPROVAL_REGISTER_TEMPLATE.md`. The register provides a single consolidated executive view grouped by department. Every Work Package Exit Gate must include "Update Governance Approval Register" as a mandatory acceptance criterion.
+
+### Deliverables Produced
+1. `templates/GOVERNANCE_APPROVAL_REGISTER_TEMPLATE.md` — blank reusable template
+2. `governance/GOVERNANCE_STANDARD.md` — updated to include GAR as mandatory artifact (§3.2)
+3. `onboarding/AI_ONBOARDING_STANDARD.md` — updated to include GAR in mandatory onboarding sequence (Step 7)
+4. `onboarding/PROJECT_CONTINUITY_BRIEFING_TEMPLATE.md` — updated to reference GAR
+5. `templates/PEF_WORK_PACKAGE_TEMPLATE.md` — updated to include GAR update as mandatory exit gate AC
+6. POD-NADF: `docs/governance/GOVERNANCE_APPROVAL_REGISTER.md` (GAR-NADF-001 v1.0) — backward-populated with all 25 existing NADF decisions
+7. POD-NADF: `docs/governance/GOVERNANCE_APPROVAL_REGISTER_V1_VALIDATION.md` — validation report (5/5 checks PASS)
+
+### Deployment Scope
+Deployed immediately to NADF. FamOil and WamaCare shall inherit the template on next session — new projects start with an empty register; existing projects populate retroactively.
+
+### Consequences
+- All new Software Factory projects automatically include the GAR in their repository scaffold
+- No Work Package may close without updating the GAR
+- AI agents must read the GAR during the mandatory onboarding sequence (Step 7)
+- Executive Continuity Briefings must reference the GAR for decision history
+
+### Related Entries
+DEC-013 (AOP-013 authority framework), DEC-014 (AOP-013 adoption), DEC-017 (AOP-014 trust profile)
+
+---
+
+## DEC-017
+
+**Date:** 2026-06-26
+**Type:** `GOVERNANCE_POLICY`
+**Status:** ACTIVE
+**Made By:** Human Sponsor
+**Decision Ref:** DEC-AOP014-001
+**PR Reference:** Pending — `enhancements/AOP-014/`
+
+### Title
+AOP-014 Development Environment Trust Profile — ADOPT — NADF ONLY. Level A whitelist deployed to `/nadf_erp/.claude/settings.json`.
+
+### Context
+AOP-014 design package (6 deliverables) produced 2026-06-25 and reviewed by Sponsor. Enhancement addresses excessive approval interruptions during routine NADF delivery activities. The trust profile classifies ~155 command patterns across Level A (auto-approve), Level B (one-time session), and Level C (always require). Sponsor reviewed and approved for controlled NADF deployment with six conditions.
+
+### Decision
+ADOPT — NADF ONLY. Deploy Level A whitelist to NADF pod immediately. FamOil and WamaCare adoption requires separate decision after NADF operational review. Six conditions apply (see Conditions below).
+
+### Conditions
+1. Deployment limited to NADF pod only
+2. Level C protections remain unchanged — no blacklisted command may be added to allow list
+3. No production deployment commands whitelisted
+4. Whitelist changes must be logged as governance decisions
+5. Metrics collected: approval prompts per WP, Sponsor touches per WP, execution interruptions
+6. FamOil / WamaCare adoption requires separate decision after NADF operational review
+
+### Consequences
+- `/nadf_erp/.claude/settings.json` created with 67 Level A allow patterns (2026-06-26)
+- Sessions on NADF pod no longer prompt for Level A commands (git reads, filesystem reads, tests, backups, process inspection, Odoo --stop-after-init, psql reads)
+- Level B commands (git push, module installs, DB restores) remain session-approval only
+- Level C commands (rm -rf, sudo, dropdb, git push --force, production DB mutations) continue to always prompt
+- AOP-013 Execution Authority Framework unchanged
+- FamOil and WamaCare pods unaffected
+
+### Related Entries
+DEC-016 (AOP-014 architecture design), DEC-013 (AOP-013 architecture)
+
+---
+
+## DEC-016
+
+**Date:** 2026-06-25
+**Type:** `ARCHITECTURE`
+**Status:** DESIGN COMPLETE — AWAITING SPONSOR ADOPTION DECISION
+**Made By:** A1 Master Orchestrator
+**PR Reference:** Pending — `enhancements/AOP-014/`
+
+### Title
+AOP-014 Development Environment Trust Profile — three-level command classification for Claude Code approval behaviour across all Software Factory pods.
+
+### Context
+NADF delivery is experiencing excessive approval prompts for routine development commands (git status, git diff, pytest, ls, pg_dump, etc.). Approval fatigue from high-frequency low-risk prompts risks reducing attention for genuinely important Level C approvals. An enhancement was requested to define a systematic, governed whitelist/blacklist profile.
+
+### Decision
+AOP-014 design package produced. Commands classified into Level A (auto-approve, ~80 patterns), Level B (one-time session approval, ~40 patterns), Level C (always require approval, ~50 patterns). No repositories or settings modified — design only pending Sponsor adoption decision. AOP-013 Execution Authority Framework is unchanged and complementary.
+
+### Consequences
+- On Sponsor adoption: `.claude/settings.json` created per pod with Level A whitelist
+- Level B = "Yes, and don't ask again" per session; never saved to settings
+- Level C = always prompts; never pre-configured
+- AOP-013 authority gate is independent and unaffected
+
+### Related Entries
+DEC-013 (AOP-013 architecture), DEC-014 (Sponsor AOP-013 adoption)
+
+---
+
+## DEC-015
+
+**Date:** 2026-06-25
+**Type:** `GOVERNANCE_EXCEPTION`
+**Status:** ACTIVE
+**Made By:** A1 Master Orchestrator (compiled from G1/G2/G3 reviews)
+**PR Reference:** Pending — `enhancements/AOP-013/phase-b/PHASE_B_CONSOLIDATED_DECISION.md`
+
+### Title
+Phase B Governance Review: CONDITIONAL PASS — pilot suspended pending resolution of G3-CON-001 (Mode field in register template) and G3-CON-002 (A1 protocol acknowledgement).
+
+### Context
+G1 returned APPROVED WITH NOTE (4 observations, none blocking). G2 returned APPROVED WITH NOTE (4 observations, none blocking). G3 returned CONDITIONAL (2 blocking conditions, 4 observations). All three reviewers independently flagged the Mode field absence and the OBS-003 prompt non-update risk — cross-reviewer concordance confirms these are genuine issues.
+
+### Decision
+Phase B status is CONDITIONAL PASS. Pilot activation is suspended until A1 resolves G3-CON-001 and G3-CON-002. Both conditions are resolvable by A1 without Sponsor action. Resolution actions: (1) add Mode field to document 07 register template; (2) initialise NADF pilot artifacts with Protocol Acknowledgement log entry. Four additional non-blocking observations are tracked for post-pilot or Phase D action. Human Sponsor is informed; no Sponsor action required.
+
+### Consequences
+- Pilot does not activate until G3 confirms conditions resolved
+- G3-CON-002 resolution also addresses VC-3 advisory mode gap (G2-OBS-003) via Protocol Acknowledgement entry
+- No Sponsor action required — A1 owns resolution
+
+### Related Entries
+DEC-014 (Sponsor conditional adoption), DEC-013 (AOP-013 architecture)
+
+---
+
+## DEC-014
+
+**Date:** 2026-06-25
+**Type:** `GOVERNANCE_EXCEPTION`
+**Status:** ACTIVE
+**Made By:** Human Sponsor
+**PR Reference:** Pending — Phase B package under `enhancements/AOP-013/phase-b/`
+
+### Title
+AOP-013 approved ADOPT WITH CONDITIONS — advisory-mode pilot on NADF WP-03/WP-04; no core modification; no delivery modification; portfolio rollout suspended until exit criteria met.
+
+### Context
+Following review of the AOP-013 Adoption Recommendation (document 12), the Human Sponsor issued a conditional adoption decision. The conditions modify the original Phase C pilot plan (which targeted WP-02) and add a critical safety constraint: all Execution Authority decisions during the pilot are advisory and non-binding. This allows the framework to be validated without risking delivery delays if the framework produces incorrect decisions.
+
+### Decision
+Proceed with AOP-013 Phase B (Governance Review) and Phase C (Pilot) under five binding conditions:
+
+1. No Agent OS core modification during pilot
+2. No NADF delivery modification
+3. Advisory mode only — authority decisions are non-binding until Pilot Graduation
+4. Pilot window is WP-03 and WP-04 (not WP-02 as originally planned)
+5. No portfolio rollout until exit criteria met and separate Sponsor activation issued
+
+### Consequences
+- Phase B Governance Review Package, Pilot Activation Package, Success Metrics Dashboard, Rollback Procedure, and Pilot Exit Criteria produced
+- Pilot uses advisory mode — D2 continues v1.0 Human Sponsor approval; A1 issues advisory grants in parallel for validation
+- Binding mode requires separate Sponsor decision after pilot GRADUATE outcome
+- FAMOIL and WAMACARE adoption remain suspended
+
+### Related Entries
+DEC-013 (AOP-013 architecture decision), IMP-009 (Phase A delivery)
+
+---
+
+## DEC-013
+
+**Date:** 2026-06-25
+**Type:** `ARCHITECTURE`
+**Status:** ACTIVE
+**Made By:** Software Factory Governance Authority / A1 Master Orchestrator
+**PR Reference:** Pending — AOP-013 enhancement package under `enhancements/AOP-013/`
+
+### Title
+AOP-013 Execution Authority Framework approved for design phase — Agent OS v2.0 execution authority model replaces ad-hoc human approval of routine implementation tasks.
+
+### Context
+Agent OS v1.0 demonstrated governance-based delivery across NADF WP-01. Every execution action required Human Sponsor confirmation before D2 could proceed. This is correct for an initial pilot but creates a scalability bottleneck that prevents concurrent multi-project portfolio delivery (A1-NADF, A1-FAMOIL, A1-WAMACARE operating simultaneously).
+
+AOP-013 was initiated to formally replace Human Sponsor task-level approval with structured, governance-driven authority grants (EA-1 through EA-6). The Human Sponsor transitions from operational gatekeeper to strategic decision-maker.
+
+### Decision
+Proceed with AOP-013 Execution Authority Framework design. All 12 deliverables are complete and stored under `enhancements/AOP-013/`. Phase B (Governance Review) and Phase C (NADF Pilot on WP-02) are approved to proceed.
+
+The framework introduces six authority classes (EA-1 Documentation through EA-6 Production). EA-1 through EA-5 can be granted by A1 after governance review. EA-6 is permanently reserved for the Human Sponsor.
+
+### Alternatives Considered
+
+| Alternative | Reason Rejected |
+|-------------|----------------|
+| Continue with v1.0 human approval model | Acceptable for one project; not acceptable for portfolio-scale delivery (three concurrent pods); Phase 5 and Phase 6 roadmap targets are unreachable |
+| Remove governance reviews entirely; full autonomy | Governance rigour is a non-negotiable principle; removing reviews would bypass risk controls and audit trail requirements |
+| Partial adoption (EA-1/EA-2 only) | Insufficient to remove the bottleneck; EA-3/EA-4 module installation and configuration are the most common bottleneck tasks |
+
+### Consequences
+- Agent OS v1.0 continues as-is until Phase B governance review completes
+- NADF WP-02 is designated as the pilot work package for Phase C
+- All twelve deliverables are committed to `enhancements/AOP-013/`
+- ACTIVE_AGENT_CONFIGURATION.md will be incremented to v2.0 after Phase B/C complete
+- Human Sponsor involvement reduced to: phase gates, scope changes, EA-6, escalation triggers
+
+### Related Entries
+DEC-001 (governance as standalone repo), DEC-002 (four-layer model)
+
+---
+
 ## DEC-012
 
 **Date:** 2026-05-29

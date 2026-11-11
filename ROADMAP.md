@@ -17,6 +17,13 @@
 | Phase 5 | Multi-Project Adoption | PLANNED | 2027-Q1 |
 | Phase 6 | Software Factory Maturity | PLANNED | 2027-Q2 |
 
+## Active Enhancement Streams
+
+| Enhancement | Name | Status | Target |
+|-------------|------|--------|--------|
+| AOP-013 | Execution Authority Framework (Agent OS v2.0) | **Phase C ACTIVE** — NADF advisory pilot; WP-03 advisory decisions issued 2026-06-25 | 2026-Q3 |
+| AOP-014 | Development Environment Trust Profile | **DEPLOYED — NADF ONLY** (DEC-AOP014-001, 2026-06-26) | 2026-Q3 |
+
 ---
 
 ## Phase 1 — Governance Foundation

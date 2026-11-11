@@ -8,6 +8,121 @@ Entries are listed in reverse chronological order (newest first).
 
 ---
 
+## IMP-010
+
+**Date:** 2026-06-25
+**Type:** `GOVERNANCE_UPDATE`
+**Status:** COMPLETE
+**Delivered By:** A1 Master Orchestrator / Claude Sonnet 4.6
+**PR Reference:** Pending
+
+### Title
+AOP-013 Phase B Package produced — Governance Review Package, Pilot Activation Package, Success Metrics Dashboard, Rollback Procedure, Pilot Exit Criteria.
+
+### Description
+Following Sponsor Decision AOP-013-SD-001 (ADOPT WITH CONDITIONS), five Phase B deliverables were produced and placed under `enhancements/AOP-013/phase-b/`. The deliverables incorporate all five Sponsor conditions, with advisory mode as the primary safety condition for the pilot.
+
+### Scope
+
+**New directory: `enhancements/AOP-013/phase-b/` (6 files)**
+
+| File | Content |
+|------|---------|
+| `00_PHASE_B_INDEX.md` | Phase B index and sequence |
+| `00_SPONSOR_DECISION.md` | Formal record of ADOPT WITH CONDITIONS decision |
+| `01_GOVERNANCE_REVIEW_PACKAGE.md` | G1/G2/G3 review checklists; advisory mode compatibility; OBS-001/002/003 |
+| `02_NADF_PILOT_ACTIVATION_PACKAGE.md` | Advisory mode definition; per-WP operating protocol; role assignments |
+| `03_SUCCESS_METRICS_DASHBOARD.md` | 10 metrics across 6 sections; baseline set; update protocol |
+| `04_ROLLBACK_PROCEDURE.md` | 5 triggers (T-01 to T-05); 7-step procedure; re-pilot conditions |
+| `05_PILOT_EXIT_CRITERIA.md` | 7 exit criteria (EC-1 to EC-7); GRADUATE/EXTEND/REVISE/TERMINATE; binding mode activation |
+
+**Modified root documents:**
+- `DECISION_LOG.md` — DEC-014 (Sponsor decision) added
+- `IMPLEMENTATION_HISTORY.md` — this entry (IMP-010)
+- `ROADMAP.md` — AOP-013 status updated to Phase B active
+
+### Configuration Notes
+Phase B governance review by G1/G2/G3 is the immediate next action.
+No Agent OS core files modified. No NADF project files modified.
+NADF delivery continues on v1.0 without disruption.
+
+### Outstanding Issues
+- G1/G2/G3 must complete Phase B governance reviews before pilot activates
+- EXECUTION_AUTHORITY_REGISTER.md and AUTHORITY_DECISION_LOG.md not yet deployed to NADF project root (held until Phase B review passes)
+- Pilot Plan (Phase A document 10) references WP-02; superseded by Sponsor Condition 4 (WP-03/WP-04). No formal revision required — Phase B document 02 is the operative pilot plan.
+
+### Post-Delivery Verification
+- 6 files present in `enhancements/AOP-013/phase-b/`
+- DEC-014 logged in DECISION_LOG.md
+- ROADMAP.md updated
+
+### References
+DEC-013, DEC-014 (Sponsor decision), IMP-009 (Phase A delivery)
+
+---
+
+## IMP-009
+
+**Date:** 2026-06-25
+**Type:** `GOVERNANCE_UPDATE`
+**Status:** COMPLETE
+**Delivered By:** A1 Master Orchestrator / Claude Sonnet 4.6
+**PR Reference:** Pending
+
+### Title
+AOP-013 Execution Authority Framework — all 12 design deliverables complete; enhancement package placed under `enhancements/AOP-013/`.
+
+### Description
+AOP-013 is a strategic enhancement to Agent OS designed to enable multi-project portfolio delivery by replacing Human Sponsor task-level approval with a formal, governance-driven execution authority model. The complete design package (12 documents, 2,778 lines) was produced in a single session following the AOP-013 program specification.
+
+The enhancement defines six authority classes (EA-1 through EA-6), a full approval matrix, an execution authority register format, governance responsibility extensions for A1/G1/G2/G3/D2, a phased migration plan, risk assessment, pilot plan, validation plan, and an adoption recommendation.
+
+### Scope
+
+**New directory: `enhancements/AOP-013/` (13 files)**
+
+| File | Content |
+|------|---------|
+| `00_README.md` | Package index and next-step instructions |
+| `01_AOP-013_SPECIFICATION.md` | Core specification: problem, principles, scope, success criteria |
+| `02_ARCHITECTURE_IMPACT_ASSESSMENT.md` | Impact on Agent OS v1.0 architecture |
+| `03_GOVERNANCE_IMPACT_ASSESSMENT.md` | Impact on governance model and artifacts |
+| `04_AGENT_OS_V2_DESIGN.md` | Full v2.0 design: flows, formats, protocols, config |
+| `05_AUTHORITY_CLASSIFICATION_STANDARD.md` | EA-1 through EA-6 definitions and classification rules |
+| `06_APPROVAL_MATRIX.md` | Reviewer requirements per authority class |
+| `07_EXECUTION_AUTHORITY_REGISTER.md` | NADF register template with retrospective pilot entries |
+| `08_MIGRATION_PLAN.md` | Phase A–F migration across all three pods |
+| `09_RISK_ASSESSMENT.md` | 10 risks identified; all Low/Medium post-mitigation |
+| `10_PILOT_PLAN.md` | NADF WP-02 pilot execution plan |
+| `11_VALIDATION_PLAN.md` | 7 measurable validation criteria |
+| `12_ADOPTION_RECOMMENDATION.md` | A1 recommendation to Human Sponsor |
+
+**Modified root documents:**
+- `DECISION_LOG.md` — DEC-013 added
+- `IMPLEMENTATION_HISTORY.md` — this entry (IMP-009)
+
+### Configuration Notes
+AOP-013 is in Phase A (Design) — COMPLETE.
+Phase B (Governance Review) is the next step.
+Agent OS v1.0 remains active for all three pods until Phase B/C complete.
+
+### Outstanding Issues
+- Phase B: G1/G2/G3 must formally review and approve the AOP-013 package
+- Phase C: NADF WP-02 pilot execution under v2.0 required before wider adoption
+- Agent prompts (A1, G1, G2, G3, D2) must be updated before Phase C begins
+- EXECUTION_AUTHORITY_REGISTER.md and AUTHORITY_DECISION_LOG.md must be deployed to NADF project root before Phase C
+
+### Post-Delivery Verification
+- All 13 files present in `enhancements/AOP-013/` (verified via `ls`)
+- Total: 2,778 lines across 12 deliverables + index
+- DEC-013 logged in DECISION_LOG.md
+- ROADMAP.md updated to reflect AOP-013 as active enhancement stream
+
+### References
+DEC-013 (AOP-013 architecture decision)
+
+---
+
 ## IMP-008
 
 **Date:** 2026-05-29

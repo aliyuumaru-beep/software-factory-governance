@@ -390,7 +390,27 @@ Replace all `[PLACEHOLDER]` text. Delete these instructions before issuing.
 | Every WP has at least one verifiable acceptance criterion | [ ] |
 | Every WP states governance reviews required | [ ] |
 | No WP-DEV exists without a preceding WP-SPEC dependency | [ ] |
+| Every WP Exit Gate includes "Update Governance Approval Register" as mandatory AC | [ ] |
 
 ---
 
-*PEF_WORK_PACKAGE_TEMPLATE.md v1.0 — Software Factory governance standard*
+## MANDATORY EXIT GATE REQUIREMENT — ALL WORK PACKAGES
+
+> **AOP-015 Governance Approval Register Standard**
+>
+> Every Work Package Exit Gate must include the following as a mandatory acceptance criterion:
+>
+> **AC-GAR: Governance Approval Register Updated**
+> The `docs/governance/GOVERNANCE_APPROVAL_REGISTER.md` has been updated to reflect all
+> decisions, exceptions, escalations, and authority decisions taken during this Work Package.
+> The register's Executive Summary totals reconcile. Department grouping is correct.
+>
+> **No Work Package may close until this criterion is satisfied.**
+>
+> Add the following line to every Work Package's Acceptance Criteria section:
+>
+> `[ ] AC-GAR — Governance Approval Register updated; Executive Summary totals reconcile.`
+
+---
+
+*PEF_WORK_PACKAGE_TEMPLATE.md v1.1 — Software Factory governance standard (updated AOP-015)*
