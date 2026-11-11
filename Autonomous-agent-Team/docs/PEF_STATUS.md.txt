@@ -1,0 +1,33 @@
+PEF_STATUS.md
+Framework Status
+Status: APPROVED
+Version: 1.1
+Approval Date: 2026-06-21
+Framework Owner: Software Factory Governance
+Current State
+PEF v1.1 is approved for use on:
+	•	ERP Projects
+	•	Government Digital Transformation
+	•	NGO/CBO Solutions
+	•	Manufacturing ERP Projects
+Deferred Enhancements
+v1.2
+	•	Data Migration Governance
+	•	Hypercare Governance
+	•	Registry Lookup Governance
+	•	Partial TO-BE Guidance
+	•	Agent vs Human Approval Clarification
+v2.0
+	•	AI Annex
+	•	SaaS Annex
+	•	Scaling Matrix
+	•	Regulatory Annex
+	•	Framework Amendment Procedure
+	•	Programme Suspension Procedure
+Trigger For Next Review
+PEF shall only be reviewed when:
+	1	A live project exposes a framework gap.
+	2	A governance review identifies a weakness.
+	3	A new delivery model requires extension.
+Governance Rule
+PEF is frozen at v1.1 unless one of the review triggers above occurs.

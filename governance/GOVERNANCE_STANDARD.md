@@ -47,6 +47,19 @@ Every Software Factory project repository must contain the following documents:
 | `MODULE_REGISTRY.md` | Registry of all modules, components, services, integrations, and scripts |
 | `ROADMAP.md` | Current project roadmap aligned to the roadmap standard |
 
+### 3.2 Mandatory Governance Documents (`docs/governance/`)
+
+| File | Purpose |
+|------|---------|
+| `docs/governance/GOVERNANCE_APPROVAL_REGISTER.md` | Single executive view of every governance approval, architectural decision, exception, escalation, and authority decision, grouped by business department. Mandatory for all projects. Template: `templates/GOVERNANCE_APPROVAL_REGISTER_TEMPLATE.md`. Standard: AOP-015. |
+
+> **Governance Approval Register (AOP-015):** This artifact provides consolidated executive
+> oversight of all decisions taken on a product. It is distinct from `DECISION_LOG.md`
+> (technical append-only log) in that it is organised by business department, uses executive
+> language, and includes department summary counts, open escalations, deferred decisions, and
+> AOP-013 authority records in one document. Every Work Package Exit Gate must include
+> "Update Governance Approval Register" as a mandatory acceptance criterion.
+
 > **Note for governance-layer repositories:** A repository that maintains multiple
 > roadmap files in a `roadmaps/` subdirectory satisfies the `ROADMAP.md` requirement
 > by providing a root `ROADMAP.md` that summarises the current phase and delegates to
