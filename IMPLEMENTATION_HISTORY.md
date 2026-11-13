@@ -24,10 +24,10 @@ Enforced governance gateway (`enforcement/`, `gov` CLI, reusable `governance-gat
 - `enforcement/reviewers/G1..G3.md`: self-contained reviewer prompts (base role prompt + enforcement appendix).
 - `.github/workflows/governance-gate.yml`: reusable gate; required check `governance / gate`.
 - `enforcement/install.sh`: installs user-level hooks, the `gov` CLI, git hooks and the global CLAUDE.md block.
-- `enforcement/tests/test_gov.py`: 77 acceptance checks (R1–R10, L2, L3), all passing. A live smoke test ran a real headless G2 reviewer, which correctly REJECTED a change with no tests and a stub spec.
+- `enforcement/tests/test_gov.py`: 79 acceptance checks (R1–R10, L2, L3), all passing. A live smoke test ran a real headless G2 reviewer, which correctly REJECTED a change with no tests and a stub spec.
 
 ### Evidence
-`python3 enforcement/tests/test_gov.py` gives 77/77 passed (the suite's own count); workflow `enforcement-tests` runs the same suite on every PR.
+`python3 enforcement/tests/test_gov.py` gives 79/79 passed (the suite's own count); workflow `enforcement-tests` runs the same suite on every PR.
 
 ### First real review round (2026-11-13), 12 independent reviewer runs
 - Governance repo, NADF and WamaCare onboarding: G1/G2/G3 each APPROVED WITH CONDITIONS.
@@ -63,6 +63,16 @@ Enforced governance gateway (`enforcement/`, `gov` CLI, reusable `governance-gat
   need the `governance-change` label; `gov protect --linear-history` added as an opt-in (off by default,
   sponsor decision, because child repos merge with merge commits); SPEC §5 lists the post-merge sponsor
   checklist; the test count is corrected to the suite's own output (G1 F1–F4, G2 F-1/F-2).
+
+### Fourth review round (2026-11-13), 3 reviewer runs on this repo
+- G1, G2, G3 APPROVED WITH CONDITIONS.
+- Addressed: session ids are reduced to a safe basename before naming a state file (path traversal,
+  G3 C-2); `install.sh` now validates the gateway config and the user's Claude settings file before
+  changing anything and stops with "nothing changed" if either is corrupt (G3 C-1; deliberately not a
+  `{}` fallback, which would silently drop the user's other settings); SPEC §5 says to keep the DEC-011
+  ruleset alongside the new one, since GitHub applies all active rulesets together (G1 F-2/F-3).
+  Tests for both fixes added; 79/79 pass.
+- Remaining condition (G2): `enforcement-tests` must be green on the PR in CI.
 
 ---
 

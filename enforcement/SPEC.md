@@ -124,6 +124,9 @@ Criterion 3 becomes true only after these post-merge sponsor actions, in this or
    `.governance.json` and `enforcement/` changes), then merge.
 2. Tag the merged `main` as `gate-v1` and push the tag.
 3. In this repo: `gov protect --gate-tags` (main ruleset plus the immutable `gate-v*` tag ruleset).
+   Keep the existing `software-factory-governance-v1` ruleset (DEC-011) active. GitHub applies every
+   active ruleset together, so this repo keeps DEC-011's squash-only merges, linear history and four
+   checks, and gains the `governance / gate` check. Do not delete it unless a new decision replaces it.
 4. In each child repo: set the reviewer secret, merge its onboarding PR, then `gov protect` once its
    `governance / gate` has passed.
 5. Record the confirmation in a new IMPLEMENTATION_HISTORY entry and mark IMP-009 COMPLETE.

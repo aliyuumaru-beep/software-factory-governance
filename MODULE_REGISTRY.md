@@ -13,7 +13,7 @@ Registry of scripts, services and infrastructure components shipped by this repo
 | MOD-002 | `enforcement/install.sh` | Script | ACTIVE | 2026-11-13 | Installs the gateway for a user (hooks, CLI, git hooks, global CLAUDE.md block) |
 | MOD-003 | `enforcement/reviewers/G1.md`, `G2.md`, `G3.md` | Component | ACTIVE | 2026-11-13 | Independent reviewer prompts (base role prompt plus enforcement appendix) |
 | MOD-004 | `enforcement/templates/` | Component | ACTIVE | 2026-11-13 | Onboarding templates: `.governance.json`, caller workflow, AGENTS.md, bootstrap hook, git hooks, global CLAUDE.md block |
-| MOD-005 | `enforcement/tests/test_gov.py` | Script | ACTIVE | 2026-11-13 | Acceptance suite for R1–R10, L2 and L3 (77 checks) |
+| MOD-005 | `enforcement/tests/test_gov.py` | Script | ACTIVE | 2026-11-13 | Acceptance suite for R1–R10, L2 and L3 (79 checks) |
 | MOD-006 | `.github/workflows/governance-gate.yml` | Infrastructure | ACTIVE | 2026-11-13 | Reusable PR gate (`docs-gate`, then `review-G1..G3`, then `gate`), released as immutable tags `gate-vN` |
 | MOD-007 | `.github/workflows/enforcement-tests.yml` | Infrastructure | ACTIVE | 2026-11-13 | Runs MOD-005 on PRs touching `enforcement/` |
 | MOD-008 | `.github/workflows/governance.yml` | Infrastructure | ACTIVE | 2026-11-13 | This repository's own call of MOD-006 (local path, PR copy) |

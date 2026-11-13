@@ -16,6 +16,22 @@ while [ $# -gt 0 ]; do
   case "$1" in --owner) OWNER="$2"; shift 2 ;; *) REPOS+=("$1"); shift ;; esac
 done
 
+# Pre-flight: refuse to start if a JSON file we merge into is unreadable, so the install never stops
+# half-way. (Falling back to {} would silently drop the user's other settings.) G3 review 2026-11-13.
+python3 - "$GOV_HOME/config.json" "$HOME/.claude/settings.json" <<'PY'
+import json, os, sys
+bad = []
+for p in sys.argv[1:]:
+    if os.path.exists(p):
+        try:
+            with open(p) as fh:
+                json.load(fh)
+        except (OSError, ValueError) as e:
+            bad.append("%s: %s" % (p, e))
+if bad:
+    sys.exit("install.sh: nothing changed. Fix or move these files, then re-run:\n  " + "\n  ".join(bad))
+PY
+
 mkdir -p "$GOV_HOME"/{state,logs,githooks} "$HOME/.local/bin"
 cp "$SRC/govcore.py" "$GOV_HOME/govcore.py"
 rm -rf "$GOV_HOME/reviewers" "$GOV_HOME/templates"

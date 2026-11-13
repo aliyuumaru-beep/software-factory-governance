@@ -302,6 +302,22 @@ check("R10 protect: linear history is opt-in (off by default)", "required_linear
 p = gov("protect --repo %s --dry-run --linear-history" % NEWP, cwd=NEWP)
 check("R10 protect --linear-history adds the rule", '"required_linear_history"' in p.stdout, p.stdout[-200:])
 
+# ── R9 robustness: hostile session ids, corrupt JSON in the installer ─────
+cfg_before = open(os.path.join(GOV_HOME, "config.json")).read()
+hook("pre-tool", {"session_id": "../config", "cwd": REPO,
+                  "tool_name": "Read", "tool_input": {"file_path": os.path.join(REPO, "CLAUDE.md")}})
+check("R9 a session id cannot address files outside the state dir",
+      open(os.path.join(GOV_HOME, "config.json")).read() == cfg_before)
+FH = os.path.join(T, "fakehome")
+os.makedirs(os.path.join(FH, ".claude"))
+open(os.path.join(FH, ".claude", "settings.json"), "w").write("{not json")
+INSTALLER = os.path.join(os.path.dirname(ENGINE), "install.sh")
+p = sh("bash %s" % INSTALLER, env=dict(ENV, HOME=FH, GOV_HOME=os.path.join(FH, "gh")))
+check("R9 installer refuses a corrupt settings.json and changes nothing",
+      p.returncode != 0 and "nothing changed" in (p.stdout + p.stderr)
+      and open(os.path.join(FH, ".claude", "settings.json")).read() == "{not json"
+      and not os.path.exists(os.path.join(FH, "gh", "govcore.py")), (p.stdout + p.stderr)[-200:])
+
 # ── report ─────────────────────────────────────────────────────────────────
 fails = 0
 for ok, name, detail in RESULTS:

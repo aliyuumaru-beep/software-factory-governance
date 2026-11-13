@@ -274,7 +274,9 @@ def registered_repos():
 # ───────────────────────────── session state ──────────────────────────────
 
 def session_state(sid):
-    path = os.path.join(STATE_DIR, (sid or "nosession") + ".json")
+    # basename: a session id can never address a file outside STATE_DIR (G3 review 2026-11-13)
+    safe = re.sub(r"[^A-Za-z0-9_.-]", "_", os.path.basename(sid or "")) or "nosession"
+    path = os.path.join(STATE_DIR, safe + ".json")
     return path, (load_json(path, {}) or {})
 
 

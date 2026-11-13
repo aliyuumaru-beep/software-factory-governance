@@ -27,6 +27,7 @@ Governance versions follow semantic versioning: MAJOR.MINOR.PATCH.
 - SPEC §4 documents the remaining accepted limits: engine from `main`, PR-body prompt-injection surface, L2 allowlist.
 - Changes to the gate engine (`enforcement/`) need the sponsor's `governance-change` label; reviewers also cannot use `MultiEdit`.
 - `gov protect --linear-history` (opt-in) forbids merge commits on `main`.
+- Session ids cannot address files outside the state directory; the installer refuses to start when a JSON file it merges into is corrupt.
 
 ## [1.5.0] — 2026-05-29
 
