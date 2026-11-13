@@ -8,6 +8,29 @@ Entries are listed in reverse chronological order (newest first).
 
 ---
 
+## IMP-009
+
+**Date:** 2026-11-13
+**Type:** `GOVERNANCE_UPDATE`
+**Status:** IN REVIEW
+**Delivered By:** Claude Opus 5.5 (sponsor directive)
+**PR Reference:** feat/gov-enforcement-gateway
+
+### Title
+Enforced governance gateway (`enforcement/`, `gov` CLI, reusable `governance-gate` workflow).
+
+### Summary
+- `enforcement/govcore.py`: one engine for Claude hooks, CLI, git hooks and CI (standard library only).
+- `enforcement/reviewers/G1..G3.md`: self-contained reviewer prompts (base role prompt + enforcement appendix).
+- `.github/workflows/governance-gate.yml`: reusable gate; required check `governance / gate`.
+- `enforcement/install.sh`: installs user-level hooks, the `gov` CLI, git hooks and the global CLAUDE.md block.
+- `enforcement/tests/test_gov.py`: 42 acceptance checks (R1–R9, L3), all passing. A live smoke test ran a real headless G2 reviewer, which correctly REJECTED a change with no tests and a stub spec.
+
+### Evidence
+`python3 enforcement/tests/test_gov.py` gives 42/42 passed; workflow `enforcement-tests` runs the same suite on every PR.
+
+---
+
 ## IMP-008
 
 **Date:** 2026-05-29

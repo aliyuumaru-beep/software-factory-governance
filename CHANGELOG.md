@@ -11,6 +11,14 @@ Governance versions follow semantic versioning: MAJOR.MINOR.PATCH.
 
 ---
 
+## [1.6.0] — 2026-11-13
+
+### Added
+- `enforcement/`: enforced governance gateway (SPEC-GOV-ENF-001, DEC-013). It covers user-level Claude Code hooks, the `gov` CLI, independent G1/G2/G3 reviewer instances, git hooks for humans, the project bootstrap and the installer.
+- `.github/workflows/governance-gate.yml`: reusable PR gate (docs gate, then G1/G2/G3 in CI, then `gate`).
+- `.github/workflows/enforcement-tests.yml`: runs the gateway acceptance suite.
+- `.governance.json` and `.github/workflows/governance.yml`: this repository governs itself through the same gate.
+
 ## [1.5.0] — 2026-05-29
 
 ### Infrastructure

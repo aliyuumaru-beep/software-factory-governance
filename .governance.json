@@ -1,0 +1,13 @@
+{
+  "pod": "POD-GOVERNANCE",
+  "governance_repo": "aliyuumaru-beep/software-factory-governance",
+  "default_branch": "main",
+  "protected_branches": ["main"],
+  "briefing_docs": ["CLAUDE.md", "README.md", "enforcement/SPEC.md"],
+  "code_paths": ["enforcement/", ".github/"],
+  "required_doc_updates": ["CHANGELOG.md", "DECISION_LOG.md", "IMPLEMENTATION_HISTORY.md"],
+  "spec_sources": ["enforcement/SPEC.md", "DECISION_LOG.md", "governance", "docs"],
+  "live_databases": [],
+  "backup_dirs": [],
+  "backup_max_age_hours": 6
+}

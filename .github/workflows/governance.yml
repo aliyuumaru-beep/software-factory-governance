@@ -1,0 +1,12 @@
+# This repository runs its own (PR) copy of the gate; every other repo runs the copy on main.
+name: governance
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited, labeled, unlabeled, ready_for_review]
+permissions:
+  contents: read
+  pull-requests: write
+jobs:
+  governance:
+    uses: ./.github/workflows/governance-gate.yml
+    secrets: inherit

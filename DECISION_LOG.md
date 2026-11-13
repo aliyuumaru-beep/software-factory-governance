@@ -6,6 +6,47 @@ recorded here following the standard defined in `governance/DECISION_LOG_STANDAR
 
 ---
 
+## DEC-013
+
+**Date:** 2026-11-13
+**Type:** `GOVERNANCE`
+**Status:** ACTIVE (pending sponsor merge)
+**Made By:** Sponsor (Aliyu Umaru) directive; implemented by Claude Opus 5.5
+**PR Reference:** feat/gov-enforcement-gateway
+
+### Title
+Governance is enforced, not advisory: every session on every Software Factory project (AI or human) is routed through the governance gateway and G1/G2/G3 run as independent reviewers (DEC-GOV-ENF-001, SPEC-GOV-ENF-001).
+
+### Context
+A 2026-11-13 audit found that none of the governance layers were running. The G1/G2/G3 role prompts existed only as text (and only on the unmerged branch `chore/migration-commit-2026-1111`). Past gate reports were written by the same agent that did the build. Project hooks loaded only when Claude Code was started inside the project folder. NADF `main` required 0 approvals and no status checks. As a result, the NADF Facilities Management feature (NADF PR #14) was specified in chat, built, pushed and applied to the live database without spec, review or full governance records. The sponsor directed that any new session on any project, and any human developer, must be forced through the governance gateways.
+
+### Decision
+Adopt the layered gateway in `enforcement/` (spec: `enforcement/SPEC.md`):
+1. L1: user-level Claude Code hooks (`gov hook`) that fire in every session regardless of start folder. They enforce briefing, branch, no-spec-no-code, live-database and ship gates.
+2. L2: project bootstrap hooks that block all writes on machines where the gateway is not installed.
+3. L3: git hooks for human developers (advisory, bypassable with `--no-verify`).
+4. L4: a reusable `governance-gate` workflow, required on `main` through a ruleset with no bypass actors. It runs the docs gate, then G1/G2/G3 as separate headless Claude Code instances. REJECTED or ESCALATE fails the gate unless the sponsor adds `sponsor-override`.
+
+### Alternatives Considered
+
+| Alternative | Reason Rejected |
+|-------------|----------------|
+| Keep governance as prompts / CLAUDE.md instructions | Proven ineffective: bypassed silently on 2026-11-12/13 |
+| Project-level hooks only | Do not load when a session starts outside the project folder (root cause of the bypass) |
+| Required human approvals on PRs | Single-sponsor organisation: GitHub does not allow approving your own PR, so this would block all work |
+| Claude subagents inside the building session | Same context and incentives as the builder; not independent. Separate headless processes are used instead |
+
+### Consequences
+- Reviews consume Claude usage (3 headless runs per review, locally and in CI). Each governed repo needs a `CLAUDE_CODE_OAUTH_TOKEN` (or `ANTHROPIC_API_KEY`) secret, otherwise the gate stays closed.
+- Admins can no longer merge around the gate. Emergency changes need the sponsor to edit the ruleset, which is visible and logged.
+- Local layers are heuristic. L4 is the guarantee.
+- A human with direct database access can still change a live database outside Git (tracked as a risk).
+
+### Related Entries
+DEC-011, IMP-009, SPEC-GOV-ENF-001
+
+---
+
 ## DEC-012
 
 **Date:** 2026-05-29
