@@ -508,12 +508,17 @@ def hook_pre_tool(data):
         return
     command = ti.get("command", "")
 
-    if re.search(r"governance/(reviews|tickets)/", command) and not command.strip().startswith("gov "):
+    # Shell constructs that can write files. Reading verdicts/settings is fine; writing is not.
+    writes = re.search(r"(>|\btee\b|sed\s+-i|\brm\b|\bmv\b|\bcp\b|\btouch\b|\bpython3?\b|\bperl\b|"
+                       r"\bruby\b|\bnode\b|\bdd\b|\binstall\b|\bln\b|\btruncate\b|\bchmod\b)", command)
+    if re.search(r"governance/(reviews|tickets)/", command) and writes and \
+            not command.strip().startswith("gov "):
         return deny("Verdict and ticket files are managed only by `gov`.", data, "R6")
-    if re.search(r"\.claude/settings(\.local)?\.json|\.claude/governance/", command) and \
-            re.search(r"(>|sed -i|rm |mv |cp |tee |python)", command):
+    if re.search(r"\.claude/settings(\.local)?\.json|\.claude/governance/", command) and writes:
         return deny("Changing governance hooks/settings from a session is not allowed; the user must do "
                     "it by hand.", data, "R9")
+    # GOV_ALLOW_INSTALL: escape hatch for the user's own shell (e.g. `! GOV_ALLOW_INSTALL=1 ...`) and for
+    # the test-suite. A Claude session cannot set it for its hook process (SPEC §3 R9).
     if re.search(r"enforcement/install\.sh", command) and not os.environ.get("GOV_ALLOW_INSTALL"):
         return deny("Installing/updating the governance gateway is done by the user, from merged `main` "
                     "only. Ask the user to run it themselves: `! bash <software-factory-governance>/"
@@ -1007,6 +1012,22 @@ def cmd_protect(args):
     p = subprocess.run(["gh", "api", "-X", method, path, "--input", "-"], input=json.dumps(body),
                        capture_output=True, text=True)
     print(p.stdout[:500] or p.stderr)
+    if p.returncode or not args.gate_tags:
+        return p.returncode
+    # Governance repo only: make gate release tags (gate-v*) immutable, so child repos that pin
+    # `governance-gate.yml@gate-vN` cannot be silently re-pointed (G3 E3 finding, 2026-11-13).
+    tag_body = {"name": "software-factory-gate-tags", "target": "tag", "enforcement": "active",
+                "bypass_actors": [],
+                "conditions": {"ref_name": {"include": ["refs/tags/gate-v*"], "exclude": []}},
+                "rules": [{"type": "update"}, {"type": "deletion"}, {"type": "non_fast_forward"}]}
+    tid = None
+    for rs in json.loads(existing.stdout or "[]") if existing.returncode == 0 else []:
+        if rs.get("name") == tag_body["name"]:
+            tid = rs["id"]
+    method, path = ("PUT", "repos/%s/rulesets/%s" % (slug, tid)) if tid else ("POST", "repos/%s/rulesets" % slug)
+    p = subprocess.run(["gh", "api", "-X", method, path, "--input", "-"], input=json.dumps(tag_body),
+                       capture_output=True, text=True)
+    print(p.stdout[:500] or p.stderr)
     return p.returncode
 
 
@@ -1033,6 +1054,8 @@ def main(argv=None):
     s = sub.add_parser("onboard"); s.add_argument("path", nargs="?"); s.add_argument("--pod")
     s = sub.add_parser("protect"); s.add_argument("--repo"); s.add_argument("--slug")
     s.add_argument("--checks"); s.add_argument("--dry-run", action="store_true")
+    s.add_argument("--gate-tags", action="store_true",
+                   help="governance repo only: also make gate-v* tags immutable")
     sub.add_parser("version")
     args = ap.parse_args(argv)
     handlers = {"hook": cmd_hook, "status": cmd_status, "start": cmd_start, "review": cmd_review,

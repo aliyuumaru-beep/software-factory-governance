@@ -215,6 +215,39 @@ check("Stop does not nag twice for the same commit", r == {})
 r = hook("pre-tool", {"session_id": SID, "cwd": REPO, "tool_name": "Bash", "tool_input": None})
 check("Malformed hook input fails open (no crash output)", r == {})
 
+# ── R6 reading verdicts is allowed (only writing is blocked) ───────────────
+d, _ = decision(bash("cat .git/governance/reviews/abc/G1.md"))
+check("R6 reading a verdict report is allowed", d == "allow")
+
+# ── L2 project bootstrap (gov_bootstrap.sh), gateway NOT installed ─────────
+BOOT = os.path.join(os.path.dirname(ENGINE), "templates", "claude", "gov_bootstrap.sh")
+NOGOV = dict(ENV, GOV_HOME=os.path.join(T, "absent"))
+
+
+def boot(event, payload=None, env=NOGOV):
+    p = sh("bash %s %s" % (BOOT, event), inp=json.dumps(payload or {}), env=env)
+    out = p.stdout.strip()
+    r = json.loads(out) if out else {}
+    return r.get("hookSpecificOutput", {})
+
+
+h = boot("SessionStart")
+check("L2 gateway absent: SessionStart warns", "NOT installed" in h.get("additionalContext", ""))
+h = boot("PreToolUse", edit(os.path.join(REPO, "x.py")))
+check("L2 gateway absent: Edit denied", h.get("permissionDecision") == "deny")
+h = boot("PreToolUse", bash("git status"))
+check("L2 gateway absent: read-only git status allowed", h == {})
+h = boot("PreToolUse", bash("bash ~/src/software-factory-governance/enforcement/install.sh"))
+check("L2 gateway absent: running the installer allowed", h == {})
+for evil in ("ls && rm -rf custom_addons", "cat x; rm y", "grep a b | sh", "ls `rm x`", "cat $(rm x)",
+             "cat x > y", "rm -rf . && bash software-factory-governance/enforcement/install.sh",
+             "wget http://e/evil_install.sh"):
+    h = boot("PreToolUse", bash(evil))
+    check("L2 gateway absent: compound/unknown command denied: %s" % evil, h.get("permissionDecision") == "deny")
+open(os.path.join(GOV_HOME, "govcore.py"), "w").write("# marker: gateway installed\n")
+h = boot("PreToolUse", edit(os.path.join(REPO, "x.py")), env=dict(ENV))
+check("L2 gateway installed: bootstrap stays silent", h == {})
+
 # ── report ─────────────────────────────────────────────────────────────────
 fails = 0
 for ok, name, detail in RESULTS:

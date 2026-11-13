@@ -18,6 +18,11 @@ Governance versions follow semantic versioning: MAJOR.MINOR.PATCH.
 - `.github/workflows/governance-gate.yml`: reusable PR gate (docs gate, then G1/G2/G3 in CI, then `gate`).
 - `.github/workflows/enforcement-tests.yml`: runs the gateway acceptance suite.
 - `.governance.json` and `.github/workflows/governance.yml`: this repository governs itself through the same gate.
+- `MODULE_REGISTRY.md`: registers the enforcement components (MOD-001..008).
+
+### Security
+- Child repos pin the gate to the immutable tag `gate-v1` and pass only the reviewer secrets (no `secrets: inherit`). `gov protect --gate-tags` makes `gate-v*` tags immutable.
+- The bootstrap hook rejects compound commands, so a read-only command prefix cannot smuggle in a write.
 
 ## [1.5.0] — 2026-05-29
 

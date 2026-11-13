@@ -30,6 +30,17 @@ chmod +x "$HOME/.local/bin/gov"
 
 python3 - "$GOV_HOME" "$SFG" "$OWNER" "${REPOS[@]+"${REPOS[@]}"}" <<'PY'
 import json, os, sys
+
+def atomic_text(path, text):
+    # write-then-rename so an interrupted install never leaves a truncated file (G1/G3 2026-11-13)
+    tmp = path + ".tmp"
+    with open(tmp, "w") as fh:
+        fh.write(text)
+    os.replace(tmp, path)
+
+def atomic_json(path, data):
+    atomic_text(path, json.dumps(data, indent=2) + "\n")
+
 gov_home, sfg, owner, repos = sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4:]
 home = os.path.expanduser("~")
 
@@ -45,7 +56,7 @@ for r in repos:
     r = os.path.realpath(os.path.expanduser(r))
     if r not in cfg["repos"]:
         cfg["repos"].append(r)
-json.dump(cfg, open(cp, "w"), indent=2)
+atomic_json(cp, cfg)
 
 # user-level hooks
 sp = os.path.join(home, ".claude", "settings.json")
@@ -65,7 +76,7 @@ for event, (matcher, arg, timeout) in want.items():
     lst.append({"matcher": matcher, "hooks": [{"type": "command", "timeout": timeout,
                 "command": "python3 \"%s\" hook %s" % (engine, arg)}]})
     hooks[event] = lst
-json.dump(st, open(sp, "w"), indent=2)
+atomic_json(sp, st)
 
 # global CLAUDE.md block
 cm = os.path.join(home, ".claude", "CLAUDE.md")
@@ -75,7 +86,7 @@ text = open(cm).read() if os.path.exists(cm) else ""
 if start in text:
     text = text[:text.index(start)] + text[text.index(end) + len(end):]
 text = text.rstrip() + ("\n\n" if text.strip() else "") + start + "\n" + block.strip() + "\n" + end + "\n"
-open(cm, "w").write(text)
+atomic_text(cm, text)
 print("config:", cp)
 print("hooks :", sp)
 print("rules :", cm)

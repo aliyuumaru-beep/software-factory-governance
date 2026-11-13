@@ -87,11 +87,16 @@ and installs the git hooks. `gov protect` applies the GitHub ruleset.
   hooks can. L4 is the guarantee: nothing reaches `main` without the gate.
 - A human with direct database access can still change a live database
   outside Git. Mitigation is operational (separate DB roles), tracked as a risk.
-- In the governance repo itself the gate runs the PR's own copy of the
-  workflow (other repos run the copy on `main`).
+- In the governance repo itself the gate runs the PR's own copy of the workflow. Other repos run an
+  immutable release tag (`gate-v1`; tag ruleset `software-factory-gate-tags`, no bypass) and receive only
+  the two reviewer secrets, never `secrets: inherit` (G3 E3 finding on the first review round).
+- `GOV_ALLOW_INSTALL=1` lets the user's own shell (or the test suite) run `install.sh` past R9. A Claude
+  session cannot set it for its hook process.
+- Command inspection is text-based: a command that merely mentions a protected path while also running
+  an interpreter is refused (false positives are accepted; use the dedicated file tools instead).
 
 ## 5. Acceptance
 
-- `enforcement/tests/test_gov.sh` passes (hook decisions for each requirement).
+- `enforcement/tests/test_gov.py` passes (hook decisions for each requirement, the L2 bootstrap and L3 git hooks).
 - A session started in `~` is blocked from editing NADF code until briefed and ticketed.
 - A PR without G1–G3 approval cannot be merged into `main` by the admin.

@@ -27,7 +27,20 @@ Enforced governance gateway (`enforcement/`, `gov` CLI, reusable `governance-gat
 - `enforcement/tests/test_gov.py`: 42 acceptance checks (R1–R9, L3), all passing. A live smoke test ran a real headless G2 reviewer, which correctly REJECTED a change with no tests and a stub spec.
 
 ### Evidence
-`python3 enforcement/tests/test_gov.py` gives 42/42 passed; workflow `enforcement-tests` runs the same suite on every PR.
+`python3 enforcement/tests/test_gov.py` gives 56/56 passed; workflow `enforcement-tests` runs the same suite on every PR.
+
+### First real review round (2026-11-13), 12 independent reviewer runs
+- Governance repo, NADF and WamaCare onboarding: G1/G2/G3 each APPROVED WITH CONDITIONS.
+- FamOil onboarding: G1 REJECTED, G2 REJECTED, G3 ESCALATE (E1, E3). The reviewers caught a real defect
+  in the builder's own work. A helper script opened two FamOil briefing docs for writing before reading
+  them, which truncated DEC-001..011 and Phases 1–4 of history. The builder session had not noticed.
+  The content was restored from `origin/main`.
+- G3 E3, raised in all repos: `secrets: inherit` to a workflow at the moving `@main`. Fixed by passing
+  only the two reviewer secrets and pinning children to the immutable tag `gate-v1`. `gov protect --gate-tags`
+  adds the tag ruleset.
+- Other conditions addressed: MODULE_REGISTRY.md created, ROADMAP updated, SPEC test filename fixed,
+  `GOV_ALLOW_INSTALL` documented, atomic installer writes, the bootstrap allowlist hardened against
+  compound commands (`ls && rm …`) with tests, and the verdict guard narrowed to writes (reads are allowed).
 
 ---
 

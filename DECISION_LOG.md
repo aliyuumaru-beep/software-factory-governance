@@ -41,6 +41,7 @@ Adopt the layered gateway in `enforcement/` (spec: `enforcement/SPEC.md`):
 - Admins can no longer merge around the gate. Emergency changes need the sponsor to edit the ruleset, which is visible and logged.
 - Local layers are heuristic. L4 is the guarantee.
 - A human with direct database access can still change a live database outside Git (tracked as a risk).
+- Supply chain: child repos call the gate at the immutable tag `gate-v1`, not `@main`, and pass only the two reviewer secrets. Gate upgrades are a new `gate-vN` tag plus a deliberate PR in each child. (Added after G3 raised E3 in the first review round.)
 
 ### Related Entries
 DEC-011, IMP-009, SPEC-GOV-ENF-001
