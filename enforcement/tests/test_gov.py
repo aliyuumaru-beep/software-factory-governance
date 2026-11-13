@@ -205,6 +205,15 @@ sh("echo '{}' > .governance.json && git commit -qam weaken", cwd=REPO)
 head3 = sh("git rev-parse HEAD", cwd=REPO).stdout.strip()
 p = gov("ci-docs-gate --repo . --base %s --head %s --pr-title t --pr-body-file %s" % (base, head3, body))
 check("R8 weakening .governance.json needs governance-change label", p.returncode == 1 and "governance-change" in p.stdout)
+p = gov("ci-docs-gate --repo . --base %s --head %s --pr-title t --pr-body-file %s --labels governance-change"
+        % (base, head3, body))
+check("R8 governance-change label lets a plumbing change through", "governance-change" not in p.stdout, p.stdout[-200:])
+sh("git reset -q --hard HEAD~1", cwd=REPO)
+sh("mkdir -p enforcement && echo x > enforcement/govcore.py && git add -A && git commit -qm engine", cwd=REPO)
+head4 = sh("git rev-parse HEAD", cwd=REPO).stdout.strip()
+p = gov("ci-docs-gate --repo . --base %s --head %s --pr-title t --pr-body-file %s" % (base, head4, body))
+check("R8 changing the gate engine (enforcement/) needs governance-change label",
+      p.returncode == 1 and "enforcement/govcore.py" in p.stdout)
 sh("git reset -q --hard HEAD~1", cwd=REPO)
 
 # ── L3 git hooks (humans) ──────────────────────────────────────────────────
@@ -289,6 +298,9 @@ check("R10 protect dry-run: main ruleset requires governance / gate, no bypass a
       p.returncode == 0 and "software-factory-main" in p.stdout and '"governance / gate"' in p.stdout
       and '"bypass_actors": []' in p.stdout and "acme-owner/newproj" in p.stdout, (p.stdout + p.stderr)[-200:])
 check("R10 protect dry-run --gate-tags: gate-v* tag ruleset", "refs/tags/gate-v*" in p.stdout)
+check("R10 protect: linear history is opt-in (off by default)", "required_linear_history" not in p.stdout)
+p = gov("protect --repo %s --dry-run --linear-history" % NEWP, cwd=NEWP)
+check("R10 protect --linear-history adds the rule", '"required_linear_history"' in p.stdout, p.stdout[-200:])
 
 # ── report ─────────────────────────────────────────────────────────────────
 fails = 0

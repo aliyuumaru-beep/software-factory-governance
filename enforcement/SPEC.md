@@ -109,9 +109,24 @@ and installs the git hooks. `gov protect` applies the GitHub ruleset.
   allowlist permits `git show`, `git clone <any URL>` and `bash <path>/software-factory-governance/
   enforcement/install.sh` (any directory). Compound commands, redirects and substitutions are refused,
   so a clone cannot be chained into execution in one command. L4 is the guarantee.
+- Local `gov review` uses whatever `claude` CLI is installed and prints a note when it differs from
+  the version CI pins (`REVIEW_CLI_VERSION`). CI verdicts are authoritative.
 
 ## 5. Acceptance
 
 - `enforcement/tests/test_gov.py` passes (hook decisions for each requirement, the L2 bootstrap and L3 git hooks).
 - A session started in `~` is blocked from editing NADF code until briefed and ticketed.
 - A PR without G1–G3 approval cannot be merged into `main` by the admin.
+
+Criterion 3 becomes true only after these post-merge sponsor actions, in this order:
+
+1. Add the `governance-change` label to this PR (the docs gate requires it for `.github/`,
+   `.governance.json` and `enforcement/` changes), then merge.
+2. Tag the merged `main` as `gate-v1` and push the tag.
+3. In this repo: `gov protect --gate-tags` (main ruleset plus the immutable `gate-v*` tag ruleset).
+4. In each child repo: set the reviewer secret, merge its onboarding PR, then `gov protect` once its
+   `governance / gate` has passed.
+5. Record the confirmation in a new IMPLEMENTATION_HISTORY entry and mark IMP-009 COMPLETE.
+
+`gov protect --linear-history` additionally forbids merge commits. It is off by default because the
+child repos currently merge PRs with merge commits; turning it on is a sponsor decision.

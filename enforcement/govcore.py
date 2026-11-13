@@ -36,7 +36,7 @@ VERDICT_RE = re.compile(
     r"VERDICT:\s*\**\s*(APPROVED[ _]WITH[ _]CONDITIONS|APPROVED|REJECTED|ESCALATE)", re.I)
 DEFAULT_WORK_ITEM = r"\b((?:WP|DEC|SPEC|GOV|REQ)-[A-Z0-9][A-Z0-9_.-]*[A-Z0-9])\b"
 READ_CMDS = ("cat", "head", "tail", "sed", "less", "more", "bat", "nl", "awk")
-REVIEW_CLI_VERSION = "2.1.312"
+REVIEW_CLI_VERSION = "2.1.312"  # CI installs exactly this; local runs warn when they differ (L4 is pinned)
 
 
 # ─────────────────────────────── utilities ────────────────────────────────
@@ -762,8 +762,8 @@ def run_one_review(repo, reviewer, base, head, work_item, pr_text, timeout):
                "Bash(git status:*)", "Bash(ls:*)"]
     sfg = governance_repo_dir()
     cmd = [claude, "-p", "--output-format", "text", "--max-turns", "40",
-           "--allowedTools"] + allowed + ["--disallowedTools", "Edit", "Write", "NotebookEdit", "WebFetch",
-                                          "WebSearch", "Agent"]
+           "--allowedTools"] + allowed + ["--disallowedTools", "Edit", "MultiEdit", "Write", "NotebookEdit",
+                                          "WebFetch", "WebSearch", "Agent"]
     if sfg:
         cmd += ["--add-dir", sfg]
     try:
@@ -792,6 +792,14 @@ def cmd_review(args):
             sys.exit("Cannot find the base branch (%s). Fetch origin first." % repo.default_branch)
         t = repo.ticket()
         work_item, pr_text = (t or {}).get("work_item"), ""
+    if not args.ci:
+        try:
+            ver = subprocess.run(["claude", "--version"], capture_output=True, text=True, timeout=20).stdout.split()
+        except Exception:
+            ver = []
+        if not ver or ver[0] != REVIEW_CLI_VERSION:
+            print("NOTE: local reviewer CLI is %s; the CI gate runs %s. Verdicts can differ; CI is authoritative."
+                  % (ver[0] if ver else "unknown", REVIEW_CLI_VERSION))
     print("Firing %s as independent Claude instances on %s..%s (this takes a few minutes)"
           % (", ".join(reviewers), base[:8], head[:8]), flush=True)
     results = {}
@@ -860,7 +868,8 @@ def cmd_ci_docs_gate(args):
         missing = [d for d in repo.required_docs if d not in changed]
         if missing:
             problems.append("Code changed but required governance docs not updated: " + ", ".join(missing))
-    gov_files = [f for f in changed if f == MARKER or f.startswith(".github/") or f.startswith(".claude/")]
+    # enforcement/ is the gate engine itself (governance repo): engine changes reach every child repo.
+    gov_files = [f for f in changed if f == MARKER or f.startswith((".github/", ".claude/", "enforcement/"))]
     if gov_files and "governance-change" not in labels:
         problems.append("Governance plumbing changed (%s) — the sponsor must add the `governance-change` "
                         "label." % ", ".join(gov_files))
@@ -1006,6 +1015,9 @@ def cmd_protect(args):
                 "required_status_checks": checks}},
         ],
     }
+    if args.linear_history:
+        # Opt-in (sponsor decision): blocks merge commits, so PRs must be squashed or rebased.
+        body["rules"].append({"type": "required_linear_history"})
     existing = subprocess.run(["gh", "api", "repos/%s/rulesets" % slug], capture_output=True, text=True)
     rid = None
     if existing.returncode == 0:
@@ -1066,6 +1078,8 @@ def main(argv=None):
     s.add_argument("--checks"); s.add_argument("--dry-run", action="store_true")
     s.add_argument("--gate-tags", action="store_true",
                    help="governance repo only: also make gate-v* tags immutable")
+    s.add_argument("--linear-history", action="store_true",
+                   help="also require linear history (no merge commits; squash or rebase only)")
     sub.add_parser("version")
     args = ap.parse_args(argv)
     handlers = {"hook": cmd_hook, "status": cmd_status, "start": cmd_start, "review": cmd_review,

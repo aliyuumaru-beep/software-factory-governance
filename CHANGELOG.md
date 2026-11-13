@@ -25,6 +25,8 @@ Governance versions follow semantic versioning: MAJOR.MINOR.PATCH.
 - The bootstrap hook rejects compound commands, so a read-only command prefix cannot smuggle in a write.
 - The live-DB gate treats `psql` reading SQL from a file, a redirect, a pipe or a heredoc as a write (fail safe).
 - SPEC §4 documents the remaining accepted limits: engine from `main`, PR-body prompt-injection surface, L2 allowlist.
+- Changes to the gate engine (`enforcement/`) need the sponsor's `governance-change` label; reviewers also cannot use `MultiEdit`.
+- `gov protect --linear-history` (opt-in) forbids merge commits on `main`.
 
 ## [1.5.0] — 2026-05-29
 

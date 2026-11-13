@@ -24,10 +24,10 @@ Enforced governance gateway (`enforcement/`, `gov` CLI, reusable `governance-gat
 - `enforcement/reviewers/G1..G3.md`: self-contained reviewer prompts (base role prompt + enforcement appendix).
 - `.github/workflows/governance-gate.yml`: reusable gate; required check `governance / gate`.
 - `enforcement/install.sh`: installs user-level hooks, the `gov` CLI, git hooks and the global CLAUDE.md block.
-- `enforcement/tests/test_gov.py`: 73 acceptance checks (R1–R10, L2, L3), all passing. A live smoke test ran a real headless G2 reviewer, which correctly REJECTED a change with no tests and a stub spec.
+- `enforcement/tests/test_gov.py`: 77 acceptance checks (R1–R10, L2, L3), all passing. A live smoke test ran a real headless G2 reviewer, which correctly REJECTED a change with no tests and a stub spec.
 
 ### Evidence
-`python3 enforcement/tests/test_gov.py` gives 73/73 passed; workflow `enforcement-tests` runs the same suite on every PR.
+`python3 enforcement/tests/test_gov.py` gives 77/77 passed (the suite's own count); workflow `enforcement-tests` runs the same suite on every PR.
 
 ### First real review round (2026-11-13), 12 independent reviewer runs
 - Governance repo, NADF and WamaCare onboarding: G1/G2/G3 each APPROVED WITH CONDITIONS.
@@ -55,6 +55,14 @@ Enforced governance gateway (`enforcement/`, `gov` CLI, reusable `governance-gat
 - Post-merge conditions (sponsor): create tag `gate-v1` on merged `main`, run `gov protect --gate-tags`
   here and `gov protect` in each child repo once its gate has passed, and record the confirmation in a
   new IMP entry (G1 R-B, G2 action 5).
+
+### Third review round (2026-11-13), 6 reviewer runs on this repo
+- G1, G2, G3 APPROVED WITH CONDITIONS (two runs first returned ERROR on a usage limit and were re-run).
+- Addressed: `MultiEdit` added to the reviewers' disallowed tools; a local `gov review` warns when its
+  CLI differs from the CI-pinned `REVIEW_CLI_VERSION`; changes under `enforcement/` (the gate engine) now
+  need the `governance-change` label; `gov protect --linear-history` added as an opt-in (off by default,
+  sponsor decision, because child repos merge with merge commits); SPEC §5 lists the post-merge sponsor
+  checklist; the test count is corrected to the suite's own output (G1 F1–F4, G2 F-1/F-2).
 
 ---
 
