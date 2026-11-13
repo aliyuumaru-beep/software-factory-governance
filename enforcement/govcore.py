@@ -398,7 +398,6 @@ DB_WRITE_SQL = re.compile(r"\b(UPDATE|INSERT|DELETE|ALTER|DROP|TRUNCATE|CREATE|G
 def live_db_target(argv, raw):
     """Return (db, why) if this simple command can mutate a database, else None."""
     prog = os.path.basename(argv[0])
-    joined = " ".join(argv)
     if prog in ("python", "python3") and len(argv) > 1 and argv[1].endswith("odoo-bin"):
         prog, argv = "odoo-bin", argv[1:]
     if prog in ("odoo-bin", "odoo"):
@@ -417,8 +416,17 @@ def live_db_target(argv, raw):
         return None
     if prog in ("dropdb", "pg_restore", "psql"):
         if prog == "psql":
-            if not (DB_WRITE_SQL.search(raw) or " -f " in " %s " % joined or "--file" in joined):
+            # Fail safe: psql reading SQL from stdin (`< file`, a pipe, a heredoc), from -f, or
+            # interactively can mutate. Only a -c/--command with no write SQL, or -l, is read-only.
+            if any(a in ("-l", "--list") for a in argv[1:]):
                 return None
+            has_cmd = any(a in ("-c", "--command") or a.startswith("--command=") for a in argv[1:])
+            reads_input = ("<" in raw or any(a in ("-f", "--file") or a.startswith("--file=")
+                                             for a in argv[1:]))
+            if has_cmd and not reads_input and not DB_WRITE_SQL.search(raw):
+                return None
+            if "<" in argv:
+                argv = argv[:argv.index("<")]
         dbs = [a.split("=", 1)[1] for a in argv if a.startswith("--dbname=")]
         for i, a in enumerate(argv):
             if a in ("-d", "--dbname") and i + 1 < len(argv):
@@ -1005,21 +1013,23 @@ def cmd_protect(args):
             if rs.get("name") == body["name"]:
                 rid = rs["id"]
     method, path = ("PUT", "repos/%s/rulesets/%s" % (slug, rid)) if rid else ("POST", "repos/%s/rulesets" % slug)
+    # Governance repo only (--gate-tags): make gate release tags (gate-v*) immutable, so child repos
+    # that pin `governance-gate.yml@gate-vN` cannot be silently re-pointed (G3 E3 finding, 2026-11-13).
+    tag_body = {"name": "software-factory-gate-tags", "target": "tag", "enforcement": "active",
+                "bypass_actors": [],
+                "conditions": {"ref_name": {"include": ["refs/tags/gate-v*"], "exclude": []}},
+                "rules": [{"type": "update"}, {"type": "deletion"}, {"type": "non_fast_forward"}]}
     if args.dry_run:
         print(method, path)
         print(json.dumps(body, indent=2))
+        if args.gate_tags:
+            print(json.dumps(tag_body, indent=2))
         return 0
     p = subprocess.run(["gh", "api", "-X", method, path, "--input", "-"], input=json.dumps(body),
                        capture_output=True, text=True)
     print(p.stdout[:500] or p.stderr)
     if p.returncode or not args.gate_tags:
         return p.returncode
-    # Governance repo only: make gate release tags (gate-v*) immutable, so child repos that pin
-    # `governance-gate.yml@gate-vN` cannot be silently re-pointed (G3 E3 finding, 2026-11-13).
-    tag_body = {"name": "software-factory-gate-tags", "target": "tag", "enforcement": "active",
-                "bypass_actors": [],
-                "conditions": {"ref_name": {"include": ["refs/tags/gate-v*"], "exclude": []}},
-                "rules": [{"type": "update"}, {"type": "deletion"}, {"type": "non_fast_forward"}]}
     tid = None
     for rs in json.loads(existing.stdout or "[]") if existing.returncode == 0 else []:
         if rs.get("name") == tag_body["name"]:

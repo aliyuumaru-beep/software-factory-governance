@@ -23,6 +23,8 @@ Governance versions follow semantic versioning: MAJOR.MINOR.PATCH.
 ### Security
 - Child repos pin the gate to the immutable tag `gate-v1` and pass only the reviewer secrets (no `secrets: inherit`). `gov protect --gate-tags` makes `gate-v*` tags immutable.
 - The bootstrap hook rejects compound commands, so a read-only command prefix cannot smuggle in a write.
+- The live-DB gate treats `psql` reading SQL from a file, a redirect, a pipe or a heredoc as a write (fail safe).
+- SPEC §4 documents the remaining accepted limits: engine from `main`, PR-body prompt-injection surface, L2 allowlist.
 
 ## [1.5.0] — 2026-05-29
 

@@ -33,6 +33,12 @@ jobs:
         with:
           repository: ${{ env.SFG_REPO }}
           path: .sfg
+          # Engine source (govcore.py + reviewer prompts). Intentional, do not "fix":
+          # - this repo's own PRs run the PR head, so a gate change is tested by itself;
+          # - child repos run main. Their caller pins THIS workflow file at gate-vN, but the engine
+          #   it runs comes from main, so a govcore.py change merged to main applies to every child
+          #   repo at once, with no tag bump. main is itself gated (G1-G3 + sponsor merge). See
+          #   enforcement/SPEC.md section 4 (Known limits).
           ref: ${{ github.repository == env.SFG_REPO && github.event.pull_request.head.sha || 'main' }}
       - name: No spec, no code + required docs
         id: gate
@@ -65,6 +71,7 @@ jobs:
         with:
           repository: ${{ env.SFG_REPO }}
           path: .sfg
+          # Engine source: PR head for this repo, main for child repos (see the docs-gate job above).
           ref: ${{ github.repository == env.SFG_REPO && github.event.pull_request.head.sha || 'main' }}
       - uses: actions/setup-node@v4
         with:

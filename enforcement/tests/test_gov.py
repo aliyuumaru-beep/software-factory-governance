@@ -66,6 +66,9 @@ with open(os.path.join(FAKEBIN, "claude"), "w") as fh:
     fh.write("#!/usr/bin/env bash\ncat >/dev/null\necho \"Findings: none (reviewer $GOV_REVIEWER)\"\n"
              "echo \"VERDICT: ${FAKE_VERDICT:-APPROVED}\"\n")
 os.chmod(os.path.join(FAKEBIN, "claude"), 0o755)
+with open(os.path.join(FAKEBIN, "gh"), "w") as fh:  # offline: every gh call fails
+    fh.write("#!/usr/bin/env bash\nexit 1\n")
+os.chmod(os.path.join(FAKEBIN, "gh"), 0o755)
 sh("git init -q --bare %s" % ORIGIN)
 os.makedirs(os.path.join(REPO, "custom_addons", "mod"))
 os.makedirs(os.path.join(REPO, "docs"))
@@ -166,6 +169,14 @@ d, _ = decision(bash("psql -d LIVEDB -c \"UPDATE res_users SET active=false\"", 
 check("R5 write SQL on live db denied", d == "deny")
 d, _ = decision(bash("psql -d LIVEDB -c \"select count(*) from res_users\"", cwd=T))
 check("R5 read-only SQL on live db allowed", d == "allow")
+d, _ = decision(bash("psql -d LIVEDB < migration.sql", cwd=T))
+check("R5 psql reading a file via < on live db denied", d == "deny")
+d, _ = decision(bash("cat migration.sql | psql LIVEDB", cwd=T))
+check("R5 SQL piped into psql on live db denied", d == "deny")
+d, _ = decision(bash("psql -d LIVEDB -f migration.sql", cwd=T))
+check("R5 psql -f on live db denied", d == "deny")
+d, _ = decision(bash("psql -l", cwd=T))
+check("R5 psql -l (list databases) allowed", d == "allow")
 d, _ = decision(bash("python odoo-bin -d DRILLDB -u some_mod --stop-after-init", cwd=T))
 check("R5 drill db update allowed", d == "allow")
 open(os.path.join(BACKUPS, "live_%d.dump" % time.time()), "w").write("x")
@@ -247,6 +258,37 @@ for evil in ("ls && rm -rf custom_addons", "cat x; rm y", "grep a b | sh", "ls `
 open(os.path.join(GOV_HOME, "govcore.py"), "w").write("# marker: gateway installed\n")
 h = boot("PreToolUse", edit(os.path.join(REPO, "x.py")), env=dict(ENV))
 check("L2 gateway installed: bootstrap stays silent", h == {})
+
+# ── R10 onboarding and protection of a new project ────────────────────────
+NEWP = os.path.realpath(os.path.join(T, "newproj"))
+os.makedirs(NEWP)
+open(os.path.join(NEWP, "CLAUDE.md"), "w").write("rules\n")
+sh("git init -q -b main && git remote add origin https://github.com/acme-owner/newproj.git", cwd=NEWP)
+p = gov("onboard %s --pod POD-NEW" % NEWP, cwd=NEWP)
+check("R10 gov onboard succeeds", p.returncode == 0, (p.stdout + p.stderr)[-200:])
+for f in (".governance.json", "AGENTS.md", ".github/workflows/governance.yml",
+          ".claude/settings.json", ".claude/hooks/gov_bootstrap.sh"):
+    check("R10 onboard wrote %s" % f, os.path.exists(os.path.join(NEWP, f)))
+mk = json.load(open(os.path.join(NEWP, ".governance.json")))
+check("R10 marker carries the pod and existing briefing docs",
+      mk.get("pod") == "POD-NEW" and mk.get("briefing_docs") == ["CLAUDE.md"], str(mk)[:120])
+wf = "".join(l for l in open(os.path.join(NEWP, ".github/workflows/governance.yml"))
+             if not l.lstrip().startswith("#"))
+check("R10 caller workflow pins gate-v1 and does not inherit secrets",
+      "@gate-v1" in wf and "secrets: inherit" not in wf)
+st = json.load(open(os.path.join(NEWP, ".claude/settings.json")))
+check("R10 bootstrap hooks registered for PreToolUse and SessionStart",
+      all("gov_bootstrap.sh" in json.dumps(st["hooks"].get(e)) for e in ("PreToolUse", "SessionStart")))
+check("R10 onboarded repo registered in config",
+      NEWP in json.load(open(os.path.join(GOV_HOME, "config.json")))["repos"])
+p = gov("onboard %s" % NEWP, cwd=NEWP)
+check("R10 re-running onboard is idempotent",
+      p.returncode == 0 and json.load(open(os.path.join(NEWP, ".claude/settings.json"))) == st)
+p = gov("protect --repo %s --dry-run --gate-tags" % NEWP, cwd=NEWP)
+check("R10 protect dry-run: main ruleset requires governance / gate, no bypass actors",
+      p.returncode == 0 and "software-factory-main" in p.stdout and '"governance / gate"' in p.stdout
+      and '"bypass_actors": []' in p.stdout and "acme-owner/newproj" in p.stdout, (p.stdout + p.stderr)[-200:])
+check("R10 protect dry-run --gate-tags: gate-v* tag ruleset", "refs/tags/gate-v*" in p.stdout)
 
 # ── report ─────────────────────────────────────────────────────────────────
 fails = 0

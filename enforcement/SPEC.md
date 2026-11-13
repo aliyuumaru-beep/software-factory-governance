@@ -1,6 +1,6 @@
 # SPEC-GOV-ENF-001 — Enforced Governance Gateway
 
-**Status:** Proposed (sponsor directive 2026-11-13)
+**Status:** ACTIVE (pending sponsor merge). Implemented 2026-11-13 per the sponsor directive of the same day; G1–G3 review rounds 1–2 recorded in IMP-009.
 **Owner:** Sponsor (Aliyu Umaru)
 **Decision:** DEC-013 (DEC-GOV-ENF-001), see `DECISION_LOG.md`
 
@@ -94,6 +94,21 @@ and installs the git hooks. `gov protect` applies the GitHub ruleset.
   session cannot set it for its hook process.
 - Command inspection is text-based: a command that merely mentions a protected path while also running
   an interpreter is refused (false positives are accepted; use the dedicated file tools instead).
+- R5 treats `psql` as mutating unless it is `-l` or a `-c` command with no write SQL and no input
+  redirect, so `psql DB < file`, piped SQL, heredocs and `-f` all need a backup and confirmation
+  (fail safe; a read-only `-c` that contains `<` asks unnecessarily).
+- The gate *workflow file* is pinned at `gate-vN` for child repos, but the *engine* it runs
+  (`govcore.py`, reviewer prompts) is checked out from this repo's `main`. A merged engine change
+  applies to every child repo at once, without a tag bump; `main` here is itself gated by G1–G3 and
+  the sponsor's merge. This is commented at both checkout steps in `governance-gate.yml`.
+- Reviewer prompts include the PR title and the first 4,000 characters of the PR body, so a PR author
+  can attempt prompt injection. Mitigations: reviewers run with no write tools, each reviewer reads
+  the diff and files itself, only the last strict `VERDICT:` line counts, and a REJECTED/ESCALATE can
+  only be overridden by the sponsor's `sponsor-override` label.
+- The L2 bootstrap hook (machines without the gateway) is a fence, not a security boundary. Its
+  allowlist permits `git show`, `git clone <any URL>` and `bash <path>/software-factory-governance/
+  enforcement/install.sh` (any directory). Compound commands, redirects and substitutions are refused,
+  so a clone cannot be chained into execution in one command. L4 is the guarantee.
 
 ## 5. Acceptance
 
