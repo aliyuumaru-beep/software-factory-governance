@@ -24,10 +24,10 @@ Enforced governance gateway (`enforcement/`, `gov` CLI, reusable `governance-gat
 - `enforcement/reviewers/G1..G3.md`: self-contained reviewer prompts (base role prompt + enforcement appendix).
 - `.github/workflows/governance-gate.yml`: reusable gate; required check `governance / gate`.
 - `enforcement/install.sh`: installs user-level hooks, the `gov` CLI, git hooks and the global CLAUDE.md block.
-- `enforcement/tests/test_gov.py`: 79 acceptance checks (R1–R10, L2, L3), all passing. A live smoke test ran a real headless G2 reviewer, which correctly REJECTED a change with no tests and a stub spec.
+- `enforcement/tests/test_gov.py`: 80 acceptance checks (R1–R10, L2, L3), all passing. A live smoke test ran a real headless G2 reviewer, which correctly REJECTED a change with no tests and a stub spec.
 
 ### Evidence
-`python3 enforcement/tests/test_gov.py` gives 79/79 passed (the suite's own count); workflow `enforcement-tests` runs the same suite on every PR.
+`python3 enforcement/tests/test_gov.py` gives 80/80 passed (the suite's own count); workflow `enforcement-tests` runs the same suite on every PR.
 
 ### First real review round (2026-11-13), 12 independent reviewer runs
 - Governance repo, NADF and WamaCare onboarding: G1/G2/G3 each APPROVED WITH CONDITIONS.
@@ -73,6 +73,16 @@ Enforced governance gateway (`enforcement/`, `gov` CLI, reusable `governance-gat
   ruleset alongside the new one, since GitHub applies all active rulesets together (G1 F-2/F-3).
   Tests for both fixes added; 79/79 pass.
 - Remaining condition (G2): `enforcement-tests` must be green on the PR in CI.
+
+### Fifth review round (2026-11-14)
+- G1, G2 APPROVED WITH CONDITIONS here (post-merge and CI conditions only). A NADF G2 finding on backup
+  folders led the builder to a defect no reviewer had reported: the R5 freshness check counted any
+  file in a backup folder, and `~/OdooFolder/odoo_backups` is shared by FamOil, NADF and WamaCare, so a
+  fresh backup of one database satisfied the gate for another. R5 now counts only files or folders
+  whose name contains the live database's name (top level or one level down), with a test.
+- Also found while testing: the round-3 CLI version check ran `claude --version` with stdin open, so a
+  `claude` wrapper that reads stdin hung `gov review` (a timeout cannot help while a child holds the pipe).
+  It now runs with stdin closed; the suite passes 80/80 with stdin held open.
 
 ---
 

@@ -203,10 +203,15 @@ class Repo(object):
         return False
 
     def live_db_backup_ok(self, db):
-        newest = 0.0
+        # Only backups OF THIS database count: a file or folder whose name contains the database name,
+        # at the top of a backup dir or one level down (e.g. pre_fix_20261112/NADF.dump). Backup dirs
+        # are shared between projects, so another database's fresh dump must not satisfy R5.
+        newest, key = 0.0, db.lower()
         for d in self.backup_dirs:
             d = expand(d)
-            for path in glob.glob(os.path.join(d, "*")):
+            for path in glob.glob(os.path.join(d, "*")) + glob.glob(os.path.join(d, "*", "*")):
+                if key not in os.path.basename(path).lower():
+                    continue
                 try:
                     newest = max(newest, os.path.getmtime(path))
                 except OSError:
@@ -796,7 +801,8 @@ def cmd_review(args):
         work_item, pr_text = (t or {}).get("work_item"), ""
     if not args.ci:
         try:
-            ver = subprocess.run(["claude", "--version"], capture_output=True, text=True, timeout=20).stdout.split()
+            ver = subprocess.run(["claude", "--version"], stdin=subprocess.DEVNULL, capture_output=True, text=True,
+                                 timeout=20).stdout.split()
         except Exception:
             ver = []
         if not ver or ver[0] != REVIEW_CLI_VERSION:
