@@ -2,7 +2,7 @@
 
 **Layer:** Software Factory
 **Current Phase:** Phase 1 — Governance Foundation (IN PROGRESS)
-**Last Updated:** 2026-05-29
+**Last Updated:** 2026-11-13
 
 ---
 
@@ -11,9 +11,9 @@
 | Phase | Name | Status | Target |
 |-------|------|--------|--------|
 | Phase 1 | Governance Foundation | IN PROGRESS | 2026-Q2 |
-| Phase 2 | PR and Repository Memory Enforcement | PLANNED | 2026-Q3 |
+| Phase 2 | PR and Repository Memory Enforcement | IN PROGRESS — SPEC-GOV-ENF-001 gateway built (2026-11-13); live once the onboarding PRs merge and rulesets apply | 2026-Q3 |
 | Phase 3 | Project Onboarding Standards Adoption | PLANNED | 2026-Q3/Q4 |
-| Phase 4 | CI Enforcement and Automated Governance Checks | PLANNED | 2026-Q4 |
+| Phase 4 | CI Enforcement and Automated Governance Checks | IN PROGRESS — `governance / gate` (docs gate plus independent G1/G2/G3) built; required on `main` after rollout | 2026-Q4 |
 | Phase 5 | Multi-Project Adoption | PLANNED | 2027-Q1 |
 | Phase 6 | Software Factory Maturity | PLANNED | 2027-Q2 |
 

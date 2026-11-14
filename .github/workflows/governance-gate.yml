@@ -1,0 +1,135 @@
+# Reusable Software Factory governance gate (SPEC-GOV-ENF-001, layer L4).
+# Called by every governed repo's .github/workflows/governance.yml.
+# The required status check on main is:  governance / gate
+name: governance-gate
+on:
+  workflow_call:
+    secrets:
+      CLAUDE_CODE_OAUTH_TOKEN:
+        required: false
+      ANTHROPIC_API_KEY:
+        required: false
+
+permissions:
+  contents: read
+  pull-requests: write
+
+env:
+  SFG_REPO: aliyuumaru-beep/software-factory-governance
+  CLAUDE_CLI_VERSION: "2.1.312"
+
+jobs:
+  docs-gate:
+    name: docs-gate
+    runs-on: ubuntu-latest
+    outputs:
+      work_item: ${{ steps.gate.outputs.work_item }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ env.SFG_REPO }}
+          path: .sfg
+          # Engine source (govcore.py + reviewer prompts). Intentional, do not "fix":
+          # - this repo's own PRs run the PR head, so a gate change is tested by itself;
+          # - child repos run main. Their caller pins THIS workflow file at gate-vN, but the engine
+          #   it runs comes from main, so a govcore.py change merged to main applies to every child
+          #   repo at once, with no tag bump. main is itself gated (G1-G3 + sponsor merge). See
+          #   enforcement/SPEC.md section 4 (Known limits).
+          ref: ${{ github.repository == env.SFG_REPO && github.event.pull_request.head.sha || 'main' }}
+      - name: No spec, no code + required docs
+        id: gate
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+          LABELS: ${{ join(github.event.pull_request.labels.*.name, ',') }}
+        run: |
+          printf '%s' "$PR_BODY" > "$RUNNER_TEMP/pr_body.txt"
+          python3 .sfg/enforcement/govcore.py ci-docs-gate --repo . \
+            --base "${{ github.event.pull_request.base.sha }}" --head "${{ github.event.pull_request.head.sha }}" \
+            --pr-title "$PR_TITLE" --pr-body-file "$RUNNER_TEMP/pr_body.txt" --labels "$LABELS" \
+            --output "$GITHUB_OUTPUT"
+
+  review:
+    name: review-${{ matrix.reviewer }}
+    needs: docs-gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        reviewer: [G1, G2, G3]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ env.SFG_REPO }}
+          path: .sfg
+          # Engine source: PR head for this repo, main for child repos (see the docs-gate job above).
+          ref: ${{ github.repository == env.SFG_REPO && github.event.pull_request.head.sha || 'main' }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install Claude Code CLI
+        run: npm install -g "@anthropic-ai/claude-code@${CLAUDE_CLI_VERSION}"
+      - name: Run ${{ matrix.reviewer }} as an independent Claude instance
+        id: review
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+          GOV_REPO: ${{ github.workspace }}/.sfg
+        run: |
+          if [ -z "$CLAUDE_CODE_OAUTH_TOKEN" ] && [ -z "$ANTHROPIC_API_KEY" ]; then
+            echo "::error::No CLAUDE_CODE_OAUTH_TOKEN / ANTHROPIC_API_KEY secret — governance reviewers cannot run, so the gate stays closed."
+            exit 1
+          fi
+          printf '%s\n\n%s' "$PR_TITLE" "$PR_BODY" > "$RUNNER_TEMP/pr.txt"
+          set +e
+          python3 .sfg/enforcement/govcore.py review --ci --repo . --reviewers "${{ matrix.reviewer }}" \
+            --base "${{ github.event.pull_request.base.sha }}" --head "${{ github.event.pull_request.head.sha }}" \
+            --work-item "${{ needs.docs-gate.outputs.work_item }}" --pr-text-file "$RUNNER_TEMP/pr.txt" \
+            --out-dir "$RUNNER_TEMP/reviews" --quiet
+          rc=$?
+          set -e
+          f="$RUNNER_TEMP/reviews/review_${{ matrix.reviewer }}.md"
+          verdict=$(grep -oE 'VERDICT:[[:space:]]*\**[[:space:]]*[A-Z_ ]+' "$f" | tail -1 | sed -E 's/VERDICT:[[:space:]]*\**[[:space:]]*//' | tr ' ' '_')
+          echo "verdict=${verdict:-ERROR}" >> "$GITHUB_OUTPUT"
+          { echo "## ${{ matrix.reviewer }} governance review — \`${verdict:-ERROR}\`"; echo;
+            echo "<sub>Independent Claude instance · commit ${{ github.event.pull_request.head.sha }} · SPEC-GOV-ENF-001</sub>"; echo;
+            tail -c 60000 "$f"; } > "$RUNNER_TEMP/comment.md"
+          cat "$RUNNER_TEMP/comment.md" >> "$GITHUB_STEP_SUMMARY"
+          exit $rc
+      - name: Post review on the PR
+        if: always() && steps.review.outputs.verdict != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh pr comment "${{ github.event.pull_request.number }}" --repo "${{ github.repository }}" --body-file "$RUNNER_TEMP/comment.md" || true
+
+  gate:
+    name: gate
+    needs: [docs-gate, review]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: All governance gates must pass
+        env:
+          DOCS: ${{ needs.docs-gate.result }}
+          REVIEW: ${{ needs.review.result }}
+          OVERRIDE: ${{ contains(github.event.pull_request.labels.*.name, 'sponsor-override') }}
+        run: |
+          echo "docs-gate=$DOCS review=$REVIEW sponsor-override=$OVERRIDE"
+          if [ "$DOCS" = "success" ] && [ "$REVIEW" = "success" ]; then echo "Governance gate PASSED"; exit 0; fi
+          if [ "$DOCS" = "success" ] && [ "$REVIEW" = "failure" ] && [ "$OVERRIDE" = "true" ]; then
+            echo "::warning::Reviewer objections overridden by the sponsor (label sponsor-override). Recorded on the PR."
+            exit 0
+          fi
+          echo "::error::Governance gate FAILED — see docs-gate / review-G1..G3 results and PR comments."
+          exit 1

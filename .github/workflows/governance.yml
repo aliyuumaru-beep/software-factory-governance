@@ -1,0 +1,16 @@
+# This repository runs its own (PR) copy of the gate; child repos call the gate at the immutable
+# tag gate-vN (see enforcement/templates/caller-workflow.yml).
+# `secrets: inherit` is acceptable ONLY here: the callee is this repo's own local workflow file, so
+# no other repository's code receives these secrets. Do NOT copy this file into a child repo; child
+# repos pass only the two reviewer secrets (G3 E3 finding, 2026-11-13).
+name: governance
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited, labeled, unlabeled, ready_for_review]
+permissions:
+  contents: read
+  pull-requests: write
+jobs:
+  governance:
+    uses: ./.github/workflows/governance-gate.yml
+    secrets: inherit

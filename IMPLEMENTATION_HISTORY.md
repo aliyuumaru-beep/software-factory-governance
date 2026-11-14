@@ -8,6 +8,84 @@ Entries are listed in reverse chronological order (newest first).
 
 ---
 
+## IMP-009
+
+**Date:** 2026-11-13
+**Type:** `GOVERNANCE_UPDATE`
+**Status:** IN REVIEW
+**Delivered By:** Claude Opus 5.5 (sponsor directive)
+**PR Reference:** feat/gov-enforcement-gateway
+
+### Title
+Enforced governance gateway (`enforcement/`, `gov` CLI, reusable `governance-gate` workflow).
+
+### Summary
+- `enforcement/govcore.py`: one engine for Claude hooks, CLI, git hooks and CI (standard library only).
+- `enforcement/reviewers/G1..G3.md`: self-contained reviewer prompts (base role prompt + enforcement appendix).
+- `.github/workflows/governance-gate.yml`: reusable gate; required check `governance / gate`.
+- `enforcement/install.sh`: installs user-level hooks, the `gov` CLI, git hooks and the global CLAUDE.md block.
+- `enforcement/tests/test_gov.py`: 80 acceptance checks (R1–R10, L2, L3), all passing. A live smoke test ran a real headless G2 reviewer, which correctly REJECTED a change with no tests and a stub spec.
+
+### Evidence
+`python3 enforcement/tests/test_gov.py` gives 80/80 passed (the suite's own count); workflow `enforcement-tests` runs the same suite on every PR.
+
+### First real review round (2026-11-13), 12 independent reviewer runs
+- Governance repo, NADF and WamaCare onboarding: G1/G2/G3 each APPROVED WITH CONDITIONS.
+- FamOil onboarding: G1 REJECTED, G2 REJECTED, G3 ESCALATE (E1, E3). The reviewers caught a real defect
+  in the builder's own work. A helper script opened two FamOil briefing docs for writing before reading
+  them, which truncated DEC-001..011 and Phases 1–4 of history. The builder session had not noticed.
+  The content was restored from `origin/main`.
+- G3 E3, raised in all repos: `secrets: inherit` to a workflow at the moving `@main`. Fixed by passing
+  only the two reviewer secrets and pinning children to the immutable tag `gate-v1`. `gov protect --gate-tags`
+  adds the tag ruleset.
+- Other conditions addressed: MODULE_REGISTRY.md created, ROADMAP updated, SPEC test filename fixed,
+  `GOV_ALLOW_INSTALL` documented, atomic installer writes, the bootstrap allowlist hardened against
+  compound commands (`ls && rm …`) with tests, and the verdict guard narrowed to writes (reads are allowed).
+
+### Second review round (2026-11-13), 12 independent reviewer runs
+- Governance repo: G1, G2, G3 APPROVED WITH CONDITIONS. NADF: G1, G2, G3 APPROVED WITH CONDITIONS.
+  FamOil: G1 APPROVED, G2 and G3 APPROVED WITH CONDITIONS (post-merge only). WamaCare: G1, G2, G3
+  APPROVED WITH CONDITIONS.
+- Pre-merge conditions addressed here: SPEC status set to ACTIVE; the test count corrected; an R10 suite
+  for `gov onboard` and `gov protect --dry-run --gate-tags` added (G2); `psql DB < file`, piped SQL and
+  `-f` now count as live-DB writes, with tests (G3 F-1); and SPEC §4 now names the engine-from-main
+  design, the PR-body prompt-injection surface and the L2 allowlist limits (G1 F1, G2 F4, G3 F-2).
+  Both checkout steps in `governance-gate.yml` and the `secrets: inherit` in `governance.yml` are
+  commented (G1 F1/F3).
+- Post-merge conditions (sponsor): create tag `gate-v1` on merged `main`, run `gov protect --gate-tags`
+  here and `gov protect` in each child repo once its gate has passed, and record the confirmation in a
+  new IMP entry (G1 R-B, G2 action 5).
+
+### Third review round (2026-11-13), 6 reviewer runs on this repo
+- G1, G2, G3 APPROVED WITH CONDITIONS (two runs first returned ERROR on a usage limit and were re-run).
+- Addressed: `MultiEdit` added to the reviewers' disallowed tools; a local `gov review` warns when its
+  CLI differs from the CI-pinned `REVIEW_CLI_VERSION`; changes under `enforcement/` (the gate engine) now
+  need the `governance-change` label; `gov protect --linear-history` added as an opt-in (off by default,
+  sponsor decision, because child repos merge with merge commits); SPEC §5 lists the post-merge sponsor
+  checklist; the test count is corrected to the suite's own output (G1 F1–F4, G2 F-1/F-2).
+
+### Fourth review round (2026-11-13), 3 reviewer runs on this repo
+- G1, G2, G3 APPROVED WITH CONDITIONS.
+- Addressed: session ids are reduced to a safe basename before naming a state file (path traversal,
+  G3 C-2); `install.sh` now validates the gateway config and the user's Claude settings file before
+  changing anything and stops with "nothing changed" if either is corrupt (G3 C-1; deliberately not a
+  `{}` fallback, which would silently drop the user's other settings); SPEC §5 says to keep the DEC-011
+  ruleset alongside the new one, since GitHub applies all active rulesets together (G1 F-2/F-3).
+  Tests for both fixes added; 79/79 pass.
+- Remaining condition (G2): `enforcement-tests` must be green on the PR in CI.
+
+### Fifth review round (2026-11-14)
+- G1, G2 APPROVED WITH CONDITIONS here (post-merge and CI conditions only). A NADF G2 finding on backup
+  folders led the builder to a defect no reviewer had reported: the R5 freshness check counted any
+  file in a backup folder, and `~/OdooFolder/odoo_backups` is shared by FamOil, NADF and WamaCare, so a
+  fresh backup of one database satisfied the gate for another. R5 now counts only files or folders
+  whose name contains the live database's name (top level or one level down), with a test.
+- Also found while testing: the round-3 CLI version check ran `claude --version` with stdin open, so a
+  `claude` wrapper that reads stdin hung `gov review` (a timeout cannot help while a child holds the pipe).
+  It now runs with stdin closed; the suite passes 80/80 with stdin held open.
+
+---
+
 ## IMP-008
 
 **Date:** 2026-05-29

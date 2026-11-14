@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Software Factory governance git hook (SPEC-GOV-ENF-001 layer L3)
+GOV="${GOV_HOME:-$HOME/.claude/governance}/govcore.py"
+[ -f "$GOV" ] || { echo "governance gateway not installed — see AGENTS.md" >&2; exit 1; }
+IN=$(cat)
+printf '%s\n' "$IN" | python3 "$GOV" githook pre-push "$@" || exit 1
+LOCAL="$(git rev-parse --git-common-dir)/hooks/pre-push"
+[ -x "$LOCAL" ] && { printf '%s\n' "$IN" | "$LOCAL" "$@"; exit $?; }
+exit 0

@@ -11,6 +11,25 @@ Governance versions follow semantic versioning: MAJOR.MINOR.PATCH.
 
 ---
 
+## [1.6.0] — 2026-11-13
+
+### Added
+- `enforcement/`: enforced governance gateway (SPEC-GOV-ENF-001, DEC-013). It covers user-level Claude Code hooks, the `gov` CLI, independent G1/G2/G3 reviewer instances, git hooks for humans, the project bootstrap and the installer.
+- `.github/workflows/governance-gate.yml`: reusable PR gate (docs gate, then G1/G2/G3 in CI, then `gate`).
+- `.github/workflows/enforcement-tests.yml`: runs the gateway acceptance suite.
+- `.governance.json` and `.github/workflows/governance.yml`: this repository governs itself through the same gate.
+- `MODULE_REGISTRY.md`: registers the enforcement components (MOD-001..008).
+
+### Security
+- Child repos pin the gate to the immutable tag `gate-v1` and pass only the reviewer secrets (no `secrets: inherit`). `gov protect --gate-tags` makes `gate-v*` tags immutable.
+- The bootstrap hook rejects compound commands, so a read-only command prefix cannot smuggle in a write.
+- The live-DB gate treats `psql` reading SQL from a file, a redirect, a pipe or a heredoc as a write (fail safe).
+- SPEC §4 documents the remaining accepted limits: engine from `main`, PR-body prompt-injection surface, L2 allowlist.
+- Changes to the gate engine (`enforcement/`) need the sponsor's `governance-change` label; reviewers also cannot use `MultiEdit`.
+- `gov protect --linear-history` (opt-in) forbids merge commits on `main`.
+- R5 counts only backups whose file or folder name contains the live database's name (backup folders are shared between projects).
+- Session ids cannot address files outside the state directory; the installer refuses to start when a JSON file it merges into is corrupt.
+
 ## [1.5.0] — 2026-05-29
 
 ### Infrastructure

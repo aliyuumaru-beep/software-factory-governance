@@ -105,3 +105,13 @@ See `CHANGELOG.md` for the version history.
 Software Factory — Internal Governance
 Repository initialized: 2026-05-29
 Governed projects: FamOil, WamaCare, NADF ERP, Hospitality ERP, Office ERP, Power Sector ERP, and future projects
+
+## Enforcement (SPEC-GOV-ENF-001)
+
+Governance in this factory is enforced, not advisory. See `enforcement/SPEC.md` for the full specification.
+
+- Install once per machine: `bash enforcement/install.sh <repo paths...>`. This loads hooks into every Claude Code session on the machine.
+- `gov status`, `gov start <WORK-ITEM>`, `gov review` and `gov verify` are the developer workflow.
+- `gov onboard <path> --pod <POD>` brings a new project under governance. `gov protect` applies the `main` ruleset.
+- Every PR runs `governance / gate`: the docs gate, then G1/G2/G3 as independent Claude instances.
+
