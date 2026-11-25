@@ -25,7 +25,7 @@ This file tracks API changes, deprecated features, and compatibility notes acros
 
 | Area | Change | Impact |
 |------|--------|--------|
-| Web client | OWL framework replaces legacy JS widgets | Custom views require OWL rewrite |
+| Web client | — | — |
 | Accounting | — | — |
 | Inventory | — | — |
 

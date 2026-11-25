@@ -28,7 +28,7 @@
 - [x] Adoption strategy created (`docs/ADOPTION_STRATEGY.md`) — 2026-05-29
 - [x] FamOil readiness assessment completed — 2026-05-29
 - [x] DEC-009, DEC-010 logged (pilot selection, git boundary) — 2026-05-29
-- [x] **OAIS Phase 1 skeleton established** (DEC-013, 96 files) — 2026-11-25
+- [x] **OAIS Phase 1 skeleton established** (DEC-013, 101 files) — 2026-11-25
 - [x] **Governance repo onboarded to gov system** (pod: SF-GOV, DEC-014) — 2026-11-25
 
 **Next action — highest priority:**
