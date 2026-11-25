@@ -154,7 +154,7 @@ The Status column shows whether content has been acquired:
 
 | Sub-topic | File | Odoo v17 | Odoo v18 | Odoo v19 |
 |-----------|------|----------|----------|----------|
-| v16 → v17 migration | `official-docs/v17/upgrades/V16_TO_V17_MIGRATION.md` | REGISTERED | — | — |
+| v16 → v17 migration | `official-docs/v17/README.md` (stub — upgrade stub pending Phase 2) | REGISTERED | — | — |
 | v17 → v18 migration | `odoo/cross-version/VERSION_COMPATIBILITY_MATRIX.md` | REGISTERED | — | — |
 | Deprecated APIs and features | `odoo/cross-version/DEPRECATION_TRACKER.md` | REGISTERED | — | — |
 

@@ -68,7 +68,7 @@ Accept the three `gov onboard` artefacts as authorised additions to the DEC-013 
 ### Consequences
 - The software-factory-governance repo is now registered with the `gov` tooling (pod: SF-GOV).
 - Future sessions in this repo will have an active work item requirement before code-path writes.
-- `governance-gate.yml` is a Phase 4 deliverable; `governance.yml` stub must not be treated as a live gate until it is implemented.
+- `governance-gate.yml` is a Phase 4 deliverable; `governance.yml` stub currently fails (the referenced reusable workflow does not yet exist) but does not block PRs because `required_status_checks` is not yet active (see IMP-007). Do not activate `required_status_checks` until `governance-gate.yml` is implemented.
 - The `code_paths` correction was applied in the fix commit on the same branch; the corrected paths are canonical.
 
 ### Related Entries

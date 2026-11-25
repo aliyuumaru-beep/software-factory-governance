@@ -20,9 +20,16 @@ Any Software Factory agent or developer may contribute to the OAIS. Contribution
 | Verified finding | `verified-findings/` | G1 or independent reviewer |
 | Official documentation | `official-docs/` | Must be retrieved, not AI-generated |
 
-## Mandatory frontmatter
+## Frontmatter conventions
 
-Every new OAIS document must include a frontmatter comment block:
+**Phase 1 skeleton files** (all 87 stubs created in DEC-013 Phase 1) use a simplified ad-hoc
+header style: `**Status:** REGISTERED`, `**Decision:** DEC-013`. This is intentional for
+readability during the skeleton phase.
+
+**Phase 2+ content additions** (retrieved docs, source references, intelligence content) MUST
+use the structured HTML comment frontmatter block below. Do NOT add this block to Phase 1
+skeleton files retroactively — it creates dual-metadata and noise. Only apply it when adding
+real content to a file for the first time.
 
 ```
 <!--

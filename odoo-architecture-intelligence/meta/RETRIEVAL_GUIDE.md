@@ -16,14 +16,14 @@ The OAIS may eventually contain hundreds of files. No agent should load all of t
 
 ### Step 1 — Read INDEX.md
 
-Always start here. The INDEX.md maps every topic to its file, organized by the 16 domains. This single file is the entry point for every retrieval.
+Always start here. The INDEX.md maps every topic to its file, organized by 15 domains plus cross-module integration (domain 16). This single file is the entry point for every retrieval.
 
 ### Step 2 — Identify version, edition, and domain
 
 Before reading any further file, confirm:
 - **Odoo version:** 17 / 18 / 19 (default to 17 unless otherwise stated)
 - **Edition:** Community / Enterprise (default to Community per platform profile)
-- **Domain:** Which of the 16 domains applies
+- **Domain:** Which of the 15 domains (or cross-module integration) applies
 
 ### Step 3 — Follow the architecture decision sequence
 
