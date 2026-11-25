@@ -26,7 +26,8 @@
   "required_doc_updates": [
     "CHANGELOG.md",
     "DECISION_LOG.md",
-    "IMPLEMENTATION_HISTORY.md"
+    "IMPLEMENTATION_HISTORY.md",
+    "MODULE_REGISTRY.md"
   ],
   "spec_sources": [
     "DECISION_LOG.md",

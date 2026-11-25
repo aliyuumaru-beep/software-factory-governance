@@ -36,7 +36,7 @@ Establish `odoo-architecture-intelligence/` as a permanent top-level directory i
 - Content labelled AI-generated intelligence must not be presented as official documentation.
 
 ### Related Entries
-DEC-001 (platform-native-first principle), DEC-012 (governance repo baseline), DEC-014 (repo onboarding infrastructure scope)
+DEC-001 (governance as a standalone repository), DEC-012 (required approvals = 0, solo mode), DEC-014 (repo onboarding infrastructure scope)
 
 ---
 
