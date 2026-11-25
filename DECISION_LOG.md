@@ -6,6 +6,40 @@ recorded here following the standard defined in `governance/DECISION_LOG_STANDAR
 
 ---
 
+## DEC-013
+
+**Date:** 2026-11-25
+**Type:** `ARCHITECTURE`
+**Status:** ACTIVE
+**Made By:** Human Sponsor (Aliyu Umaru) — A1 Architecture Governor
+**PR Reference:** feat/oais-knowledge-base
+
+### Title
+Establish the Odoo Architecture Intelligence System (OAIS) as a permanent, shared knowledge capability within the Software Factory governance repository, serving all Software Factory projects.
+
+### Context
+The Software Factory Architecture Governor (G1) and all project development agents currently have no structured, version-controlled, evidence-based technical knowledge base for Odoo. Architecture decisions are made from AI training data alone — which may be stale, edition-mixed, or unverified against official sources or actual Odoo behaviour. This creates risk of incorrect guidance, undetected native-capability gaps, unsuitable OCA module adoption, and security oversights. The only Odoo reference currently in the governance repository is `Autonomous-agent-Team/platform-profiles/23_PLATFORM_PROFILE_ODOO17_COMMUNITY.md` (8 lines).
+
+### Decision
+Establish `odoo-architecture-intelligence/` as a permanent top-level directory in this governance repository. It is a shared architecture intelligence capability — not a project-specific artefact — and belongs in the governance layer because it serves all Software Factory pods equally. The OAIS distinguishes authoritative sources (official docs, source-code references) from AI-generated intelligence, architecture recommendations, and verified findings. All content carries explicit verification status. The G1 Architecture Governor is the primary consumer; all project agents are secondary consumers. The OAIS does not override the platform profile or any governance standard.
+
+### Alternatives Considered
+1. **Separate dedicated repository** — rejected: adds cross-repo dependency, requires separate governance onboarding, and is harder for agents to discover during onboarding.
+2. **Per-project knowledge bases** — rejected: duplicates effort, risks divergence, and prevents factory-wide learning.
+3. **No structured knowledge base; rely on AI training data** — rejected: training data is stale, edition-mixed, and unverified; this is the current risk being addressed.
+
+### Consequences
+- `odoo-architecture-intelligence/` becomes a permanent section of this repository and must be maintained across Odoo versions.
+- Future work packages for knowledge acquisition (Odoo 17 official docs, OCA assessments) will reference this DEC-013.
+- The `code_paths` in `.governance.json` now includes `odoo-architecture-intelligence/`.
+- All future architecture decisions in any pod that cite OAIS sources must reference the OAIS file and its SOURCE_REGISTER entry.
+- Content labelled AI-generated intelligence must not be presented as official documentation.
+
+### Related Entries
+DEC-001 (platform-native-first principle), DEC-012 (governance repo baseline)
+
+---
+
 ## DEC-012
 
 **Date:** 2026-05-29
