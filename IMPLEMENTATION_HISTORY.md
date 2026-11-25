@@ -38,7 +38,7 @@ additions.
 
 ### Scope
 
-**Files created:** 96 (2 933 line insertions)
+**Files created/modified:** 100 files total across this branch (3 189 line insertions, 3 deletions)
 
 | Directory | Description | Files |
 |-----------|-------------|-------|

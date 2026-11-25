@@ -26,7 +26,7 @@ Do not treat `intelligence/` content as official documentation. When a claim mat
 ## 2. Mandatory retrieval protocol
 
 **Step 1 — Read INDEX.md first**
-One file. Contains the topic→file navigation table covering all 15 domains plus cross-module integration. Always start here.
+One file. Contains the topic→file navigation table covering all 16 domains (Domains 1–15 plus Domain 16 — Cross-Module Integration). Always start here.
 
 **Step 2 — Identify version and edition**
 Every OAIS query must specify: Odoo version (17 / 18 / 19) and edition (Community / Enterprise). Content is strictly version-isolated. Do not apply v17 guidance to v18 without reading `odoo/cross-version/VERSION_COMPATIBILITY_MATRIX.md`.

@@ -40,7 +40,7 @@ Governance versions follow semantic versioning: MAJOR.MINOR.PATCH.
 - `odoo-architecture-intelligence/odoo/cross-version/` — VERSION_COMPATIBILITY_MATRIX, DEPRECATION_TRACKER
 
 **Governance infrastructure — repo onboarding (DEC-013 / DEC-014)**
-- `.governance.json` — repo registered with SF-GOV pod; `code_paths` covering all 11 directories;
+- `.governance.json` — repo registered with SF-GOV pod; `code_paths` covering 10 authoritative paths;
   `required_doc_updates` list; `briefing_docs` list; backup configuration
 - `AGENTS.md` — agent instructions for all tools working in this repository
 - `.github/workflows/governance.yml` — governance gate CI stub (Phase 4 deliverable placeholder)

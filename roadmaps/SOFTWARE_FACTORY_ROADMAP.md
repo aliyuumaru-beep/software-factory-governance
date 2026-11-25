@@ -1,7 +1,7 @@
 # Software Factory Roadmap
 
 **Layer:** Software Factory
-**Last Updated:** 2026-05-29
+**Last Updated:** 2026-11-25
 **Current Phase:** Phase 1 — Governance Foundation (final items in progress)
 
 ---
@@ -50,6 +50,8 @@ compliance and produce a validated adoption strategy before Phase 2 begins.
       backup state confirmed untrusted, governance maturity Level 0 established — 2026-05-29
 - [x] DEC-009 logged — FamOil selected as Phase 2 pilot
 - [x] DEC-010 logged — FamOil git repository boundary defined
+- [x] **OAIS Phase 1 skeleton established** (DEC-013, 96 files) — 2026-11-25
+- [x] **Governance repo onboarded to gov system** (pod: SF-GOV, DEC-014) — 2026-11-25
 
 **Remaining — FamOil Wave 1 (Git Foundation):**
 - [ ] Create FamOil `.gitignore` (Odoo-specific; must precede `git init`) — **NEXT ACTION**

@@ -13,5 +13,6 @@ These rules apply to humans, Claude Code, Cursor, Copilot, Codex and any other t
 5. Never change a live database without a fresh backup and the sponsor's go-ahead.
 6. Update the governance docs (`required_doc_updates` in `.governance.json`) with the change.
 7. Run `gov review` — G1 Architecture, G2 Quality, G3 Security review the change as independent agents.
-8. Open a PR citing the work item. GitHub runs the same G1/G2/G3 reviews; `governance / gate` must pass
-   for anyone, including admins, to merge.
+8. Open a PR citing the work item. GitHub runs `governance / gate` as a CI check. Note: this check
+   is a Phase 4 deliverable and is not yet required (see DEC-014). Until Phase 4 activates it,
+   the check will appear in CI but will not block merges.
