@@ -6,6 +6,76 @@ recorded here following the standard defined in `governance/DECISION_LOG_STANDAR
 
 ---
 
+## DEC-013
+
+**Date:** 2026-11-25
+**Type:** `ARCHITECTURE`
+**Status:** ACTIVE
+**Made By:** Human Sponsor (Aliyu Umaru) — A1 Architecture Governor
+**PR Reference:** feat/oais-knowledge-base
+
+### Title
+Establish the Odoo Architecture Intelligence System (OAIS) as a permanent, shared knowledge capability within the Software Factory governance repository, serving all Software Factory projects.
+
+### Context
+The Software Factory Architecture Governor (G1) and all project development agents currently have no structured, version-controlled, evidence-based technical knowledge base for Odoo. Architecture decisions are made from AI training data alone — which may be stale, edition-mixed, or unverified against official sources or actual Odoo behaviour. This creates risk of incorrect guidance, undetected native-capability gaps, unsuitable OCA module adoption, and security oversights. The only Odoo reference currently in the governance repository is `Autonomous-agent-Team/platform-profiles/23_PLATFORM_PROFILE_ODOO17_COMMUNITY.md` (8 lines).
+
+### Decision
+Establish `odoo-architecture-intelligence/` as a permanent top-level directory in this governance repository. It is a shared architecture intelligence capability — not a project-specific artefact — and belongs in the governance layer because it serves all Software Factory pods equally. The OAIS distinguishes authoritative sources (official docs, source-code references) from AI-generated intelligence, architecture recommendations, and verified findings. All content carries explicit verification status. The G1 Architecture Governor is the primary consumer; all project agents are secondary consumers. The OAIS does not override the platform profile or any governance standard.
+
+### Alternatives Considered
+1. **Separate dedicated repository** — rejected: adds cross-repo dependency, requires separate governance onboarding, and is harder for agents to discover during onboarding.
+2. **Per-project knowledge bases** — rejected: duplicates effort, risks divergence, and prevents factory-wide learning.
+3. **No structured knowledge base; rely on AI training data** — rejected: training data is stale, edition-mixed, and unverified; this is the current risk being addressed.
+
+### Consequences
+- `odoo-architecture-intelligence/` becomes a permanent section of this repository and must be maintained across Odoo versions.
+- Future work packages for knowledge acquisition (Odoo 17 official docs, OCA assessments) will reference this DEC-013.
+- The `code_paths` in `.governance.json` includes `odoo-architecture-intelligence/` and all other authoritative directories (corrected from `gov onboard` defaults in the fix commit — see DEC-014).
+- All future architecture decisions in any pod that cite OAIS sources must reference the OAIS file and its SOURCE_REGISTER entry.
+- Content labelled AI-generated intelligence must not be presented as official documentation.
+
+### Related Entries
+DEC-001 (governance as a standalone repository), DEC-012 (required approvals = 0, solo mode), DEC-014 (repo onboarding infrastructure scope)
+
+---
+
+## DEC-014
+
+**Date:** 2026-11-25
+**Type:** `INFRASTRUCTURE`
+**Status:** ACTIVE
+**Made By:** Human Sponsor (Aliyu Umaru) — A1 Architecture Governor
+**PR Reference:** feat/oais-knowledge-base
+
+### Title
+Governance infrastructure onboarding for software-factory-governance: `.governance.json`, `AGENTS.md`, and `governance.yml` CI stub added as part of DEC-013 delivery.
+
+### Context
+When executing DEC-013 (OAIS establishment), the `gov onboard --pod SF-GOV` command was run to register the software-factory-governance repository in the `gov` tooling system. This created three infrastructure artefacts not explicitly listed in DEC-013: `.governance.json`, `AGENTS.md`, and `.github/workflows/governance.yml`. G1 raised this as an E1 (Scope Increase) finding. This decision entry documents those artefacts as deliberate and authorised infrastructure gap closures in the same delivery.
+
+### Decision
+Accept the three `gov onboard` artefacts as authorised additions to the DEC-013 delivery scope:
+
+1. **`.governance.json`** — registers the governance repo itself with the SF-GOV pod; defines `code_paths`, `briefing_docs`, `required_doc_updates`, and `spec_sources`. The auto-generated `code_paths` (`custom_addons/`, `addons/`, `src/`) were incorrect; the corrected paths cover 10 authoritative paths (governance/, principles/, templates/, onboarding/, operations/, docs/, roadmaps/, Autonomous-agent-Team/, odoo-architecture-intelligence/, .github/workflows/).
+2. **`AGENTS.md`** — standard agent instructions required by the `gov` tooling for all tools working in this repository. Equivalent to what every other governed repository has.
+3. **`.github/workflows/governance.yml`** — CI stub that reserves the `governance / gate` check name for future activation. Full G1/G2/G3 CI enforcement (`governance-gate.yml` reusable workflow) is deferred to Phase 4 of the roadmap (CI Enforcement and Automated Governance Checks). The stub passes without blocking PRs.
+
+### Alternatives Considered
+1. **Revert the three artefacts and address in a separate PR** — rejected: they are tightly coupled to DEC-013; reverting would leave the governance repo unregistered with the `gov` system, making future `gov start` impossible.
+2. **Document only in DEC-013** — rejected: G1 correctly identified that these artefacts are outside the original DEC-013 scope statement; a separate entry is cleaner for auditability.
+
+### Consequences
+- The software-factory-governance repo is now registered with the `gov` tooling (pod: SF-GOV).
+- Future sessions in this repo will have an active work item requirement before code-path writes.
+- `governance-gate.yml` is a Phase 4 deliverable; `governance.yml` stub currently fails (the referenced reusable workflow does not yet exist) but does not block PRs because `required_status_checks` is not yet active (see IMP-007). Do not activate `required_status_checks` until `governance-gate.yml` is implemented.
+- The `code_paths` correction was applied in the fix commit on the same branch; the corrected paths are canonical.
+
+### Related Entries
+DEC-013 (OAIS establishment), DEC-012 (governance repo baseline)
+
+---
+
 ## DEC-012
 
 **Date:** 2026-05-29

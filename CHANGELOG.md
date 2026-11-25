@@ -11,6 +11,54 @@ Governance versions follow semantic versioning: MAJOR.MINOR.PATCH.
 
 ---
 
+## [2.0.0] — 2026-11-25
+
+### Added
+
+**Odoo Architecture Intelligence System (OAIS) — Phase 1 skeleton (DEC-013)**
+- `odoo-architecture-intelligence/` — new top-level directory; shared architecture intelligence
+  knowledge base for all Software Factory Odoo projects. Version-isolated (v17/v18/v19). Covers
+  16 domains (Domains 1–15 plus Domain 16 — Cross-Module Integration).
+- `odoo-architecture-intelligence/README.md` — OAIS overview: purpose, consumers, epistemic layers
+- `odoo-architecture-intelligence/CLAUDE.md` — agent retrieval protocol; mandatory for all agents
+- `odoo-architecture-intelligence/INDEX.md` — master topic→file navigation for all 16 domains
+- `odoo-architecture-intelligence/SOURCE_REGISTER.md` — 7-state source registry schema
+- `odoo-architecture-intelligence/ACQUISITION_PLAN.md` — Phase 2 acquisition plan (all 16 domains)
+- `odoo-architecture-intelligence/official-docs/` — retrieved official Odoo documentation (v17/v18/v19 stubs)
+- `odoo-architecture-intelligence/source-code-refs/` — 12 source-code reference stubs (v17 community framework × 4, business-logic × 7, plus REPOSITORY_MAP)
+- `odoo-architecture-intelligence/intelligence/` — AI-generated interpretation stubs (all 16 domains)
+- `odoo-architecture-intelligence/architecture-recommendations/` — G1-reviewed recommendation store
+- `odoo-architecture-intelligence/verified-findings/` — lab-verified and independently-reviewed stores
+- `odoo-architecture-intelligence/oca/` — OCA module assessment framework; v17 domain stubs
+- `odoo-architecture-intelligence/solution-assessment/` — 4-tier assessment framework by domain
+- `odoo-architecture-intelligence/security/` — 4 Odoo security knowledge stubs
+- `odoo-architecture-intelligence/patterns/` — 4 pattern stubs + 2 anti-pattern stubs
+- `odoo-architecture-intelligence/testing-and-qa/` — 3 testing stubs + 2 QA checklists
+- `odoo-architecture-intelligence/case-studies/` — lessons template + per-project stubs (5 projects)
+- `odoo-architecture-intelligence/architecture-lab/` — experiment template; placeholder for Phase 3
+- `odoo-architecture-intelligence/meta/` — MAINTENANCE_GUIDE, CONTRIBUTION_GUIDE, RETRIEVAL_GUIDE
+- `odoo-architecture-intelligence/odoo/cross-version/` — VERSION_COMPATIBILITY_MATRIX, DEPRECATION_TRACKER
+
+**Governance infrastructure — repo onboarding (DEC-013 / DEC-014)**
+- `.governance.json` — repo registered with SF-GOV pod; `code_paths` covering 10 authoritative paths;
+  `required_doc_updates` list; `briefing_docs` list; backup configuration
+- `AGENTS.md` — agent instructions for all tools working in this repository
+- `.github/workflows/governance.yml` — governance gate CI stub (Phase 4 deliverable placeholder)
+- `MODULE_REGISTRY.md` — OAIS registered as shared intelligence component (IMP-009)
+
+### Governance Records
+
+- `DECISION_LOG.md` — DEC-013: Establish OAIS as permanent shared architecture intelligence
+- `DECISION_LOG.md` — DEC-014: Governance infrastructure onboarding for software-factory-governance
+- `IMPLEMENTATION_HISTORY.md` — IMP-009: OAIS Phase 1 skeleton delivery
+
+### Breaking Changes
+
+The repository is now governed by `.governance.json` (pod: SF-GOV). All code-path changes require
+`gov start <WORK-ITEM>` before work begins. Agents without an active work item will be blocked.
+
+---
+
 ## [1.5.0] — 2026-05-29
 
 ### Infrastructure

@@ -1,0 +1,40 @@
+{
+  "pod": "SF-GOV",
+  "governance_repo": "aliyuumaru-beep/software-factory-governance",
+  "default_branch": "main",
+  "protected_branches": [
+    "main"
+  ],
+  "briefing_docs": [
+    "CLAUDE.md",
+    "DECISION_LOG.md",
+    "IMPLEMENTATION_HISTORY.md",
+    "ROADMAP.md"
+  ],
+  "code_paths": [
+    "governance/",
+    "principles/",
+    "templates/",
+    "onboarding/",
+    "operations/",
+    "docs/",
+    "roadmaps/",
+    "Autonomous-agent-Team/",
+    "odoo-architecture-intelligence/",
+    ".github/workflows/"
+  ],
+  "required_doc_updates": [
+    "CHANGELOG.md",
+    "DECISION_LOG.md",
+    "IMPLEMENTATION_HISTORY.md",
+    "MODULE_REGISTRY.md"
+  ],
+  "spec_sources": [
+    "DECISION_LOG.md",
+    "ROADMAP.md",
+    "roadmaps/SOFTWARE_FACTORY_ROADMAP.md"
+  ],
+  "live_databases": [],
+  "backup_dirs": [],
+  "backup_max_age_hours": 0
+}
