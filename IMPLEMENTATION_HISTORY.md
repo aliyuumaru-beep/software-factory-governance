@@ -14,7 +14,7 @@ Entries are listed in reverse chronological order (newest first).
 **Type:** `PHASE_COMPLETE`
 **Status:** COMPLETE
 **Delivered By:** Human Sponsor (Aliyu Umaru) — A1 Architecture Governor / Claude Sonnet 4.6
-**PR Reference:** feat/oais-knowledge-base (commit 8e892853)
+**PR Reference:** feat/oais-knowledge-base (initial skeleton: 8e892853; final HEAD after reconciliation fixes: 72036be)
 **Work Item:** DEC-013
 
 ### Title

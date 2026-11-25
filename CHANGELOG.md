@@ -25,7 +25,7 @@ Governance versions follow semantic versioning: MAJOR.MINOR.PATCH.
 - `odoo-architecture-intelligence/SOURCE_REGISTER.md` — 7-state source registry schema
 - `odoo-architecture-intelligence/ACQUISITION_PLAN.md` — Phase 2 acquisition plan (all 16 domains)
 - `odoo-architecture-intelligence/official-docs/` — retrieved official Odoo documentation (v17/v18/v19 stubs)
-- `odoo-architecture-intelligence/source-code-refs/` — 11 source-code reference stubs (v17 community)
+- `odoo-architecture-intelligence/source-code-refs/` — 12 source-code reference stubs (v17 community framework × 4, business-logic × 7, plus REPOSITORY_MAP)
 - `odoo-architecture-intelligence/intelligence/` — AI-generated interpretation stubs (all 16 domains)
 - `odoo-architecture-intelligence/architecture-recommendations/` — G1-reviewed recommendation store
 - `odoo-architecture-intelligence/verified-findings/` — lab-verified and independently-reviewed stores
