@@ -18,7 +18,7 @@ Governance versions follow semantic versioning: MAJOR.MINOR.PATCH.
 **Odoo Architecture Intelligence System (OAIS) — Phase 1 skeleton (DEC-013)**
 - `odoo-architecture-intelligence/` — new top-level directory; shared architecture intelligence
   knowledge base for all Software Factory Odoo projects. Version-isolated (v17/v18/v19). Covers
-  15 architecture and functional domains plus cross-module integration.
+  16 domains (Domains 1–15 plus Domain 16 — Cross-Module Integration).
 - `odoo-architecture-intelligence/README.md` — OAIS overview: purpose, consumers, epistemic layers
 - `odoo-architecture-intelligence/CLAUDE.md` — agent retrieval protocol; mandatory for all agents
 - `odoo-architecture-intelligence/INDEX.md` — master topic→file navigation for all 16 domains

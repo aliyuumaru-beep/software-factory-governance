@@ -31,6 +31,7 @@ in `governance/REGISTRY_STANDARD.md`.
 | REG-004 | Autonomous Agent Team / Platform Profiles | SHARED_CAPABILITY | ACTIVE | `Autonomous-agent-Team/` | DEC-001 | 2026-05-29 | Platform profiles restricting project scope (e.g. Odoo 17 Community only) |
 | REG-005 | Governance Gate CI Stub | CI | ACTIVE | `.github/workflows/governance.yml` | DEC-014 | 2026-11-25 | Reserves `governance / gate` check name; full G1/G2/G3 CI is Phase 4 |
 | REG-006 | Gov Tooling Configuration | TOOLING | ACTIVE | `.governance.json` | DEC-014 | 2026-11-25 | Pod registration and code-path configuration for `gov` CLI tooling |
+| REG-007 | Agent Rules (AGENTS.md) | TOOLING | ACTIVE | `AGENTS.md` | DEC-014 | 2026-11-25 | Mandatory agent instructions for all tools working in this repository |
 
 ---
 

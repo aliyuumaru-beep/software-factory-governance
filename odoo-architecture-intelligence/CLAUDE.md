@@ -36,7 +36,7 @@ For any material architecture decision:
 1. Investigate native capabilities — `official-docs/v{n}/` and `source-code-refs/v{n}/`
 2. Investigate OCA alternatives — `oca/v{n}/{domain}/`
 3. Check Software Factory reusable modules — the relevant pod's `MODULE_REGISTRY.md`
-4. Assess cross-module implications — `intelligence/v{n}/architecture/CROSS_MODULE_INTEGRATION.md`
+4. Assess cross-module implications — `intelligence/v{n}/functional/CROSS_MODULE_INTEGRATION.md`
 5. Cite sources from `SOURCE_REGISTER.md` by their SRC-xxx reference
 6. Declare any unresolved uncertainties explicitly
 
@@ -79,7 +79,7 @@ When a user or governance review needs Odoo architecture guidance:
 1. Read: odoo-architecture-intelligence/INDEX.md
 2. Identify: target version, edition, domain
 3. Read: the 1-5 files INDEX.md points to
-4. If cross-module: also read intelligence/v{n}/architecture/CROSS_MODULE_INTEGRATION.md
+4. If cross-module: also read intelligence/v{n}/functional/CROSS_MODULE_INTEGRATION.md
 5. If source verification needed: read source-code-refs/v{n}/[relevant section]
 6. Cite: SRC-xxx from SOURCE_REGISTER.md
 ```
