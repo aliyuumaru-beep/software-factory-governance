@@ -57,7 +57,7 @@ When executing DEC-013 (OAIS establishment), the `gov onboard --pod SF-GOV` comm
 ### Decision
 Accept the three `gov onboard` artefacts as authorised additions to the DEC-013 delivery scope:
 
-1. **`.governance.json`** — registers the governance repo itself with the SF-GOV pod; defines `code_paths`, `briefing_docs`, `required_doc_updates`, and `spec_sources`. The auto-generated `code_paths` (`custom_addons/`, `addons/`, `src/`) were incorrect; the corrected paths cover all 11 authoritative directories.
+1. **`.governance.json`** — registers the governance repo itself with the SF-GOV pod; defines `code_paths`, `briefing_docs`, `required_doc_updates`, and `spec_sources`. The auto-generated `code_paths` (`custom_addons/`, `addons/`, `src/`) were incorrect; the corrected paths cover 10 authoritative paths (governance/, principles/, templates/, onboarding/, operations/, docs/, roadmaps/, Autonomous-agent-Team/, odoo-architecture-intelligence/, .github/workflows/).
 2. **`AGENTS.md`** — standard agent instructions required by the `gov` tooling for all tools working in this repository. Equivalent to what every other governed repository has.
 3. **`.github/workflows/governance.yml`** — CI stub that reserves the `governance / gate` check name for future activation. Full G1/G2/G3 CI enforcement (`governance-gate.yml` reusable workflow) is deferred to Phase 4 of the roadmap (CI Enforcement and Automated Governance Checks). The stub passes without blocking PRs.
 
