@@ -7,25 +7,34 @@
   ],
   "briefing_docs": [
     "CLAUDE.md",
-    "DECISION_LOG.md"
+    "DECISION_LOG.md",
+    "IMPLEMENTATION_HISTORY.md",
+    "ROADMAP.md"
   ],
   "code_paths": [
-    "custom_addons/",
-    "addons/",
-    "src/"
+    "governance/",
+    "principles/",
+    "templates/",
+    "onboarding/",
+    "operations/",
+    "docs/",
+    "enhancements/",
+    "roadmaps/",
+    "Autonomous-agent-Team/",
+    "odoo-architecture-intelligence/",
+    ".github/workflows/"
   ],
   "required_doc_updates": [
     "CHANGELOG.md",
+    "DECISION_LOG.md",
     "IMPLEMENTATION_HISTORY.md"
   ],
   "spec_sources": [
-    "docs",
     "DECISION_LOG.md",
-    "ROADMAP.md"
+    "ROADMAP.md",
+    "roadmaps/SOFTWARE_FACTORY_ROADMAP.md"
   ],
   "live_databases": [],
-  "backup_dirs": [
-    "~/OdooFolder/odoo_backups"
-  ],
-  "backup_max_age_hours": 6
+  "backup_dirs": [],
+  "backup_max_age_hours": 0
 }

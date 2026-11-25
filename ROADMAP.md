@@ -2,7 +2,7 @@
 
 **Layer:** Software Factory
 **Current Phase:** Phase 1 — Governance Foundation (IN PROGRESS)
-**Last Updated:** 2026-05-29
+**Last Updated:** 2026-11-25
 
 ---
 
@@ -21,13 +21,15 @@
 
 ## Phase 1 — Governance Foundation
 
-**Status:** IN PROGRESS — final items remain
+**Status:** IN PROGRESS — OAIS Phase 1 complete; project adoption waves remain
 **Completed this phase (highlights):**
 - [x] Governance scaffold created (33 files) — 2026-05-29
 - [x] Self-compliance fixes applied (v1.1.0) — 2026-05-29
 - [x] Adoption strategy created (`docs/ADOPTION_STRATEGY.md`) — 2026-05-29
 - [x] FamOil readiness assessment completed — 2026-05-29
 - [x] DEC-009, DEC-010 logged (pilot selection, git boundary) — 2026-05-29
+- [x] **OAIS Phase 1 skeleton established** (DEC-013, 96 files) — 2026-11-25
+- [x] **Governance repo onboarded to gov system** (pod: SF-GOV, DEC-014) — 2026-11-25
 
 **Next action — highest priority:**
 - [ ] **Create FamOil `.gitignore` + `git init`** ← Wave 1 begins here

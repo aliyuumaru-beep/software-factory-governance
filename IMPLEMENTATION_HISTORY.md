@@ -8,6 +8,109 @@ Entries are listed in reverse chronological order (newest first).
 
 ---
 
+## IMP-009
+
+**Date:** 2026-11-25
+**Type:** `PHASE_COMPLETE`
+**Status:** COMPLETE
+**Delivered By:** Human Sponsor (Aliyu Umaru) — A1 Architecture Governor / Claude Sonnet 4.6
+**PR Reference:** feat/oais-knowledge-base (commit 8e892853)
+**Work Item:** DEC-013
+
+### Title
+
+OAIS Phase 1 — Odoo Architecture Intelligence System skeleton established (96 files, 2 933 insertions).
+
+### Description
+
+Phase 1 of the Odoo Architecture Intelligence System (OAIS) was delivered. The OAIS is a
+permanent, shared, version-isolated architecture knowledge base for all Software Factory
+Odoo projects. It lives at `odoo-architecture-intelligence/` in the governance repository.
+
+Phase 1 scope was skeleton only: directory structure, protocol files, schema definitions,
+stub files, and acquisition plans. No technical content was invented or pulled in.
+All files carry `REGISTERED` status. Phase 2 will populate `official-docs/v17/` from
+the Odoo 17.0 documentation branch (`github.com/odoo/documentation 17.0`).
+
+In the same delivery, the software-factory-governance repository was itself onboarded to
+the `gov` system (pod: SF-GOV) and DEC-014 was logged to cover the resulting infrastructure
+additions.
+
+### Scope
+
+**Files created:** 96 (2 933 line insertions)
+
+| Directory | Description | Files |
+|-----------|-------------|-------|
+| `odoo-architecture-intelligence/` | Root protocol files (README, CLAUDE.md, INDEX, SOURCE_REGISTER, ACQUISITION_PLAN) | 5 |
+| `official-docs/` | v17/v18/v19 stubs | 4 |
+| `source-code-refs/` | v17 community framework (4) + business-logic (7) + enterprise stub + v18 stub | 14 |
+| `intelligence/` | v17 architecture (7) + functional (6) + v18/v19 stubs | 17 |
+| `architecture-recommendations/` | README + template | 2 |
+| `verified-findings/` | 3 READMEs (root + lab + independent) | 3 |
+| `oca/` | Root README + template + index + v17 domain stubs (5) | 8 |
+| `solution-assessment/` | Framework + README + domain stubs (4) | 6 |
+| `security/` | 4 security knowledge stubs + README | 5 |
+| `patterns/` | 4 pattern stubs + 2 anti-pattern stubs + README | 7 |
+| `testing-and-qa/` | 3 testing stubs + 2 QA checklists + README | 6 |
+| `case-studies/` | Lessons template + per-project stubs (5) + README | 7 |
+| `architecture-lab/` | Experiment template + README | 2 |
+| `meta/` | MAINTENANCE_GUIDE + CONTRIBUTION_GUIDE + RETRIEVAL_GUIDE | 3 |
+| `odoo/cross-version/` | VERSION_COMPATIBILITY_MATRIX + DEPRECATION_TRACKER | 2 |
+| Governance infrastructure | `.governance.json`, `AGENTS.md`, `.github/workflows/governance.yml` | 3 |
+
+**Files modified:**
+- `DECISION_LOG.md` — DEC-013 added (OAIS architecture decision)
+- `DECISION_LOG.md` — DEC-014 added (repo onboarding decision)
+- `CHANGELOG.md` — v2.0.0 entry added (this delivery)
+- `IMPLEMENTATION_HISTORY.md` — IMP-009 added (this entry)
+- `ROADMAP.md` — OAIS Phase 1 added to current deliverables
+- `.governance.json` — corrected `code_paths` from `gov onboard` defaults
+
+### Verification States
+
+All files delivered at `REGISTERED` status. No content marked `SOURCE_VERIFIED`,
+`LAB_VERIFIED`, or `INDEPENDENTLY_REVIEWED`. The source register is empty pending Phase 2.
+
+### Key Decisions Logged
+
+- **DEC-013** — OAIS established as permanent shared architecture intelligence; six-layer
+  epistemic model; 16 domains; version-isolated directories; non-binding guidance
+- **DEC-014** — Governance infrastructure onboarding scope documented; `governance.yml` CI
+  stub documented as Phase 4 deliverable
+
+### Outstanding Issues
+
+| Issue | Status |
+|-------|--------|
+| `governance.yml` stub references missing `governance-gate.yml` reusable workflow | Deferred to Phase 4 (CI Enforcement) |
+| `MODULE_REGISTRY.md` created but needs OAIS module entry populated | Complete |
+| Stray directory `software-factory-intelligence/` at OdooFolder root | Requires manual `rm -rf` by sponsor |
+| `.claude/settings.json` created by `gov onboard` — not committed | Sponsor to review and commit separately |
+
+### Configuration Notes
+
+- All OAIS content is non-binding guidance: it informs architecture decisions but does not
+  replace project-level DECISION_LOG entries, MODULE_REGISTRY entries, or the CLAUDE.md
+  instruction hierarchy.
+- Enterprise features are out of scope for all current projects (see platform profile
+  `Autonomous-agent-Team/platform-profiles/23_PLATFORM_PROFILE_ODOO17_COMMUNITY.md`).
+- v18 and v19 directories are intentional stubs — they start empty and are populated only
+  from their own version's authoritative sources when those versions are adopted.
+
+### Post-Delivery Verification
+
+- `git log` confirms commit `8e892853` on branch `feat/oais-knowledge-base`
+- `gov status` confirms work item DEC-013 active
+- `gov review` run: G3=APPROVED_WITH_CONDITIONS, G2=REJECTED, G1=ESCALATE
+- Fix commit resolves all G1/G2/G3 blocking conditions
+
+### References
+
+DEC-013 (OAIS architecture decision), DEC-014 (governance infrastructure onboarding)
+
+---
+
 ## IMP-008
 
 **Date:** 2026-05-29
