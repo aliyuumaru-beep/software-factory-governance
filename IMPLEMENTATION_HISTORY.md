@@ -14,12 +14,12 @@ Entries are listed in reverse chronological order (newest first).
 **Type:** `PHASE_COMPLETE`
 **Status:** COMPLETE
 **Delivered By:** Human Sponsor (Aliyu Umaru) — A1 Architecture Governor / Claude Sonnet 4.6
-**PR Reference:** feat/oais-knowledge-base (initial skeleton: 8e892853; final HEAD after reconciliation fixes: 72036be)
+**PR Reference:** feat/oais-knowledge-base (initial skeleton: 8e892853; final HEAD: 333e4c0 — subsequent fix commits update this count only)
 **Work Item:** DEC-013
 
 ### Title
 
-OAIS Phase 1 — Odoo Architecture Intelligence System skeleton established (101 files changed, 3 195 insertions).
+OAIS Phase 1 — Odoo Architecture Intelligence System skeleton established (101 files changed, 3 215 insertions).
 
 ### Description
 
@@ -38,7 +38,7 @@ additions.
 
 ### Scope
 
-**Files created/modified:** 101 files total across this branch (3 195 line insertions, 4 deletions)
+**Files created/modified:** 101 files total across this branch (3 215 line insertions, 4 deletions)
 
 | Directory | Description | Files |
 |-----------|-------------|-------|
