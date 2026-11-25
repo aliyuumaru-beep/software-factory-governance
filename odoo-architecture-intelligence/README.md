@@ -43,7 +43,7 @@ odoo-architecture-intelligence/
 ├── CLAUDE.md                    ← Agent retrieval and usage protocol
 ├── INDEX.md                     ← Topic → file navigation table (always read first)
 ├── SOURCE_REGISTER.md           ← All sources with verification metadata
-├── ACQUISITION_PLAN.md          ← Knowledge acquisition plan for all 15 domains
+├── ACQUISITION_PLAN.md          ← Knowledge acquisition plan for all 16 domains
 │
 ├── official-docs/               ← Retrieved official Odoo documentation (originals)
 ├── source-code-refs/            ← Source-code path and class references (no code copies)

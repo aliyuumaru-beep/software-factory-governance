@@ -3,7 +3,7 @@
 **Status:** DRAFT — awaiting Phase 2 approval
 **Decision:** DEC-013
 **Last updated:** 2026-11-25
-**Coverage target:** Odoo 17 Community — all 15 domains
+**Coverage target:** Odoo 17 Community — all 16 domains (Domains 1–15 plus Domain 16 — Cross-Module Integration)
 
 This plan defines how official Odoo documentation and source-code references will be acquired, stored, indexed, and verified. No bulk acquisition is to commence until this plan is approved and a Phase 2 work item is created.
 
@@ -21,6 +21,7 @@ This plan defines how official Odoo documentation and source-code references wil
 | Format | RST source files in GitHub; rendered HTML on official site |
 | Licence | Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) |
 | Redistribution restriction | Non-commercial only. Raw RST/HTML must not be redistributed in modified form without attribution. Store locally for internal reference only; do not publish. |
+| Repository visibility risk | **Before acquiring any content:** confirm whether `aliyuumaru-beep/software-factory-governance` is private on GitHub. If it is or becomes public, committed `official-docs/v17/` RST/HTML content could constitute prohibited redistribution under CC BY-NC-SA 4.0. If the repository is public, store retrieved content in a private sub-repository or redact to summaries only. This risk must be recorded in the Phase 2 work item. |
 
 ### 1.2 Official Odoo source code
 
@@ -191,7 +192,7 @@ Coverage is tracked per domain in this table. Update after each acquisition spri
 
 Phase 2 is limited to:
 
-- Odoo 17 Community official documentation for all 15 domains.
+- Odoo 17 Community official documentation for all 16 domains (Domains 1–15 plus Cross-Module Integration).
 - Odoo 17 source-code references for all 11 source-code intelligence sections.
 - OCA module index for the 5 initial domains (accounting, inventory, manufacturing, HR, project).
 

@@ -164,7 +164,10 @@ Status check names for the ruleset (exact values from the first run):
 
 ### Outstanding Issues
 Adding `required_status_checks` to the ruleset is the remaining Level 3 completion action.
-Command to apply:
+**CONSTRAINT (added 2026-11-25, DEC-014):** `required_status_checks` must NOT be activated until
+`governance-gate.yml` (the Phase 4 reusable workflow) is implemented and passing. Activating it
+before that file exists will permanently deadlock all PRs. See DEC-014 §Consequences.
+Command to apply (Phase 4 only):
 ```
 gh api repos/aliyuumaru-beep/software-factory-governance/rulesets/17043434 \
   --method PUT <ruleset JSON with required_status_checks added>
